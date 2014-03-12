@@ -1,0 +1,30 @@
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+utildir = @PUBRULE@
+pubdir = @prefix@
+srcdir = @srcdir@
+applib = FDL
+appname = @APPNAME@
+TAR = tar
+GZIP_ENV = --best
+
+export PACKAGE utildir pubdir applib appname
+
+SUBDIR = Actions Class Images locale/fr locale/en
+
+include $(utildir)/PubRule
+
+.PHONY: clean
+
+$(pubdir)/programs:
+	mkdir -p $@
+
+$(pubdir)/programs/tengine_client_migrate_parameters: tengine_client_migrate_parameters.bash $(pubdir)/programs
+	cp $< $@
+	chmod a+x $@
+
+publish: $(pubdir)/programs/tengine_client_migrate_parameters
+
+clean:
+	rm -f config.* Makefile configure @APPNAME@_init.php info.xml $(PACKAGE)-*webinst
+	rm -fr autom4te.cache
