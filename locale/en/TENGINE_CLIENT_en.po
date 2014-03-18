@@ -1,0 +1,68 @@
+# French translations for dynacase-tengine-client package
+# Traductions françaises du paquet dynacase-tengine-client.
+# Copyright (C) 2014 THE dynacase-tengine-client'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the dynacase-tengine-client package.
+# Automatically generated, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dynacase-tengine-client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-14 11:42+0100\n"
+"PO-Revision-Date: 2014-03-12 17:38+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Activate Transformation Engine"
+msgstr ""
+
+msgid "Activate file indexing with TE"
+msgstr ""
+
+#, php-format
+msgid "Error sending file"
+msgstr ""
+
+msgid "Transformation Engine callback url"
+msgstr ""
+
+msgid "Transformation Engine server host name"
+msgstr ""
+
+msgid "Transformation Engine server port number"
+msgstr ""
+
+msgid "Transformation Engine timeout connection (in seconds)"
+msgstr ""
+
+msgid "empty file"
+msgstr ""
+
+msgid "socket creation error"
+msgstr ""
+
+msgid "tengine_client:acl:tengine_client"
+msgstr "Transformation Engine administration ACL"
+
+msgid "tengine_client:action:admin_actions_list:short_name"
+msgstr "ADMIN_ACTIONS_LIST"
+
+msgid "tengine_client:action:tengine_client_params"
+msgstr "Parameters"
+
+msgid "tengine_client:description"
+msgstr "Manage Transformation Engine Client library"
+
+msgid "tengine_client:short_name"
+msgstr "Transformation Engine Client"
+
+msgid "tengine_client_params:apply"
+msgstr "Apply"
+
+msgid "tengine_client_params:reload"
+msgstr "Reload"

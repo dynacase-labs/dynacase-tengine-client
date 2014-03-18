@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf8"?>
+<module name="@PACKAGE@" version="@VERSION@" release="@RELEASE@" license="@LICENSE@">
+  <requires>
+    <module name="dynacase-core" comp="ge" version="3.3.0"/>
+    <module name="dynacase-admin" comp="ge" version="1.1.0"/>
+  </requires>
+  <post-install>
+    <process command="programs/tengine_client_migrate_parameters save">
+      <label lang="en">Saving previous parameters' values</label>
+    </process>
+    <process command="programs/record_application @APPNAME@ I">
+      <label lang="en">Record application @APPNAME@ in database</label>
+    </process>
+    <process command="programs/tengine_client_migrate_parameters restore">
+      <label lang="en">Restoring previous parameters' values</label>
+    </process>
+    <process command="programs/update_catalog"/>
+  </post-install>
+  <post-upgrade>
+    <process command="programs/pre_migration @APPNAME@"/>
+    <process command="programs/record_application @APPNAME@ U">
+      <label lang="en">Update application @APPNAME@ in database</label>
+    </process>
+    <process command="programs/post_migration @APPNAME@"/>
+    <process command="programs/update_catalog"/>
+  </post-upgrade>
+</module>
