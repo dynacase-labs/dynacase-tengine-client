@@ -3,30 +3,84 @@
 <head>
     <meta charset="utf-8">
     <title>[TEXT:tengine_client:action:tengine_client_params]</title>
-[CSS:REF]
-[JS:REF]
+    [CSS:CUSTOMREF]
+    [JS:REF]
+
     <style type="text/css">
-.parameter-list {
-    padding: 1em;
-}
-.editapplicationparameter {
-    margin-bottom: 0.5em;
-}
-.editsubmit > input[type="submit"] {
-    font-weight: bold;
-}
+        .parameter-list {
+            padding: 1em;
+        }
+
+        .editapplicationparameter {
+            padding-bottom: 0.5em;
+            padding-top: 0.5em;
+            height: 4em;
+        }
+
+
+
+        .editsubmit > input[type="submit"] {
+            font-weight: bold;
+        }
+
+        form, .editapplicationparameter > div {
+
+            display: inline;
+        }
+        div[data-type=label] label {
+            display: inline-block;
+            width: 300px;
+            vertical-align: middle;
+        }
+        .editapplicationparameter:hover {
+            background-color: #e2e2e2;
+        }
+        .editapplicationparameter label.modified:after
+            {
+            content:" ([TEXT:te:modified])";
+            }
+        .editapplicationparameter label.modified
+            {
+            font-weight: bold;
+            }
+
+        label.ui-state-active {
+            font-weight: bold;
+        }
+        input[type="text"].ui-button {
+            background-color: #fdfdfd;
+            cursor:text;
+        }
+        input[type="text"].ui-state-focus {
+             background: #fdfdfd;
+         }
+        #TE_TIMEOUT {
+          width:3em;
+        }
+        #TE_URLINDEX {
+          width:30em;
+          text-align: left;
+        }
+        #TE_PORT {
+          width:5em;
+        }
+        #TE_HOST {
+          width:20em;
+          text-align: left;
+        }
     </style>
     <script language="JavaScript">
+
     </script>
 </head>
 <body>
 <div class="parameter-list">
-[ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_ACTIVATE]
-[ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_FULLTEXT]
-[ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_HOST]
-[ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_PORT]
-[ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_URLINDEX]
-[ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_TIMEOUT]
+    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_ACTIVATE]
+    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_FULLTEXT]
+    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_HOST]
+    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_PORT]
+    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_URLINDEX]
+    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_TIMEOUT]
 </div>
 </body>
 </html>
