@@ -19,6 +19,10 @@ namespace Dcp\TransformationEngine;
 
 include_once ("WHAT/Lib.FileMime.php");
 
+class ClientException extends \Exception
+{
+};
+
 class Client
 {
     const error_connect = - 2;
@@ -456,5 +460,142 @@ class Client
         }
         
         return $err;
+    }
+    /**
+     * Establish a new connection to the TE server
+     * @return resource
+     * @throws \Exception
+     */
+    private function connect()
+    {
+        $saddr = gethostbyname($this->host);
+        $sport = $this->port;
+        $sock = stream_socket_client("tcp://$saddr:$sport", $errno, $errstr, 30);
+        if ($sock === false) {
+            throw new ClientException(_("socket creation error") . " : $errstr ($errno)\n");
+        }
+        $msg = fgets($sock, 2048);
+        if ($msg === false) {
+            throw new ClientException(_("Handshake error"));
+        }
+        $msg = trim($msg);
+        if ($msg != 'Continue') {
+            throw new ClientException(_("Unexpected handshake message: %s", $msg));
+        }
+        return $sock;
+    }
+    /**
+     * Write data to the given socket file descriptor taking care of the fact that
+     * writing to a network stream may end before the whole string is written.
+     * @param $fp
+     * @param $string
+     * @return int
+     */
+    private function fwrite_stream($fp, $string)
+    {
+        for ($written = 0; $written < strlen($string); $written+= $fwrite) {
+            $fwrite = fwrite($fp, substr($string, $written));
+            if ($fwrite === false) {
+                return $written;
+            }
+        }
+        return $written;
+    }
+    /**
+     * Read a specific number of bytes from the given socket file descriptor.
+     * @param $fp
+     * @param $size
+     * @return bool|string the data or bool(false) on error
+     */
+    private function read_size($fp, $size)
+    {
+        $buf = '';
+        while ($size > 0) {
+            if ($size >= 2048) {
+                $rsize = 2048;
+            } else {
+                $rsize = $size;
+            }
+            $data = fread($fp, $rsize);
+            if ($data === false || $data === "") {
+                return false;
+            }
+            $size-= strlen($data);
+            $buf.= $data;
+        }
+        return $buf;
+    }
+    /**
+     * Read all data till end-of-file from the given socket file descriptor.
+     * @param $fp
+     * @return bool|string the data or bool(false) on error
+     */
+    private function read_eof($fp)
+    {
+        $buf = '';
+        while (!feof($fp)) {
+            if (($data = fread($fp, 2048)) === false) {
+                return false;
+            }
+            $buf.= $data;
+        }
+        return $buf;
+    }
+    /**
+     * Retrieve list of known engines from TE server
+     * @param $engines array which will hold de returned engines
+     * @return string error message on failure or empty string on success
+     */
+    public function retrieveEngines(&$engines)
+    {
+        $engines = array();
+        try {
+            $sock = $this->connect();
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        $cmd = "INFO:ENGINES\n";
+        $ret = $this->fwrite_stream($sock, $cmd);
+        if ($ret != strlen($cmd)) {
+            return _("Error sending command to TE server");
+        }
+        $msg = fgets($sock, 2048);
+        if ($msg === false) {
+            return _("Error reading content from server");
+        }
+        if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+            if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                return $m['err'];
+            }
+            return 'unknown-error';
+        }
+        $size = 0;
+        if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
+            $size = $m['size'];
+        }
+        if ($size <= 0) {
+            return sprintf(_("Invalid response size '%s'") , $size);
+        }
+        $data = $this->read_size($sock, $size);
+        if ($data === false) {
+            return _("Error reading content from server");
+        }
+        fclose($sock);
+        $json = new \JSONCodec();
+        try {
+            $engines = $json->decode($data, true);
+            if (is_scalar($engines)) {
+                /* Return error message from TE server */
+                return $engines;
+            }
+            if (!is_array($engines)) {
+                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($engines)));
+            }
+        }
+        catch(ClientException $e) {
+            return sprintf(_("Malformed JSON response: %s") , $e->getMessage());
+        }
+        return '';
     }
 }

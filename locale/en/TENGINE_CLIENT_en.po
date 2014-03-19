@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 11:48+0100\n"
-"PO-Revision-Date: 2014-03-19 11:49+0100\n"
+"POT-Creation-Date: 2014-03-20 14:34+0100\n"
+"PO-Revision-Date: 2014-03-20 14:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -24,8 +24,29 @@ msgstr ""
 msgid "Activate file indexing with TE"
 msgstr ""
 
+msgid "Error reading content from server"
+msgstr ""
+
+msgid "Error sending command to TE server"
+msgstr ""
+
 #, php-format
 msgid "Error sending file"
+msgstr ""
+
+msgid "Handshake error"
+msgstr ""
+
+#, php-format
+msgid "Invalid response size '%s'"
+msgstr ""
+
+#, php-format
+msgid "Malformed JSON response: %s"
+msgstr ""
+
+#, php-format
+msgid "Returned data is not of array type (%s)"
 msgstr ""
 
 msgid "Transformation Engine callback url"
@@ -38,6 +59,10 @@ msgid "Transformation Engine server port number"
 msgstr ""
 
 msgid "Transformation Engine timeout connection (in seconds)"
+msgstr ""
+
+#, php-format
+msgid "Unexpected handshake message: %s"
 msgstr ""
 
 msgid "empty file"
@@ -54,6 +79,70 @@ msgstr "Transformation Engine administration ACL"
 
 msgid "tengine_client:action:admin_actions_list:short_name"
 msgstr "ADMIN_ACTIONS_LIST"
+
+msgid "tengine_client:action:tengine_client_convert"
+msgstr "Convert a file"
+
+msgid "tengine_client:action:tengine_client_convert:Abort task"
+msgstr "Abort task"
+
+msgid "tengine_client:action:tengine_client_convert:Convert"
+msgstr "Convert"
+
+msgid "tengine_client:action:tengine_client_convert:Download result"
+msgstr "Download result"
+
+msgid "tengine_client:action:tengine_client_convert:Error"
+msgstr "Error"
+
+#, php-format
+msgid ""
+"tengine_client:action:tengine_client_convert:Error creating temporary file."
+msgstr "Error creating temporary file."
+
+#, php-format
+msgid ""
+"tengine_client:action:tengine_client_convert:Error fetching task info with "
+"id '%s': %s"
+msgstr "Error fetching task info with id '%s': %s"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Error in file upload: %s"
+msgstr "Error in file upload: %s"
+
+#, php-format
+msgid ""
+"tengine_client:action:tengine_client_convert:Error moving uploaded file to "
+"'%s'."
+msgstr "Error moving uploaded file to '%s'."
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:File is empty."
+msgstr "File is empty."
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Missing file."
+msgstr "Missing file."
+
+msgid "tengine_client:action:tengine_client_convert:Refresh task"
+msgstr "Refresh task"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
+msgstr "Task '%s' is not finished."
+
+msgid "tengine_client:action:tengine_client_convert:Task with id"
+msgstr "Task with id"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
+msgstr "Unknown op '%s'."
+
+msgid "tengine_client:action:tengine_client_convert:has been killed"
+msgstr "has been killed"
+
+msgid "tengine_client:action:tengine_client_convert:with engine"
+msgstr "with engine"
 
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Parameters"
