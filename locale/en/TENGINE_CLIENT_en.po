@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 14:34+0100\n"
-"PO-Revision-Date: 2014-03-20 14:50+0100\n"
+"POT-Creation-Date: 2014-03-21 10:04+0100\n"
+"PO-Revision-Date: 2014-03-21 10:06+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -39,6 +39,10 @@ msgstr ""
 
 #, php-format
 msgid "Invalid response size '%s'"
+msgstr ""
+
+#, php-format
+msgid "Malformed JSON argument: %s"
 msgstr ""
 
 #, php-format
@@ -146,6 +150,16 @@ msgstr "with engine"
 
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Parameters"
+
+msgid "tengine_client:action:tengine_client_tasks"
+msgstr "Tasks and history"
+
+msgid "tengine_client:action:tengine_client_tasks:Error"
+msgstr "Error"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
+msgstr "Unknown op '%s'."
 
 msgid "tengine_client:description"
 msgstr "Manage Transformation Engine Client library"

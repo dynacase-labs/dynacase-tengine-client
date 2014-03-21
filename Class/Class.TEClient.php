@@ -598,4 +598,103 @@ class Client
         }
         return '';
     }
+    public function retrieveTasks(&$tasks, $start = 0, $length = 0, $orderby = '', $sort = '', $filter = array())
+    {
+        try {
+            $sock = $this->connect();
+            $args = json_encode(array(
+                "start" => $start,
+                "length" => $length,
+                "orderby" => $orderby,
+                "sort" => $sort,
+                "filter" => $filter
+            ));
+            $cmd = sprintf("INFO:TASKS\n<args type=\"application/json\" size=\"%d\"/>\n%s", strlen($args) , $args);
+            $ret = $this->fwrite_stream($sock, $cmd);
+            if ($ret != strlen($cmd)) {
+                throw new ClientException(_("Error sending command to TE server"));
+            }
+            $msg = fgets($sock, 2048);
+            if ($msg === false) {
+                return _("Error reading content from server");
+            }
+            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                    throw new ClientException($m['err']);
+                }
+                throw new ClientException('unknown-error');
+            }
+            $size = 0;
+            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
+                $size = $m['size'];
+            }
+            if ($size <= 0) {
+                return sprintf(_("Invalid response size '%s'") , $size);
+            }
+            $data = $this->read_size($sock, $size);
+            if ($data === false) {
+                return _("Error reading content from server");
+            }
+            fclose($sock);
+            $json = new \JSONCodec();
+            $tasks = $json->decode($data, true);
+            if (is_scalar($tasks)) {
+                /* Return error message from TE server */
+                throw new ClientException($tasks);
+            }
+            if (!is_array($tasks)) {
+                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($tasks)));
+            }
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        return '';
+    }
+    public function retrieveTaskHisto(&$histo, $tid)
+    {
+        try {
+            $sock = $this->connect();
+            $cmd = sprintf("INFO:HISTO\n<task id=\"%s\"/>\n", $tid);
+            $ret = $this->fwrite_stream($sock, $cmd);
+            if ($ret != strlen($cmd)) {
+                throw new ClientException(_("Error sending command to TE server"));
+            }
+            $msg = fgets($sock, 2048);
+            if ($msg === false) {
+                return _("Error reading content from server");
+            }
+            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                    throw new ClientException($m['err']);
+                }
+                throw new ClientException('unknown-error');
+            }
+            $size = 0;
+            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
+                $size = $m['size'];
+            }
+            if ($size <= 0) {
+                return sprintf(_("Invalid response size '%s'") , $size);
+            }
+            $data = $this->read_size($sock, $size);
+            if ($data === false) {
+                return _("Error reading content from server");
+            }
+            fclose($sock);
+            $json = new \JSONCodec();
+            $histo = $json->decode($data, true);
+            if (is_scalar($histo)) {
+                /* Return error message from TE server */
+                throw new ClientException($histo);
+            }
+            if (!is_array($histo)) {
+                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($histo)));
+            }
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        return '';
+    }
 }

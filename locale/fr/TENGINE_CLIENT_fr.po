@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 14:34+0100\n"
-"PO-Revision-Date: 2014-03-20 14:47+0100\n"
+"POT-Creation-Date: 2014-03-21 10:04+0100\n"
+"PO-Revision-Date: 2014-03-21 10:06+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -40,6 +40,10 @@ msgstr "Erreur de négociation de la connection"
 #, php-format
 msgid "Invalid response size '%s'"
 msgstr "Taille de réponse invalide '%s'"
+
+#, php-format
+msgid "Malformed JSON argument: %s"
+msgstr "Argument JSON malformé: %s"
 
 #, php-format
 msgid "Malformed JSON response: %s"
@@ -147,6 +151,16 @@ msgstr "avec le moteur"
 
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Paramétrage du client TE"
+
+msgid "tengine_client:action:tengine_client_tasks"
+msgstr "Tâches et historique"
+
+msgid "tengine_client:action:tengine_client_tasks:Error"
+msgstr "Erreur"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
+msgstr "Opération inconnue '%s'."
 
 msgid "tengine_client:description"
 msgstr "Gestion de la librairie Transformation Engine Client"
