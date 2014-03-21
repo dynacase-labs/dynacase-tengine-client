@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-21 10:04+0100\n"
-"PO-Revision-Date: 2014-03-21 10:06+0100\n"
+"POT-Creation-Date: 2014-03-21 15:49+0100\n"
+"PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -151,6 +151,12 @@ msgstr "avec le moteur"
 
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Paramétrage du client TE"
+
+msgid "tengine_client:action:tengine_client_selftests"
+msgstr "Selftests"
+
+msgid "tengine_client:action:tengine_client_selftests:Error"
+msgstr "Erreur"
 
 msgid "tengine_client:action:tengine_client_tasks"
 msgstr "Tâches et historique"

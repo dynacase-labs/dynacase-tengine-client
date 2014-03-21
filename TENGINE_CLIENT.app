@@ -54,5 +54,13 @@ $action_desc = array(
         "script" => "tengine_client_tasks.php",
         "function" => "tengine_client_tasks",
         "layout" => "tengine_client_tasks.html"
+    ) ,
+    array(
+        "name" => "TENGINE_CLIENT_SELFTESTS",
+        "acl" => "TENGINE_CLIENT",
+        "short_name" => N_("tengine_client:action:tengine_client_selftests") ,
+        "script" => "tengine_client_selftests.php",
+        "function" => "tengine_client_selftests",
+        "layout" => "tengine_client_selftests.html"
     )
 );

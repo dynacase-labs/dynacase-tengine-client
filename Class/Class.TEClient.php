@@ -697,4 +697,64 @@ class Client
         }
         return '';
     }
+    private function _genericCommandWithJSONResponse($cmd, &$responseData)
+    {
+        try {
+            $sock = $this->connect();
+            $ret = $this->fwrite_stream($sock, $cmd);
+            if ($ret != strlen($cmd)) {
+                throw new ClientException(_("Error sending command to TE server"));
+            }
+            $msg = fgets($sock, 2048);
+            if ($msg === false) {
+                return _("Error reading content from server");
+            }
+            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                    throw new ClientException($m['err']);
+                }
+                throw new ClientException('unknown-error');
+            }
+            $size = 0;
+            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
+                $size = $m['size'];
+            }
+            if ($size <= 0) {
+                return sprintf(_("Invalid response size '%s'") , $size);
+            }
+            $data = $this->read_size($sock, $size);
+            if ($data === false) {
+                return _("Error reading content from server");
+            }
+            fclose($sock);
+            $json = new \JSONCodec();
+            $responseData = $json->decode($data, true);
+            if (is_scalar($responseData)) {
+                /* Return error message from TE server */
+                throw new ClientException($responseData);
+            }
+            if (!is_array($responseData)) {
+                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($responseData)));
+            }
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        return '';
+    }
+    public function retrieveSelftests(&$selftests)
+    {
+        return $this->_genericCommandWithJSONResponse("INFO:SELFTESTS\n", $selftests);
+    }
+    public function executeSelftest(&$result, $selftestid)
+    {
+        return $this->_genericCommandWithJSONResponse(sprintf("SELFTEST\n<selftest id=\"%s\"/>\n", $selftestid) , $result);
+    }
+    public function retrieveServerInfo(&$serverInfo, $extended = false)
+    {
+        if ($extended) {
+            return $this->_genericCommandWithJSONResponse("INFO:SERVER:EXTENDED\n", $serverInfo);
+        }
+        return $this->_genericCommandWithJSONResponse("INFO:SERVER\n", $serverInfo);
+    }
 }
