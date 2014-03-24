@@ -23,8 +23,7 @@ function tengine_client_tasks(Action & $action)
     $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
     $action->lay->eSet('ACTIONNAME', strtoupper($action->name));
     $action->lay->set('SHOW_MAIN', false);
-    $action->lay->set('SHOW_TASKS', false);
-    $action->lay->set('SHOW_HISTO', false);
+    $action->lay->set('SHOW_RESPONSE', false);
     
     switch ($op) {
         case '':
@@ -41,6 +40,10 @@ function tengine_client_tasks(Action & $action)
 
         case 'abort':
             $err = _abort($action, $tid);
+            break;
+
+        case 'purge':
+            $err = _purge($action, $select);
             break;
 
         default:
@@ -72,7 +75,7 @@ function _tasks(Action & $action, $select)
         return $err;
     }
     $action->lay->eSet('RESPONSE', print_r($tasks, true));
-    $action->lay->set('SHOW_TASKS', true);
+    $action->lay->set('SHOW_RESPONSE', true);
 }
 
 function _histo(Action & $action, $tid)
@@ -83,7 +86,7 @@ function _histo(Action & $action, $tid)
         return $err;
     }
     $action->lay->eSet('RESPONSE', print_r($histo, true));
-    $action->lay->set('SHOW_HISTO', true);
+    $action->lay->set('SHOW_RESPONSE', true);
     return '';
 }
 
@@ -91,4 +94,24 @@ function _abort(Action & $action, $tid)
 {
     $te = new \Dcp\TransformationEngine\Client();
     return $te->eraseTransformation($tid);
+}
+
+function _purge(Action & $action, $select)
+{
+    $json = new JSONCodec();
+    try {
+        $args = $json->decode($select, true);
+    }
+    catch(Exception $e) {
+        return sprintf(_("Malformed JSON argument: %s") , $e->getMessage());
+    }
+    $maxdays = isset($args['maxdays']) ? $args['maxdays'] : '';
+    $status = isset($args['status']) ? $args['status'] : '';
+    $te = new \Dcp\TransformationEngine\Client();
+    $err = $te->purgeTasks($maxdays, $status);
+    if ($err != '') {
+        return $err;
+    }
+    $action->lay->eSet('RESPONSE', 'Done.');
+    $action->lay->set('SHOW_RESPONSE', true);
 }

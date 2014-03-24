@@ -697,6 +697,35 @@ class Client
         }
         return '';
     }
+    private function _genericCommandWithErrResponse($cmd) {
+        $err = '';
+        $sock = false;
+        try {
+            $sock = $this->connect();
+            $ret = $this->fwrite_stream($sock, $cmd);
+            if ($ret != strlen($cmd)) {
+                fclose($sock);
+                throw new ClientException(_("Error sending command to TE server"));
+            }
+            $msg = fgets($sock, 2048);
+            if ($msg === false) {
+                return _("Error reading content from server");
+            }
+            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                    throw new ClientException($m['err']);
+                }
+                throw new ClientException('unknown-error');
+            }
+        }
+        catch(ClientException $e) {
+            $err = $e->getMessage();
+        }
+        if ($sock !== false) {
+            fclose($sock);
+        }
+        return $err;
+    }
     private function _genericCommandWithJSONResponse($cmd, &$responseData)
     {
         try {
@@ -756,5 +785,17 @@ class Client
             return $this->_genericCommandWithJSONResponse("INFO:SERVER:EXTENDED\n", $serverInfo);
         }
         return $this->_genericCommandWithJSONResponse("INFO:SERVER\n", $serverInfo);
+    }
+
+    /**
+     * Purge tasks older than $maxdays days and with the given optional $status
+     * @param string & $err the response message
+     * @param int $maxdays
+     * @param string $status
+     * @return string client error message on failure or empty string on success
+     */
+    public function purgeTasks($maxdays = 0, $status = '') {
+        $cmd = sprintf("PURGE\n<tasks maxdays=\"%s\" status=\"%s\" />\n", $maxdays, $status);
+        return $this->_genericCommandWithErrResponse($cmd);
     }
 }

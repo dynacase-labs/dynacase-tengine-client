@@ -74,20 +74,28 @@
         <input type="submit"/>
     </form>
 </div>
+<div class="task-purge">
+    <h1>Purge tasks</h1>
+    <form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
+        <input type="hidden" name="op" value="purge"/>
+        <label>JSON encoded select arguments:
+            <textarea name="select" cols="80" rows="24" >
+{
+    "maxdays": "",
+    "status": ""
+}</textarea>
+        </label>
+        <input type="submit"/>
+    </form>
+</div>
 </div>
 [ENDIF SHOW_MAIN]
 
-[IF SHOW_TASKS]
-<div class="panel tasks">
+[IF SHOW_RESPONSE]
+<div class="panel response">
 <pre>[RESPONSE]</pre>
 </div>
-[ENDIF SHOW_TASKS]
-
-[IF SHOW_HISTO]
-<div class="panel histo">
-<pre>[RESPONSE]</pre>
-</div>
-[ENDIF SHOW_HISTO]
+[ENDIF SHOW_RESPONSE]
 
 [ENDIF ERROR]
 </body>
