@@ -541,163 +541,8 @@ class Client
         }
         return $buf;
     }
-    /**
-     * Retrieve list of known engines from TE server
-     * @param $engines array which will hold de returned engines
-     * @return string error message on failure or empty string on success
-     */
-    public function retrieveEngines(&$engines)
+    private function _genericCommandWithErrResponse($cmd)
     {
-        $engines = array();
-        try {
-            $sock = $this->connect();
-        }
-        catch(ClientException $e) {
-            return $e->getMessage();
-        }
-        $cmd = "INFO:ENGINES\n";
-        $ret = $this->fwrite_stream($sock, $cmd);
-        if ($ret != strlen($cmd)) {
-            return _("Error sending command to TE server");
-        }
-        $msg = fgets($sock, 2048);
-        if ($msg === false) {
-            return _("Error reading content from server");
-        }
-        if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
-            if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
-                return $m['err'];
-            }
-            return 'unknown-error';
-        }
-        $size = 0;
-        if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
-            $size = $m['size'];
-        }
-        if ($size <= 0) {
-            return sprintf(_("Invalid response size '%s'") , $size);
-        }
-        $data = $this->read_size($sock, $size);
-        if ($data === false) {
-            return _("Error reading content from server");
-        }
-        fclose($sock);
-        $json = new \JSONCodec();
-        try {
-            $engines = $json->decode($data, true);
-            if (is_scalar($engines)) {
-                /* Return error message from TE server */
-                return $engines;
-            }
-            if (!is_array($engines)) {
-                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($engines)));
-            }
-        }
-        catch(ClientException $e) {
-            return sprintf(_("Malformed JSON response: %s") , $e->getMessage());
-        }
-        return '';
-    }
-    public function retrieveTasks(&$tasks, $start = 0, $length = 0, $orderby = '', $sort = '', $filter = array())
-    {
-        try {
-            $sock = $this->connect();
-            $args = json_encode(array(
-                "start" => $start,
-                "length" => $length,
-                "orderby" => $orderby,
-                "sort" => $sort,
-                "filter" => $filter
-            ));
-            $cmd = sprintf("INFO:TASKS\n<args type=\"application/json\" size=\"%d\"/>\n%s", strlen($args) , $args);
-            $ret = $this->fwrite_stream($sock, $cmd);
-            if ($ret != strlen($cmd)) {
-                throw new ClientException(_("Error sending command to TE server"));
-            }
-            $msg = fgets($sock, 2048);
-            if ($msg === false) {
-                return _("Error reading content from server");
-            }
-            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
-                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
-                    throw new ClientException($m['err']);
-                }
-                throw new ClientException('unknown-error');
-            }
-            $size = 0;
-            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
-                $size = $m['size'];
-            }
-            if ($size <= 0) {
-                return sprintf(_("Invalid response size '%s'") , $size);
-            }
-            $data = $this->read_size($sock, $size);
-            if ($data === false) {
-                return _("Error reading content from server");
-            }
-            fclose($sock);
-            $json = new \JSONCodec();
-            $tasks = $json->decode($data, true);
-            if (is_scalar($tasks)) {
-                /* Return error message from TE server */
-                throw new ClientException($tasks);
-            }
-            if (!is_array($tasks)) {
-                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($tasks)));
-            }
-        }
-        catch(ClientException $e) {
-            return $e->getMessage();
-        }
-        return '';
-    }
-    public function retrieveTaskHisto(&$histo, $tid)
-    {
-        try {
-            $sock = $this->connect();
-            $cmd = sprintf("INFO:HISTO\n<task id=\"%s\"/>\n", $tid);
-            $ret = $this->fwrite_stream($sock, $cmd);
-            if ($ret != strlen($cmd)) {
-                throw new ClientException(_("Error sending command to TE server"));
-            }
-            $msg = fgets($sock, 2048);
-            if ($msg === false) {
-                return _("Error reading content from server");
-            }
-            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
-                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
-                    throw new ClientException($m['err']);
-                }
-                throw new ClientException('unknown-error');
-            }
-            $size = 0;
-            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
-                $size = $m['size'];
-            }
-            if ($size <= 0) {
-                return sprintf(_("Invalid response size '%s'") , $size);
-            }
-            $data = $this->read_size($sock, $size);
-            if ($data === false) {
-                return _("Error reading content from server");
-            }
-            fclose($sock);
-            $json = new \JSONCodec();
-            $histo = $json->decode($data, true);
-            if (is_scalar($histo)) {
-                /* Return error message from TE server */
-                throw new ClientException($histo);
-            }
-            if (!is_array($histo)) {
-                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($histo)));
-            }
-        }
-        catch(ClientException $e) {
-            return $e->getMessage();
-        }
-        return '';
-    }
-    private function _genericCommandWithErrResponse($cmd) {
         $err = '';
         $sock = false;
         try {
@@ -771,14 +616,72 @@ class Client
         }
         return '';
     }
+    /**
+     * Retrieve tasks
+     * @param $tasks array which will hold the retrieved tasks
+     * @param int $start pagination start (default '0')
+     * @param int $length pagination length (default '0' for no limitation)
+     * @param string $orderby the column to sort by (default '')
+     * @param string $sort the sort order: '' (default for no ordering), 'asc' (ascending) or 'desc' (descending)
+     * @param array $filter regex search filters: ex. array('col_1' => '^a[bc]')
+     * @return string
+     */
+    public function retrieveTasks(&$tasks, $start = 0, $length = 0, $orderby = '', $sort = '', $filter = array())
+    {
+        $args = json_encode(array(
+            "start" => $start,
+            "length" => $length,
+            "orderby" => $orderby,
+            "sort" => $sort,
+            "filter" => $filter
+        ));
+        $cmd = sprintf("INFO:TASKS\n<args type=\"application/json\" size=\"%d\"/>\n%s", strlen($args) , $args);
+        return $this->_genericCommandWithJSONResponse($cmd, $tasks);
+    }
+    /**
+     * Retrieve list of known engines from TE server
+     * @param $engines array which will hold the returned engines
+     * @return string error message on failure or empty string on success
+     */
+    public function retrieveEngines(&$engines)
+    {
+        $this->_genericCommandWithJSONResponse("INFO:ENGINES\n", $engines);
+    }
+    /**
+     * Retrieve history log for a specific task id
+     * @param $histo array which will hold the history log
+     * @param string $tid task id
+     * @return string
+     */
+    public function retrieveTaskHisto(&$histo, $tid)
+    {
+        return $this->_genericCommandWithJSONResponse(sprintf("INFO:HISTO\n<task id=\"%s\"/>\n", $tid) , $histo);
+    }
+    /**
+     * Retrive the list of all available selftests
+     * @param $selftests array which will hold the available selftests
+     * @return string error message on failure or empty string on success
+     */
     public function retrieveSelftests(&$selftests)
     {
         return $this->_genericCommandWithJSONResponse("INFO:SELFTESTS\n", $selftests);
     }
+    /**
+     * Execute a single selftest
+     * @param $result array which will hold the selftest result
+     * @param string $selftestid selftest id
+     * @return string
+     */
     public function executeSelftest(&$result, $selftestid)
     {
         return $this->_genericCommandWithJSONResponse(sprintf("SELFTEST\n<selftest id=\"%s\"/>\n", $selftestid) , $result);
     }
+    /**
+     * Retrieve server's informations
+     * @param $serverInfo array which will hold the server's informations
+     * @param bool $extended true to request extended information, false for basic information
+     * @return string error message on failure or empty string on success
+     */
     public function retrieveServerInfo(&$serverInfo, $extended = false)
     {
         if ($extended) {
@@ -786,7 +689,6 @@ class Client
         }
         return $this->_genericCommandWithJSONResponse("INFO:SERVER\n", $serverInfo);
     }
-
     /**
      * Purge tasks older than $maxdays days and with the given optional $status
      * @param string & $err the response message
@@ -794,7 +696,8 @@ class Client
      * @param string $status
      * @return string client error message on failure or empty string on success
      */
-    public function purgeTasks($maxdays = 0, $status = '') {
+    public function purgeTasks($maxdays = 0, $status = '')
+    {
         $cmd = sprintf("PURGE\n<tasks maxdays=\"%s\" status=\"%s\" />\n", $maxdays, $status);
         return $this->_genericCommandWithErrResponse($cmd);
     }
