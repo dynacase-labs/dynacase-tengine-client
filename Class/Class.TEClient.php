@@ -19,6 +19,10 @@ namespace Dcp\TransformationEngine;
 
 include_once ("WHAT/Lib.FileMime.php");
 
+class ClientException extends \Exception
+{
+};
+
 class Client
 {
     const error_connect = - 2;
@@ -456,5 +460,245 @@ class Client
         }
         
         return $err;
+    }
+    /**
+     * Establish a new connection to the TE server
+     * @return resource
+     * @throws \Exception
+     */
+    private function connect()
+    {
+        $saddr = gethostbyname($this->host);
+        $sport = $this->port;
+        $sock = stream_socket_client("tcp://$saddr:$sport", $errno, $errstr, 30);
+        if ($sock === false) {
+            throw new ClientException(_("socket creation error") . " : $errstr ($errno)\n");
+        }
+        $msg = fgets($sock, 2048);
+        if ($msg === false) {
+            throw new ClientException(_("Handshake error"));
+        }
+        $msg = trim($msg);
+        if ($msg != 'Continue') {
+            throw new ClientException(_("Unexpected handshake message: %s", $msg));
+        }
+        return $sock;
+    }
+    /**
+     * Write data to the given socket file descriptor taking care of the fact that
+     * writing to a network stream may end before the whole string is written.
+     * @param $fp
+     * @param $string
+     * @return int
+     */
+    private function fwrite_stream($fp, $string)
+    {
+        for ($written = 0; $written < strlen($string); $written+= $fwrite) {
+            $fwrite = fwrite($fp, substr($string, $written));
+            if ($fwrite === false) {
+                return $written;
+            }
+        }
+        return $written;
+    }
+    /**
+     * Read a specific number of bytes from the given socket file descriptor.
+     * @param $fp
+     * @param $size
+     * @return bool|string the data or bool(false) on error
+     */
+    private function read_size($fp, $size)
+    {
+        $buf = '';
+        while ($size > 0) {
+            if ($size >= 2048) {
+                $rsize = 2048;
+            } else {
+                $rsize = $size;
+            }
+            $data = fread($fp, $rsize);
+            if ($data === false || $data === "") {
+                return false;
+            }
+            $size-= strlen($data);
+            $buf.= $data;
+        }
+        return $buf;
+    }
+    /**
+     * Read all data till end-of-file from the given socket file descriptor.
+     * @param $fp
+     * @return bool|string the data or bool(false) on error
+     */
+    private function read_eof($fp)
+    {
+        $buf = '';
+        while (!feof($fp)) {
+            if (($data = fread($fp, 2048)) === false) {
+                return false;
+            }
+            $buf.= $data;
+        }
+        return $buf;
+    }
+    private function _genericCommandWithErrResponse($cmd)
+    {
+        $err = '';
+        $sock = false;
+        try {
+            $sock = $this->connect();
+            $ret = $this->fwrite_stream($sock, $cmd);
+            if ($ret != strlen($cmd)) {
+                fclose($sock);
+                throw new ClientException(_("Error sending command to TE server"));
+            }
+            $msg = fgets($sock, 2048);
+            if ($msg === false) {
+                return _("Error reading content from server");
+            }
+            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                    throw new ClientException($m['err']);
+                }
+                throw new ClientException('unknown-error');
+            }
+        }
+        catch(ClientException $e) {
+            $err = $e->getMessage();
+        }
+        if ($sock !== false) {
+            fclose($sock);
+        }
+        return $err;
+    }
+    private function _genericCommandWithJSONResponse($cmd, &$responseData)
+    {
+        try {
+            $sock = $this->connect();
+            $ret = $this->fwrite_stream($sock, $cmd);
+            if ($ret != strlen($cmd)) {
+                throw new ClientException(_("Error sending command to TE server"));
+            }
+            $msg = fgets($sock, 2048);
+            if ($msg === false) {
+                return _("Error reading content from server");
+            }
+            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                    throw new ClientException($m['err']);
+                }
+                throw new ClientException('unknown-error');
+            }
+            $size = 0;
+            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
+                $size = $m['size'];
+            }
+            if ($size <= 0) {
+                return sprintf(_("Invalid response size '%s'") , $size);
+            }
+            $data = $this->read_size($sock, $size);
+            if ($data === false) {
+                return _("Error reading content from server");
+            }
+            fclose($sock);
+            $json = new \JSONCodec();
+            $responseData = $json->decode($data, true);
+            if (is_scalar($responseData)) {
+                /* Return error message from TE server */
+                throw new ClientException($responseData);
+            }
+            if (!is_array($responseData)) {
+                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($responseData)));
+            }
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        return '';
+    }
+    /**
+     * Retrieve tasks
+     * @param $tasks array which will hold the retrieved tasks
+     * @param int $start pagination start (default '0')
+     * @param int $length pagination length (default '0' for no limitation)
+     * @param string $orderby the column to sort by (default '')
+     * @param string $sort the sort order: '' (default for no ordering), 'asc' (ascending) or 'desc' (descending)
+     * @param array $filter regex search filters: ex. array('col_1' => '^a[bc]')
+     * @return string
+     */
+    public function retrieveTasks(&$tasks, $start = 0, $length = 0, $orderby = '', $sort = '', $filter = array())
+    {
+        $args = json_encode(array(
+            "start" => $start,
+            "length" => $length,
+            "orderby" => $orderby,
+            "sort" => $sort,
+            "filter" => $filter
+        ));
+        $cmd = sprintf("INFO:TASKS\n<args type=\"application/json\" size=\"%d\"/>\n%s", strlen($args) , $args);
+        return $this->_genericCommandWithJSONResponse($cmd, $tasks);
+    }
+    /**
+     * Retrieve list of known engines from TE server
+     * @param $engines array which will hold the returned engines
+     * @return string error message on failure or empty string on success
+     */
+    public function retrieveEngines(&$engines)
+    {
+        $this->_genericCommandWithJSONResponse("INFO:ENGINES\n", $engines);
+    }
+    /**
+     * Retrieve history log for a specific task id
+     * @param $histo array which will hold the history log
+     * @param string $tid task id
+     * @return string
+     */
+    public function retrieveTaskHisto(&$histo, $tid)
+    {
+        return $this->_genericCommandWithJSONResponse(sprintf("INFO:HISTO\n<task id=\"%s\"/>\n", $tid) , $histo);
+    }
+    /**
+     * Retrive the list of all available selftests
+     * @param $selftests array which will hold the available selftests
+     * @return string error message on failure or empty string on success
+     */
+    public function retrieveSelftests(&$selftests)
+    {
+        return $this->_genericCommandWithJSONResponse("INFO:SELFTESTS\n", $selftests);
+    }
+    /**
+     * Execute a single selftest
+     * @param $result array which will hold the selftest result
+     * @param string $selftestid selftest id
+     * @return string
+     */
+    public function executeSelftest(&$result, $selftestid)
+    {
+        return $this->_genericCommandWithJSONResponse(sprintf("SELFTEST\n<selftest id=\"%s\"/>\n", $selftestid) , $result);
+    }
+    /**
+     * Retrieve server's informations
+     * @param $serverInfo array which will hold the server's informations
+     * @param bool $extended true to request extended information, false for basic information
+     * @return string error message on failure or empty string on success
+     */
+    public function retrieveServerInfo(&$serverInfo, $extended = false)
+    {
+        if ($extended) {
+            return $this->_genericCommandWithJSONResponse("INFO:SERVER:EXTENDED\n", $serverInfo);
+        }
+        return $this->_genericCommandWithJSONResponse("INFO:SERVER\n", $serverInfo);
+    }
+    /**
+     * Purge tasks older than $maxdays days and with the given optional $status
+     * @param string & $err the response message
+     * @param int $maxdays
+     * @param string $status
+     * @return string client error message on failure or empty string on success
+     */
+    public function purgeTasks($maxdays = 0, $status = '')
+    {
+        $cmd = sprintf("PURGE\n<tasks maxdays=\"%s\" status=\"%s\" />\n", $maxdays, $status);
+        return $this->_genericCommandWithErrResponse($cmd);
     }
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="[HTML_LANG]">
+<head>
+    <meta charset="utf-8">
+    <title>[TEXT:tengine_client:action:tengine_client_tasks]</title>
+[CSS:REF]
+[JS:REF]
+    <style type="text/css">
+        select {
+            padding: 0.4em 1em;
+        }
+        .panel {
+            padding: 1em;
+        }
+        .error {
+            background-color: #ffeeee;
+        }
+        textarea {
+            font-family: monospace;
+        }
+    </style>
+    <script language="JavaScript">
+    </script>
+</head>
+<body>
+
+[IF ERROR]
+<div class="panel error">
+<p>[TEXT:tengine_client:action:tengine_client_tasks:Error]:</p>
+<p>[ERRMSG]</p>
+</div>
+[ENDIF ERROR]
+
+[IFNOT ERROR]
+
+[IF SHOW_MAIN]
+<div class="panel main">
+<div class="select-tasks">
+<h1>Select tasks</h1>
+<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
+    <input type="hidden" name="op" value="tasks"/>
+    <label>JSON encoded select arguments:
+        <textarea name="select" cols="80" rows="24" >
+{
+    "start": 0,
+    "length": 0,
+    "orderby": "cdate",
+    "sort": "desc",
+    "filter": {
+        "comment": ".*"
+    }
+}</textarea>
+    </label>
+    <input type="submit"/>
+</form>
+</div>
+<div class="task-history">
+<h1>View single task history</h1>
+<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
+    <input type="hidden" name="op" value="histo"/>
+    <label>Task id:
+        <input type="text" name="tid" />
+    </label>
+    <input type="submit"/>
+</form>
+</div>
+<div class="task-abort">
+    <h1>Abort task</h1>
+    <form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]">
+        <input type="hidden" name="op" value="abort"/>
+        <label>Task id:
+            <input type="text" name="tid" />
+        </label>
+        <input type="submit"/>
+    </form>
+</div>
+<div class="task-purge">
+    <h1>Purge tasks</h1>
+    <form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
+        <input type="hidden" name="op" value="purge"/>
+        <label>JSON encoded select arguments:
+            <textarea name="select" cols="80" rows="24" >
+{
+    "maxdays": "",
+    "status": ""
+}</textarea>
+        </label>
+        <input type="submit"/>
+    </form>
+</div>
+</div>
+[ENDIF SHOW_MAIN]
+
+[IF SHOW_RESPONSE]
+<div class="panel response">
+<pre>[RESPONSE]</pre>
+</div>
+[ENDIF SHOW_RESPONSE]
+
+[ENDIF ERROR]
+</body>
+</html>

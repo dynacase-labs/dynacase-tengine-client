@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="[HTML_LANG]">
+<head>
+    <meta charset="utf-8">
+    <title>[TEXT:tengine_client:action:tengine_client_selftests]</title>
+[CSS:REF]
+[JS:REF]
+    <style type="text/css">
+        .panel {
+            padding: 1em;
+        }
+        .error {
+            background-color: #ffeeee;
+        }
+    </style>
+    <script language="JavaScript">
+    </script>
+</head>
+<body>
+
+[IF ERROR]
+<div class="panel error">
+<p>[TEXT:tengine_client:action:tengine_client_selftests:Error]:</p>
+<p>[ERRMSG]</p>
+</div>
+[ENDIF ERROR]
+
+[IFNOT ERROR]
+
+[IF SHOW_MAIN]
+<div class="panel main">
+<h1>Server info</h1>
+<pre>[SERVER_INFO]</pre>
+<h1>Selftests</h1>
+<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
+    <input type="hidden" name="op" value="selftest"/>
+    <label>Execute selftest by name: <input type="text" name="selftestid" /></label>
+    <input type="submit"/>
+</form>
+<pre>[SELFTESTS]</pre>
+</div>
+[ENDIF SHOW_MAIN]
+
+[IF SHOW_SELFTEST]
+<div class="panel selftest">
+<pre>[RESPONSE]</pre>
+</div>
+[ENDIF SHOW_SELFTEST]
+
+[ENDIF ERROR]
+</body>
+</html>

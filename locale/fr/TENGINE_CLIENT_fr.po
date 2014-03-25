@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 11:48+0100\n"
-"PO-Revision-Date: 2014-03-19 11:49+0100\n"
+"POT-Creation-Date: 2014-03-21 15:49+0100\n"
+"PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -24,9 +24,34 @@ msgstr "Activation du serveur de transformation"
 msgid "Activate file indexing with TE"
 msgstr "Activation de l'indexation plein texte avec TE"
 
+msgid "Error reading content from server"
+msgstr "Erreur de lecture depuis le serveur"
+
+msgid "Error sending command to TE server"
+msgstr "Erreur d'envoi de la commande au serveur TE"
+
 #, php-format
 msgid "Error sending file"
 msgstr "Erreur lors de l'envoi du fichier"
+
+msgid "Handshake error"
+msgstr "Erreur de négociation de la connection"
+
+#, php-format
+msgid "Invalid response size '%s'"
+msgstr "Taille de réponse invalide '%s'"
+
+#, php-format
+msgid "Malformed JSON argument: %s"
+msgstr "Argument JSON malformé: %s"
+
+#, php-format
+msgid "Malformed JSON response: %s"
+msgstr "Réponse JSON malformée : %s"
+
+#, php-format
+msgid "Returned data is not of array type (%s)"
+msgstr "La donné retournée n'est pas de type array (%s)"
 
 msgid "Transformation Engine callback url"
 msgstr "URL pour les callback du serveur de transformation"
@@ -40,6 +65,10 @@ msgstr "Numéro de port du serveur de transformation"
 msgid "Transformation Engine timeout connection (in seconds)"
 msgstr ""
 "Temps d'attente de connexion pour le moteur de transformation (en secondes)"
+
+#, php-format
+msgid "Unexpected handshake message: %s"
+msgstr "Message de négociation de connection inattendu : %s"
 
 msgid "empty file"
 msgstr "fichier vide"
@@ -56,8 +85,88 @@ msgstr "Transformation Engine administration ACL"
 msgid "tengine_client:action:admin_actions_list:short_name"
 msgstr "ADMIN_ACTIONS_LIST"
 
+msgid "tengine_client:action:tengine_client_convert"
+msgstr "Conversion d'un fichier"
+
+msgid "tengine_client:action:tengine_client_convert:Abort task"
+msgstr "Annuler la tâche"
+
+msgid "tengine_client:action:tengine_client_convert:Convert"
+msgstr "Convertir le fichier"
+
+msgid "tengine_client:action:tengine_client_convert:Download result"
+msgstr "Télécharger le résultat"
+
+msgid "tengine_client:action:tengine_client_convert:Error"
+msgstr "Erreur"
+
+#, php-format
+msgid ""
+"tengine_client:action:tengine_client_convert:Error creating temporary file."
+msgstr "Erreur de création de fichier temporaire."
+
+#, php-format
+msgid ""
+"tengine_client:action:tengine_client_convert:Error fetching task info with "
+"id '%s': %s"
+msgstr "Erreur de récupération des informations de la tâche '%s' : %s"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Error in file upload: %s"
+msgstr "Erreur d'envoi du fichier : %s"
+
+#, php-format
+msgid ""
+"tengine_client:action:tengine_client_convert:Error moving uploaded file to "
+"'%s'."
+msgstr "Erreur de déplacement du fichier envoyé dans '%s'."
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:File is empty."
+msgstr "Le fichier est vide."
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Missing file."
+msgstr "Fichier manquant."
+
+msgid "tengine_client:action:tengine_client_convert:Refresh task"
+msgstr "Actualiser la tâche"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
+msgstr "La tâche '%s' n'est pas terminée."
+
+msgid "tengine_client:action:tengine_client_convert:Task with id"
+msgstr "Tâche"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
+msgstr "Opération inconnue '%s'."
+
+msgid "tengine_client:action:tengine_client_convert:has been killed"
+msgstr "a été tuée"
+
+msgid "tengine_client:action:tengine_client_convert:with engine"
+msgstr "avec le moteur"
+
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Paramétrage du client TE"
+
+msgid "tengine_client:action:tengine_client_selftests"
+msgstr "Selftests"
+
+msgid "tengine_client:action:tengine_client_selftests:Error"
+msgstr "Erreur"
+
+msgid "tengine_client:action:tengine_client_tasks"
+msgstr "Tâches et historique"
+
+msgid "tengine_client:action:tengine_client_tasks:Error"
+msgstr "Erreur"
+
+#, php-format
+msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
+msgstr "Opération inconnue '%s'."
 
 msgid "tengine_client:description"
 msgstr "Gestion de la librairie Transformation Engine Client"

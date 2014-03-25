@@ -1,4 +1,9 @@
 <?php
+/*
+ * @author Anakeen
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
+ * @package FDL
+*/
 
 global $app_desc, $action_desc, $app_acl;
 
@@ -33,5 +38,29 @@ $action_desc = array(
         "function" => "tengine_client_params",
         "layout" => "tengine_client_params.html",
         "root" => "Y"
+    ) ,
+    array(
+        "name" => "TENGINE_CLIENT_CONVERT_FILE",
+        "acl" => "TENGINE_CLIENT",
+        "short_name" => N_("tengine_client:action:tengine_client_convert") ,
+        "script" => "tengine_client_convert.php",
+        "function" => "tengine_client_convert",
+        "layout" => "tengine_client_convert.html"
+    ) ,
+    array(
+        "name" => "TENGINE_CLIENT_TASKS",
+        "acl" => "TENGINE_CLIENT",
+        "short_name" => N_("tengine_client:action:tengine_client_tasks") ,
+        "script" => "tengine_client_tasks.php",
+        "function" => "tengine_client_tasks",
+        "layout" => "tengine_client_tasks.html"
+    ) ,
+    array(
+        "name" => "TENGINE_CLIENT_SELFTESTS",
+        "acl" => "TENGINE_CLIENT",
+        "short_name" => N_("tengine_client:action:tengine_client_selftests") ,
+        "script" => "tengine_client_selftests.php",
+        "function" => "tengine_client_selftests",
+        "layout" => "tengine_client_selftests.html"
     )
 );
