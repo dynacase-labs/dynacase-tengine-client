@@ -43,7 +43,11 @@ function tengine_client_selftests(Action & $action)
 
 function _main(Action & $action)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $err = $te->retrieveServerInfo($serverInfo, true);
     if ($err != '') {
         return $err;
@@ -60,7 +64,11 @@ function _main(Action & $action)
 
 function _selftest(Action & $action, $selftestid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $err = $te->executeSelftest($result, $selftestid);
     if ($err != '') {
         return $err;
@@ -79,7 +87,11 @@ function _tasks(Action & $action, $select)
     catch(Exception $e) {
         return sprintf(_("Malformed JSON argument: %s") , $e->getMessage());
     }
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $err = $te->retrieveTasks($tasks, $args['start'], $args['length'], $args['orderby'], $args['sort'], $args['filter']);
     if ($err != '') {
         return $err;
@@ -90,7 +102,11 @@ function _tasks(Action & $action, $select)
 
 function _histo(Action & $action, $tid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $err = $te->retrieveTaskHisto($histo, $tid);
     if ($err != '') {
         return $err;
@@ -102,6 +118,10 @@ function _histo(Action & $action, $tid)
 
 function _abort(Action & $action, $tid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     return $te->eraseTransformation($tid);
 }

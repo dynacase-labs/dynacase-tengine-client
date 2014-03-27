@@ -49,10 +49,10 @@ class Client
      * @param int $port port number
      *
      */
-    function __construct($host = "localhost", $port = 51968)
+    function __construct($host, $port)
     {
-        if ($host != "") $this->host = $host;
-        if ($port > 0) $this->port = $port;
+       $this->host = $host;
+       $this->port = $port;
     }
     /**
      * send a request to do a transformation
@@ -645,7 +645,7 @@ class Client
      */
     public function retrieveEngines(&$engines)
     {
-        $this->_genericCommandWithJSONResponse("INFO:ENGINES\n", $engines);
+        return $this->_genericCommandWithJSONResponse("INFO:ENGINES\n", $engines);
     }
     /**
      * Retrieve history log for a specific task id

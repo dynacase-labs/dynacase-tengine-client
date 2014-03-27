@@ -69,6 +69,10 @@ function _tasks(Action & $action, $select)
     catch(Exception $e) {
         return sprintf(_("Malformed JSON argument: %s") , $e->getMessage());
     }
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
     $te = new \Dcp\TransformationEngine\Client();
     $err = $te->retrieveTasks($tasks, $args['start'], $args['length'], $args['orderby'], $args['sort'], $args['filter']);
     if ($err != '') {
@@ -80,6 +84,10 @@ function _tasks(Action & $action, $select)
 
 function _histo(Action & $action, $tid)
 {
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
     $te = new \Dcp\TransformationEngine\Client();
     $err = $te->retrieveTaskHisto($histo, $tid);
     if ($err != '') {
@@ -92,6 +100,10 @@ function _histo(Action & $action, $tid)
 
 function _abort(Action & $action, $tid)
 {
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
     $te = new \Dcp\TransformationEngine\Client();
     return $te->eraseTransformation($tid);
 }
@@ -107,6 +119,10 @@ function _purge(Action & $action, $select)
     }
     $maxdays = isset($args['maxdays']) ? $args['maxdays'] : '';
     $status = isset($args['status']) ? $args['status'] : '';
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
     $te = new \Dcp\TransformationEngine\Client();
     $err = $te->purgeTasks($maxdays, $status);
     if ($err != '') {

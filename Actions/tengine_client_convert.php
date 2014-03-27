@@ -69,7 +69,11 @@ function _uploadErrorConst($errorCode)
 
 function _main(Action & $action)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $err = $te->retrieveEngines($engines);
     if ($err != '') {
         return $err;
@@ -92,6 +96,10 @@ function _main(Action & $action)
 
 function _convert(Action & $action, $filename, $engineName)
 {
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
     global $_FILES;
     if (!isset($_FILES['file'])) {
         return sprintf(_("tengine_client:action:tengine_client_convert:Missing file."));
@@ -105,7 +113,7 @@ function _convert(Action & $action, $filename, $engineName)
     if (move_uploaded_file($_FILES['file']['tmp_name'], $tmpfile) === false) {
         return sprintf(_("tengine_client:action:tengine_client_convert:Error moving uploaded file to '%s'.") , getTmpDir());
     }
-    $te = new \Dcp\TransformationEngine\Client();
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $taskInfo = array();
     $err = $te->sendTransformation($engineName, basename($tmpfile) , $tmpfile, '', $taskInfo);
     $action->lay->eSet('TID', $taskInfo['tid']);
@@ -116,7 +124,11 @@ function _convert(Action & $action, $filename, $engineName)
 
 function _info(Action & $action, $tid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $info = array();
     $err = $te->getInfo($tid, $info);
     if ($err != '') {
@@ -143,8 +155,11 @@ function _info(Action & $action, $tid)
 function _get(Action & $action, $tid)
 {
     require_once ('WHAT/Lib.FileMime.php');
-    
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }    
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $info = array();
     $err = $te->getInfo($tid, $info);
     if ($err != '') {
@@ -176,7 +191,11 @@ function _get(Action & $action, $tid)
 
 function _abort(Action & $action, $tid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
     $err = $te->eraseTransformation($tid);
     $action->lay->set('SHOW_MAIN', true);
     return $err;
