@@ -1,0 +1,75 @@
+body {
+    padding : 20px;
+}
+
+.clear { clear: both; }
+.panel {
+    padding: 20px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.panel.main .input {
+    padding: 5px 0 5px 0;
+}
+.panel.main label {
+    display: inline-block;
+    width: 30%;
+    text-align: right;
+    margin-right: 10px;
+}
+
+#tid, #engine  { 
+    color:#AAA; 
+    backgroud-color: #ddd;
+    border-radius: 3px;
+    border-color: #d0d0d0;
+    font-size: 150%; 
+}
+
+#processinfo {
+    margin-bottom : 10px;
+}
+#uploadResult button {
+    width: 100%;
+}
+.task.info .date { color: #AAA; }
+.task.info .date::before { content : "["; }
+.task.info .date::after { content : "]"; }
+
+.task .status {
+    border-radius: 3px;
+    padding: 3px;
+    margin: 1px;
+    background-color: rgba(0,0,0,0.15);
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+    color: #888;
+}
+.task .status.status_B { background-color: #fff; }
+.task .status.status_T { background-color: rgba(248, 235, 138, 0.35); }
+.task .status.status_W { background-color: rgba(248, 235, 138, 0.35); }
+.task .status.status_P { background-color: rgba(138, 248, 147, 0.35); }
+.task .status.status_D { background-color: rgba(138, 248, 147, 0.97); }
+.task .status.status_K { background-color: rgba(0,0,0,0.20); }
+.task .status.status_I { background-color: rgba(0,0,0,0.20); }
+
+
+.task.info .value {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.task.info .key {
+    font-style: italic;
+    padding-left: 10px;
+}
+.task.info .key::after {
+    content: ":";
+}
+select {
+    padding: 0.4em 1em;
+}
+.error {
+    background-color: #ffeeee;
+}

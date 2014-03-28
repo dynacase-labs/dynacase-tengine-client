@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-21 15:49+0100\n"
+"POT-Creation-Date: 2014-03-29 06:50+0100\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -45,8 +45,8 @@ msgstr ""
 msgid "Malformed JSON argument: %s"
 msgstr ""
 
-#, php-format
-msgid "Malformed JSON response: %s"
+msgctxt "TransformationEngine"
+msgid "Please set all TE parameters"
 msgstr ""
 
 #, php-format
@@ -87,17 +87,11 @@ msgstr "ADMIN_ACTIONS_LIST"
 msgid "tengine_client:action:tengine_client_convert"
 msgstr "Convert a file"
 
-msgid "tengine_client:action:tengine_client_convert:Abort task"
-msgstr "Abort task"
-
 msgid "tengine_client:action:tengine_client_convert:Convert"
 msgstr "Convert"
 
 msgid "tengine_client:action:tengine_client_convert:Download result"
 msgstr "Download result"
-
-msgid "tengine_client:action:tengine_client_convert:Error"
-msgstr "Error"
 
 #, php-format
 msgid ""
@@ -128,22 +122,19 @@ msgstr "File is empty."
 msgid "tengine_client:action:tengine_client_convert:Missing file."
 msgstr "Missing file."
 
-msgid "tengine_client:action:tengine_client_convert:Refresh task"
-msgstr "Refresh task"
-
 #, php-format
 msgid "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
 msgstr "Task '%s' is not finished."
-
-msgid "tengine_client:action:tengine_client_convert:Task with id"
-msgstr "Task with id"
 
 #, php-format
 msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
 msgstr "Unknown op '%s'."
 
-msgid "tengine_client:action:tengine_client_convert:has been killed"
-msgstr "has been killed"
+msgid "tengine_client:action:tengine_client_convert:conversion avancement"
+msgstr ""
+
+msgid "tengine_client:action:tengine_client_convert:uploaded file"
+msgstr ""
 
 msgid "tengine_client:action:tengine_client_convert:with engine"
 msgstr "with engine"
@@ -172,6 +163,21 @@ msgstr "Manage Transformation Engine Client library"
 
 msgid "tengine_client:short_name"
 msgstr "Transformation Engine Client"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Abort task"
+#~ msgstr "Abort task"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Error"
+#~ msgstr "Error"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Refresh task"
+#~ msgstr "Refresh task"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Task with id"
+#~ msgstr "Task with id"
+
+#~ msgid "tengine_client:action:tengine_client_convert:has been killed"
+#~ msgstr "has been killed"
 
 #~ msgid "tengine_client_params:apply"
 #~ msgstr "Apply"

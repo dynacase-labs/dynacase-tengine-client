@@ -1,74 +1,44 @@
 <!DOCTYPE html>
 <html lang="[HTML_LANG]">
 <head>
-    <meta charset="utf-8">
-    <title>[TEXT:tengine_client:action:tengine_client_convert]</title>
-[CSS:REF]
-[JS:REF]
-    <style type="text/css">
-        select {
-            padding: 0.4em 1em;
-        }
-        .panel {
-            padding: 1em;
-        }
-        .error {
-            background-color: #ffeeee;
-        }
-    </style>
-    <script language="JavaScript">
-    </script>
+  <meta charset="utf-8">
+  <title>[TEXT:tengine_client:action:tengine_client_convert]</title>
+  [CSS:REF]
+  [JS:REF]
 </head>
 <body>
-
-[IF ERROR]
-<div class="panel error">
-<p>[TEXT:tengine_client:action:tengine_client_convert:Error]:</p>
-<p>[ERRMSG]</p>
-</div>
-[ENDIF ERROR]
-
-[IFNOT ERROR]
-
-[IF SHOW_MAIN]
-<div class="panel main">
-<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]">
-    <input type="hidden" name="op" value="convert"/>
-    <label>[TEXT:tengine_client:action:tengine_client_convert:Convert]<input name="file" type="file"/></label>
-    <label>[TEXT:tengine_client:action:tengine_client_convert:with engine]
+  <h1>[TEXT:tengine_client:action:tengine_client_convert:Convert]</h1>
+  <div class="panel main">
+    <form  id="sendConversion" method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]">
+      <div class="input">
+	<label>[TEXT:tengine_client:action:tengine_client_convert:uploaded file]</label>
+	<input id="thefile" name="file" type="file" />
+      </div>
+      <div class="input">
+	<label>[TEXT:tengine_client:action:tengine_client_convert:with engine]</label>
         <select name="engine" class="ui-widget ui-state-default ui-corner-all">
-            [BLOCK ENGINES]
-            <option value="[ENGINE_NAME]">[ENGINE_NAME]</option>
-            [ENDBLOCK ENGINES]
+          [BLOCK ENGINES]
+          <option value="[ENGINE_NAME]">[ENGINE_NAME]</option>
+          [ENDBLOCK ENGINES]
         </select>
-    </label>
-    <input type="submit"/>
-</form>
-</div>
-[ENDIF SHOW_MAIN]
+      </div>
+      <div class="input">
+	<label></label>
+	<button type="submit" class="ui-button ui-corner-all ui-state-default" >Lancer la conversion</button>
+      </div>
+    </form>
+  </div>
 
-[IF SHOW_TASK]
-<div class="panel task">
-<p>[TEXT:tengine_client:action:tengine_client_convert:Task with id] [TID]:</p>
-<pre>[TASK]</pre>
-<a href="?app=[APPNAME]&amp;action=[ACTIONNAME]&amp;op=info&amp;tid=[TID]">[TEXT:tengine_client:action:tengine_client_convert:Refresh task]</a>
-<a href="?app=[APPNAME]&amp;action=[ACTIONNAME]&amp;op=abort&amp;tid=[TID]">[TEXT:tengine_client:action:tengine_client_convert:Abort task]</a>
-</div>
-[ENDIF SHOW_TASK]
+  <div class="panel error" id="reqErrorMessage"></div>
 
-[IF SHOW_KILLED]
-<div class="panel killed">
-    <p>[TEXT:tengine_client:action:tengine_client_convert:Task with id] [TID] [[TEXT:tengine_client:action:tengine_client_convert:has been killed]:</p>
-    <pre>[TASK]</pre>
-</div>
-[ENDIF SHOW_KILLED]
+  <div class="panel result" id="reqInfosMessage">
+    <h4> <span id="tid"></span> <span id="engine"></span> [TEXT:tengine_client:action:tengine_client_convert:conversion avancement] </h4>
+    <div id="processinfo"></div>
+    <div class="clear"></div>
+    <form  id="uploadResult" method="POST" enctype="multipart/form-data" target="blank" action="?app=[APPNAME]&amp;action=[ACTIONNAME]&op=get">
+      <button class="ui-button ui-corner-all ui-state-default" >[TEXT:tengine_client:action:tengine_client_convert:Download result]</button>
+    </form>
+  </div>
 
-[IF SHOW_DOWNLOAD]
-<div class="panel download">
-<a href="?app=[APPNAME]&amp;action=[ACTIONNAME]&amp;op=get&amp;tid=[TID]">[TEXT:tengine_client:action:tengine_client_convert:Download result]</a>
-</div>
-[ENDIF SHOW_DOWNLOAD]
-
-[ENDIF ERROR]
 </body>
 </html>

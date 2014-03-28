@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-21 15:49+0100\n"
+"POT-Creation-Date: 2014-03-29 06:50+0100\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -45,9 +45,11 @@ msgstr "Taille de réponse invalide '%s'"
 msgid "Malformed JSON argument: %s"
 msgstr "Argument JSON malformé: %s"
 
-#, php-format
-msgid "Malformed JSON response: %s"
-msgstr "Réponse JSON malformée : %s"
+msgctxt "TransformationEngine"
+msgid "Please set all TE parameters"
+msgstr ""
+"Vous devez configurer l'accès au serveur de transformation en valorisant les "
+"paramètres"
 
 #, php-format
 msgid "Returned data is not of array type (%s)"
@@ -86,19 +88,13 @@ msgid "tengine_client:action:admin_actions_list:short_name"
 msgstr "ADMIN_ACTIONS_LIST"
 
 msgid "tengine_client:action:tengine_client_convert"
-msgstr "Conversion d'un fichier"
-
-msgid "tengine_client:action:tengine_client_convert:Abort task"
-msgstr "Annuler la tâche"
+msgstr "Test unitaire"
 
 msgid "tengine_client:action:tengine_client_convert:Convert"
-msgstr "Convertir le fichier"
+msgstr "Traitement unitaire de la conversion d'un fichier"
 
 msgid "tengine_client:action:tengine_client_convert:Download result"
 msgstr "Télécharger le résultat"
-
-msgid "tengine_client:action:tengine_client_convert:Error"
-msgstr "Erreur"
 
 #, php-format
 msgid ""
@@ -129,31 +125,28 @@ msgstr "Le fichier est vide."
 msgid "tengine_client:action:tengine_client_convert:Missing file."
 msgstr "Fichier manquant."
 
-msgid "tengine_client:action:tengine_client_convert:Refresh task"
-msgstr "Actualiser la tâche"
-
 #, php-format
 msgid "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
 msgstr "La tâche '%s' n'est pas terminée."
-
-msgid "tengine_client:action:tengine_client_convert:Task with id"
-msgstr "Tâche"
 
 #, php-format
 msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
 msgstr "Opération inconnue '%s'."
 
-msgid "tengine_client:action:tengine_client_convert:has been killed"
-msgstr "a été tuée"
+msgid "tengine_client:action:tengine_client_convert:conversion avancement"
+msgstr "Avancement de la conversion"
+
+msgid "tengine_client:action:tengine_client_convert:uploaded file"
+msgstr "Fichier à traiter"
 
 msgid "tengine_client:action:tengine_client_convert:with engine"
-msgstr "avec le moteur"
+msgstr "Moteur de transformation"
 
 msgid "tengine_client:action:tengine_client_params"
-msgstr "Paramétrage du client TE"
+msgstr "Configuration"
 
 msgid "tengine_client:action:tengine_client_selftests"
-msgstr "Selftests"
+msgstr "Éxécution des tests"
 
 msgid "tengine_client:action:tengine_client_selftests:Error"
 msgstr "Erreur"
@@ -169,10 +162,28 @@ msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
 msgstr "Opération inconnue '%s'."
 
 msgid "tengine_client:description"
-msgstr "Gestion de la librairie Transformation Engine Client"
+msgstr "Gestion de la connexion au moteur de transformation"
 
 msgid "tengine_client:short_name"
-msgstr "Gestion Transformation Engine Client"
+msgstr "Gestion moteur de transformation"
+
+#~ msgid "Malformed JSON response: %s"
+#~ msgstr "Réponse JSON malformée : %s"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Abort task"
+#~ msgstr "Annuler la tâche"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Error"
+#~ msgstr "Erreur"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Refresh task"
+#~ msgstr "Actualiser la tâche"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Task with id"
+#~ msgstr "Tâche"
+
+#~ msgid "tengine_client:action:tengine_client_convert:has been killed"
+#~ msgstr "a été tuée"
 
 #~ msgid "tengine_client_params:apply"
 #~ msgstr "Appliquer"
