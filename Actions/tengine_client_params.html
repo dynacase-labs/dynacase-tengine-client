@@ -54,19 +54,12 @@
         input[type="text"].ui-state-focus {
              background: #fdfdfd;
          }
-        #TE_TIMEOUT {
-          width:3em;
+	.editapplicationparameter {
+	  height: auto;
         }
-        #TE_URLINDEX {
-          width:30em;
-          text-align: left;
-        }
-        #TE_PORT {
-          width:5em;
-        }
-        #TE_HOST {
-          width:20em;
-          text-align: left;
+	.editapplicationparameter input[type=text] {
+           width: 50%;
+           text-align: left;
         }
     </style>
     <script language="JavaScript">
@@ -74,13 +67,16 @@
     </script>
 </head>
 <body>
-<div class="parameter-list">
-    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_ACTIVATE]
-    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_FULLTEXT]
-    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_HOST]
-    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_PORT]
-    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_URLINDEX]
-    [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_TIMEOUT]
-</div>
+  <h1>[TEXT:tengine_client:description]</h1>
+  <div class="panel">
+    <div class="parameter-list">
+      [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_ACTIVATE]
+      [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_FULLTEXT]
+      [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_HOST]
+      [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_PORT]
+      [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_URLINDEX]
+      [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_TIMEOUT]
+    </div>
+  </div>
 </body>
 </html>

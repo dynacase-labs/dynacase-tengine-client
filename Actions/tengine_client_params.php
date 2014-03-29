@@ -15,4 +15,5 @@ function tengine_client_params(Action & $action)
     $action->parent->AddCssRef("css/dcp/jquery-ui.css");
     $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
     $action->parent->AddJsRef("TENGINE_CLIENT/Layout/tengine_client_params.js");
+    $action->parent->AddCssRef("TENGINE_CLIENT/Layout/tengine_client.css");
 }
