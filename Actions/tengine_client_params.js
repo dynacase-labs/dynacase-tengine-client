@@ -2,7 +2,7 @@ $(document).ready(function () {
 // Handler for .ready() called.
 
 
-    $('input').button();
+    $('input, .ui-button').button();
     var buttons = "";
     $("select").each(function () {
         var rb = '', idrb = '';
@@ -52,4 +52,38 @@ $(document).ready(function () {
         }
 
     } );
+
+    $('#connectionstatus').hide();
+    $('#checkconnection').on('click', function() {
+	$('#connectionstatus').hide();
+	$('#TESVersion').hide();
+	$('#TESMaxClient').hide();
+	$('#errorMessage').hide(); 
+	$.ajax({
+            url: '?app=TENGINE_CLIENT&action=TENGINE_CLIENT_INFOS',
+            type: "POST",
+            success: function(data) {
+		console.log(data);
+		if (data.success) {
+		    $('#TESVersion .val').html(data.info.version).show();
+		    $('#TESVersion').show();
+		    $('#TESMaxClient .val').html(data.info.max_client);
+		    $('#TESMaxClient').show();
+		    $('#connectionstatus .status').html('OK').removeClass('ko').addClass('ok');
+		} else {
+		    $('#connectionstatus .status').html('ERROR').removeClass('ok').addClass('ko');
+		    $('#errorMessage').html(data.message).show(); 
+		}
+		$('#connectionstatus').show();
+	    },
+            error: function() { 
+		$('#errorMessage').html('Ooops, something is wrong...').show(); 
+		$('#connectionstatus .status').html('ERROR').removeClass('ok').addClass('ko');
+		$('#connectionstatus').show();
+	    }
+	});
+    });
+
+
+
 });

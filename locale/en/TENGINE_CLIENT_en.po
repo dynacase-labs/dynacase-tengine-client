@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-29 06:50+0100\n"
+"POT-Creation-Date: 2014-03-30 19:15+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -81,6 +81,9 @@ msgstr "Modified"
 msgid "tengine_client:acl:tengine_client"
 msgstr "Transformation Engine administration ACL"
 
+msgid "tengine_client:action:admin_actions_infos:short_name"
+msgstr ""
+
 msgid "tengine_client:action:admin_actions_list:short_name"
 msgstr "ADMIN_ACTIONS_LIST"
 
@@ -138,6 +141,15 @@ msgstr ""
 
 msgid "tengine_client:action:tengine_client_convert:with engine"
 msgstr "with engine"
+
+msgid "tengine_client:action:tengine_client_param:Check server connexion"
+msgstr ""
+
+msgid "tengine_client:action:tengine_client_param:max client"
+msgstr ""
+
+msgid "tengine_client:action:tengine_client_param:server version"
+msgstr ""
 
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Parameters"

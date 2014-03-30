@@ -5,69 +5,14 @@
     <title>[TEXT:tengine_client:action:tengine_client_params]</title>
     [CSS:CUSTOMREF]
     [JS:REF]
-
-    <style type="text/css">
-        .parameter-list {
-            padding: 1em;
-        }
-
-        .editapplicationparameter {
-            padding-bottom: 0.5em;
-            padding-top: 0.5em;
-            height: 4em;
-        }
-
-
-
-        .editsubmit > input[type="submit"] {
-            font-weight: bold;
-        }
-
-        form, .editapplicationparameter > div {
-
-            display: inline;
-        }
-        div[data-type=label] label {
-            display: inline-block;
-            width: 300px;
-            vertical-align: middle;
-        }
-        .editapplicationparameter:hover {
-            background-color: #e2e2e2;
-        }
-        .editapplicationparameter label.modified:after
-            {
-            content:" ([TEXT:te:modified])";
-            }
-        .editapplicationparameter label.modified
-            {
-            font-weight: bold;
-            }
-
-        label.ui-state-active {
-            font-weight: bold;
-        }
-        input[type="text"].ui-button {
-            background-color: #fdfdfd;
-            cursor:text;
-        }
-        input[type="text"].ui-state-focus {
-             background: #fdfdfd;
-         }
-	.editapplicationparameter {
-	  height: auto;
-        }
-	.editapplicationparameter input[type=text] {
-           width: 50%;
-           text-align: left;
-        }
+    <style>
+    .editapplicationparameter label.modified:after { content:" ([TEXT:te:modified])"; }
     </style>
-    <script language="JavaScript">
-
-    </script>
 </head>
 <body>
+  
   <h1>[TEXT:tengine_client:description]</h1>
+
   <div class="panel">
     <div class="parameter-list">
       [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_ACTIVATE]
@@ -78,5 +23,26 @@
       [ZONE FDL:EDITAPPLICATIONPARAMETER?appId=TENGINE_CLIENT&parameterId=TE_TIMEOUT]
     </div>
   </div>
+  
+
+  <div class="panel">
+
+    <button id="checkconnection" class="ui-button ui-corner-all ui-state-default" >[TEXT:tengine_client:action:tengine_client_param:Check server connexion]</button>
+
+    <div id="connectionstatus">
+      <span class="status"></span>
+      <span class="info val" id="errorMessage"></span>
+      <span class="info" id="TESVersion">
+	<span class="key">[TEXT:tengine_client:action:tengine_client_param:server version]</span>
+	<span class="val"></span>
+      </span>
+      <span class="info" id="TESMaxClient">
+	<span class="key">[TEXT:tengine_client:action:tengine_client_param:max client]</span>
+	<span class="val"></span>
+      </span>
+    </div>
+
+  </div>
+    
 </body>
 </html>
