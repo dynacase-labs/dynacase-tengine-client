@@ -13,18 +13,14 @@ body {
     padding: 5px 0 5px 0;
 }
 .panel.main label {
-    display: inline-block;
-    width: 30%;
-    text-align: right;
+    display: block;
     margin-right: 10px;
 }
 
 #tid, #engine  { 
     color:#AAA; 
-    backgroud-color: #ddd;
     border-radius: 3px;
     border-color: #d0d0d0;
-    font-size: 150%; 
 }
 
 #processinfo {

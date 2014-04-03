@@ -1,9 +1,13 @@
 $(document).ready(function () {
     
-    var cleanIHM = function() {
+    var url = $("#sendConversion").attr('action');
+    
+    var cleanIHM = function(init) {
+	if (init) {
+	    $("#sendConversion button").button().hide();
+	}
 	$( "input[type=submit], input[type=file], a" ).button();
 	$("#reqErrorMessage").hide();
-	$("#sendConversion button").button().hide();
 	$("#uploadResult button").button().hide();
 	$(".panel.result").hide();
 	$(".panel.error").hide();
@@ -15,13 +19,11 @@ $(document).ready(function () {
 	return;
     }
 
-    cleanIHM();
+    cleanIHM(true);
 
     $('#thefile').on('change', function() {
 	$("#sendConversion button").button().show();
     });
-
-    var url = $("#sendConversion").attr('action');
 
     var logInfos = function(infos) { 
 	var infos = infos;
@@ -75,7 +77,7 @@ $(document).ready(function () {
 
     $("#sendConversion").on("submit", function(event) {
 
-	cleanIHM();
+	cleanIHM(false);
 	var formData = new FormData(document.getElementById('sendConversion'));
 	formData.append("op", "convert");
         $.ajax({
@@ -99,4 +101,26 @@ $(document).ready(function () {
         });
 	event.preventDefault();
     });
+
+    $.ajax({
+	url: url+"&op=engines",
+	type: "GET",
+	success: function(data) {
+	    if (!data.success) {
+		$(".panel.error").html("[TEXT:tengine_client_selftests:server communication error]<br/>"+data.message).css('display', 'block');
+	    } else {
+		for (var io=0; io<data.info.length; io++) {
+		    $("#engine").append("<option value='"+data.info[io].name+"'>"+data.info[io].name+' ('+data.info[io].mime+")</option>");
+		    
+		}
+		$("#engine").css('display', 'inline');
+	    }
+	},
+	error:  function() {
+	    $(".panel.error").html('Oooops, something wrong happens').css('display', 'block');
+	}
+    });
+    
+
+
 });

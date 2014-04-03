@@ -17,19 +17,21 @@ function tengine_client_convert(Action & $action)
     $usage->verify(true);
     
     editmode($action);
-    $action->parent->AddCssRef("css/dcp/jquery-ui.css");
-    $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
-    $action->parent->AddJsRef("TENGINE_CLIENT/Layout/tengine_client_convert.js");
-    $action->parent->AddCssRef("TENGINE_CLIENT/Layout/tengine_client.css");
-   
-    $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
-    $action->lay->eSet('ACTIONNAME', strtoupper($action->name));
-    
     switch ($op) {
         case '':
-            $err = _main($action);
-            $action->lay->set('ERROR', ($err != ''));
-            $action->lay->eSet('ERRMSG', $err);
+            $action->parent->AddCssRef("css/dcp/jquery-ui.css");
+            $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
+            $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client_convert.js", true);
+            $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client.css");
+            $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
+            $action->lay->eSet('ACTIONNAME', strtoupper($action->name));
+            break;
+
+        case 'engines':
+            $response = _getEngines($action, $file, $engine);
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
             break;
 
         case 'convert':
@@ -68,31 +70,28 @@ function _uploadErrorConst($errorCode)
     return $errorCode;
 }
 
-function _main(Action & $action)
+function _getEngines(Action & $action)
 {
+    $response = array( "success" => false, "message" => "Unknow error", "info" => null); 
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
-        return $err;
+        $response['success'] = false;
+        $response['message'] = $err;
+    } else {
+        $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+        $err = $te->retrieveEngines($engines);
+        if ($err != '') {
+            $response['success'] = false;
+            $response['message'] = $err;
+        } else {
+
+            $enginesList = array();
+            $response['success'] = true;
+            $response['message'] = "";
+            $response['info'] = $engines;
+        }
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
-    $err = $te->retrieveEngines($engines);
-    if ($err != '') {
-        return $err;
-    }
-    $enginesList = array();
-    foreach ($engines as & $engine) {
-        $enginesList[$engine['name']] = 1;
-    }
-    $enginesList = array_keys($enginesList);
-    array_walk($enginesList, function (&$el)
-    {
-        $el = array(
-            'ENGINE_NAME' => $el
-        );
-    });
-    $action->lay->eSetBlockData('ENGINES', $enginesList);
-    $action->lay->set('SHOW_MAIN', true);
-    return '';
+    return $response;
 }
 
 function _convert(Action & $action, $filename, $engineName)
