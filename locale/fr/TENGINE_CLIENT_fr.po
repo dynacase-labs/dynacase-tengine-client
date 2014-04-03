@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-03 10:21+0200\n"
+"POT-Creation-Date: 2014-04-03 14:30+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,9 @@ msgstr ""
 
 msgid "tengine_client:action:admin_actions_list:short_name"
 msgstr "ADMIN_ACTIONS_LIST"
+
+msgid "tengine_client:action:supported mimes"
+msgstr "liste des types mimes supportés par ce moteur"
 
 msgid "tengine_client:action:tengine_client_convert"
 msgstr "Test unitaire"
@@ -172,6 +175,9 @@ msgstr "Opération inconnue '%s'."
 
 msgid "tengine_client:description"
 msgstr "Gestion de la connexion au moteur de transformation"
+
+msgid "tengine_client:see supported mimes"
+msgstr "Types mimes supportés"
 
 msgid "tengine_client:short_name"
 msgstr "Gestion moteur de transformation"

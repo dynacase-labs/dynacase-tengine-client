@@ -1,17 +1,20 @@
 $(document).ready(function () {
     
     var url = $("#sendConversion").attr('action');
-    
+    var engines = null;
+
     var cleanIHM = function(init) {
 	if (init) {
 	    $("#sendConversion button").button().hide();
+	    $("#showmimeengine").hide();
 	}
-	$( "input[type=submit], input[type=file], a" ).button();
+	$( "input[type=submit], input[type=file]" ).button();
 	$("#reqErrorMessage").hide();
 	$("#uploadResult button").button().hide();
 	$(".panel.result").hide();
 	$(".panel.error").hide();
 	$("#processinfo").empty();
+	$(".mimeslist").hide();
     };
     
     if (!window.FormData) {
@@ -20,6 +23,24 @@ $(document).ready(function () {
     }
 
     cleanIHM(true);
+
+    $('#showmimeengine')
+	.on('click', function() {
+	    $("#mimeslist").empty();
+	    var currentEngine = $("#engine option:selected").val()
+	    if (engines[currentEngine] !== undefined) {
+		$("#curengine").html(currentEngine);
+		for (var im=0; im<engines[currentEngine].mimes.length; im++) {
+		    $("#mimeslist").append($("<div />").html(engines[currentEngine].mimes[im]));
+		}
+	    }
+	    $(".mimeslist").show();
+	});
+    $('#engine')
+	.on('change', function() {
+	    $(".mimeslist").hide();
+	});
+
 
     $('#thefile').on('change', function() {
 	$("#sendConversion button").button().show();
@@ -109,11 +130,15 @@ $(document).ready(function () {
 	    if (!data.success) {
 		$(".panel.error").html("[TEXT:tengine_client_selftests:server communication error]<br/>"+data.message).css('display', 'block');
 	    } else {
-		for (var io=0; io<data.info.length; io++) {
-		    $("#engine").append("<option value='"+data.info[io].name+"'>"+data.info[io].name+' ('+data.info[io].mime+")</option>");
-		    
+		engines = data.info;
+		console.log(engines);
+		for (var key in data.info) {
+		    if (data.info.hasOwnProperty(key)) {
+			$("#engine").append("<option value='"+key+"'>"+key+"</option>");
+		    }
 		}
 		$("#engine").css('display', 'inline');
+		$("#showmimeengine").show();
 	    }
 	},
 	error:  function() {

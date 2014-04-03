@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-03 10:21+0200\n"
+"POT-Creation-Date: 2014-04-03 14:30+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -86,6 +86,9 @@ msgstr ""
 
 msgid "tengine_client:action:admin_actions_list:short_name"
 msgstr "ADMIN_ACTIONS_LIST"
+
+msgid "tengine_client:action:supported mimes"
+msgstr ""
 
 msgid "tengine_client:action:tengine_client_convert"
 msgstr "Convert a file"
@@ -169,6 +172,9 @@ msgstr "Unknown op '%s'."
 
 msgid "tengine_client:description"
 msgstr "Manage Transformation Engine Client library"
+
+msgid "tengine_client:see supported mimes"
+msgstr ""
 
 msgid "tengine_client:short_name"
 msgstr "Transformation Engine Client"

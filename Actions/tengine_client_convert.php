@@ -86,9 +86,15 @@ function _getEngines(Action & $action)
         } else {
 
             $enginesList = array();
+            foreach ($engines as $engine) {
+                if (!isset($enginesList[$engine['name']])) {
+                    $enginesList[$engine['name']]['mimes'] = array();
+                }
+                $enginesList[$engine['name']]['mimes'][] = $engine['mime'];
+            }
             $response['success'] = true;
             $response['message'] = "";
-            $response['info'] = $engines;
+            $response['info'] = $enginesList;
         }
     }
     return $response;

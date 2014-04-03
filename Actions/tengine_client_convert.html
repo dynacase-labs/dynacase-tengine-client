@@ -15,8 +15,13 @@
 	<input id="thefile" name="file" type="file" />
       </div>
       <div class="input">
-	<label>[TEXT:tengine_client:action:tengine_client_convert:with engine]</label>
+	<label>[TEXT:tengine_client:action:tengine_client_convert:with engine] <a id="showmimeengine">[[TEXT:tengine_client:see supported mimes]]</a></label>	
         <select id="engine" name="engine" style="display:none"></select>
+
+      </div>
+      <div class="mimeslist">
+	<div class="title"><span id="curengine"></span>, [TEXT:tengine_client:action:supported mimes]</div>
+	<div id="mimeslist" class="mimes"></div>
       </div>
       <div class="input">
 	<label></label>

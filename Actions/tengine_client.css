@@ -48,7 +48,7 @@ body {
 .task .status.status_W { background-color: rgba(248, 235, 138, 0.35); }
 .task .status.status_P { background-color: rgba(138, 248, 147, 0.35); }
 .task .status.status_D { background-color: rgba(138, 248, 147, 0.97); }
-.task .status.status_K { background-color: rgba(0,0,0,0.20); }
+.task .status.status_K { background-color: rgba(255, 69, 69, 0.64); }
 .task .status.status_I { background-color: rgba(0,0,0,0.20); }
 
 
@@ -147,4 +147,18 @@ input[type="text"].ui-state-focus {
 }
 #connectionstatus .key::after {
     content: ":";
+}
+
+.mimeslist {
+    color: #545454;
+}
+.mimeslist .title {
+    text-decoration: underline;
+}
+.mimeslist .mimes div {
+    font-size: 85%;
+    padding: 0 5px 0 15px;
+}
+#showmimeengine {
+    font-size: 85%;
 }
