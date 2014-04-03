@@ -46,7 +46,7 @@ $(document).ready(function () {
 	}
     });
 
-    $("#sendConversion").on("submit", function() {
+    $("#sendConversion").on("submit", function(event) {
 	$("#results").empty();
 	var formData = new FormData(document.getElementById("sendConversion"));
 	var idConv = $("#testid option:selected").val();
