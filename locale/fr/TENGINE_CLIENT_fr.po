@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-30 19:15+0200\n"
+"POT-Creation-Date: 2014-04-03 10:21+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -160,9 +160,6 @@ msgstr "Configuration"
 msgid "tengine_client:action:tengine_client_selftests"
 msgstr "Éxécution des tests"
 
-msgid "tengine_client:action:tengine_client_selftests:Error"
-msgstr "Erreur"
-
 msgid "tengine_client:action:tengine_client_tasks"
 msgstr "Tâches et historique"
 
@@ -178,6 +175,21 @@ msgstr "Gestion de la connexion au moteur de transformation"
 
 msgid "tengine_client:short_name"
 msgstr "Gestion moteur de transformation"
+
+msgid "tengine_client_selftests:all engines"
+msgstr "sélection de tous les moteurs de transformation"
+
+msgid "tengine_client_selftests:please select engine to test"
+msgstr "merci de sélectionner le moteur à tester"
+
+msgid "tengine_client_selftests:run server selected test"
+msgstr "Lancer le test…"
+
+msgid "tengine_client_selftests:server communication error"
+msgstr "Erreur de communication avec le serveur"
+
+msgid "tengine_client_selftests:server engines tests"
+msgstr "Test des moteurs installés sur le serveur"
 
 #~ msgid "Malformed JSON response: %s"
 #~ msgstr "Réponse JSON malformée : %s"
@@ -197,8 +209,14 @@ msgstr "Gestion moteur de transformation"
 #~ msgid "tengine_client:action:tengine_client_convert:has been killed"
 #~ msgstr "a été tuée"
 
+#~ msgid "tengine_client:action:tengine_client_selftests:Error"
+#~ msgstr "Erreur"
+
 #~ msgid "tengine_client_params:apply"
 #~ msgstr "Appliquer"
 
 #~ msgid "tengine_client_params:reload"
 #~ msgstr "Recharger"
+
+#~ msgid "tengine_client_selftests:download result file"
+#~ msgstr "télécharger le résultat"

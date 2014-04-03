@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-30 19:15+0200\n"
+"POT-Creation-Date: 2014-04-02 18:01+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -157,9 +157,6 @@ msgstr "Parameters"
 msgid "tengine_client:action:tengine_client_selftests"
 msgstr "Selftests"
 
-msgid "tengine_client:action:tengine_client_selftests:Error"
-msgstr "Error"
-
 msgid "tengine_client:action:tengine_client_tasks"
 msgstr "Tasks and history"
 
@@ -176,6 +173,21 @@ msgstr "Manage Transformation Engine Client library"
 msgid "tengine_client:short_name"
 msgstr "Transformation Engine Client"
 
+msgid "tengine_client_selftests:all engines"
+msgstr ""
+
+msgid "tengine_client_selftests:download result file"
+msgstr ""
+
+msgid "tengine_client_selftests:please select engine to test"
+msgstr ""
+
+msgid "tengine_client_selftests:run server selected test"
+msgstr ""
+
+msgid "tengine_client_selftests:server engines tests"
+msgstr ""
+
 #~ msgid "tengine_client:action:tengine_client_convert:Abort task"
 #~ msgstr "Abort task"
 
@@ -190,6 +202,9 @@ msgstr "Transformation Engine Client"
 
 #~ msgid "tengine_client:action:tengine_client_convert:has been killed"
 #~ msgstr "has been killed"
+
+#~ msgid "tengine_client:action:tengine_client_selftests:Error"
+#~ msgstr "Error"
 
 #~ msgid "tengine_client_params:apply"
 #~ msgstr "Apply"
