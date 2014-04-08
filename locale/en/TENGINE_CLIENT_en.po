@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-03 14:30+0200\n"
+"POT-Creation-Date: 2014-04-15 04:51+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -53,6 +53,163 @@ msgstr ""
 msgid "Returned data is not of array type (%s)"
 msgstr ""
 
+msgid "TE:Client:(filtered from _MAX_ total records)"
+msgstr ""
+
+msgid "TE:Client:Abort"
+msgstr ""
+
+msgid "TE:Client:Client count"
+msgstr ""
+
+msgid "TE:Client:Datas"
+msgstr ""
+
+msgid "TE:Client:Date"
+msgstr ""
+
+msgid "TE:Client:Display _MENU_ tasks per page"
+msgstr ""
+
+msgid "TE:Client:Document"
+msgstr ""
+
+msgid "TE:Client:Engine"
+msgstr ""
+
+msgid "TE:Client:Error task count"
+msgstr ""
+
+msgid "TE:Client:Filename"
+msgstr ""
+
+msgid "TE:Client:Interrupted task count"
+msgstr ""
+
+msgid "TE:Client:Log"
+msgstr ""
+
+msgid "TE:Client:Nothing found - sorry"
+msgstr ""
+
+msgid "TE:Client:Owner"
+msgstr ""
+
+msgid "TE:Client:Processing task count"
+msgstr ""
+
+msgid "TE:Client:Server system load"
+msgstr ""
+
+msgid "TE:Client:Showing 0 to 0 of 0 records"
+msgstr ""
+
+msgid "TE:Client:Showing _START_ to _END_ of _TOTAL_ records"
+msgstr ""
+
+msgid "TE:Client:Status"
+msgstr ""
+
+msgid "TE:Client:Stop counters update"
+msgstr ""
+
+msgid "TE:Client:Success task count"
+msgstr ""
+
+msgid "TE:Client:Task Id"
+msgstr ""
+
+msgid "TE:Client:Transferring task count"
+msgstr ""
+
+msgid "TE:Client:Waiting task count"
+msgstr ""
+
+msgid "TE:Client:reset filters"
+msgstr ""
+
+msgid "TE:Client:reset filters and reload tasks"
+msgstr ""
+
+msgid "TE:Client:sFirst"
+msgstr ""
+
+msgid "TE:Client:sLast"
+msgstr ""
+
+msgid "TE:Client:sLoadingRecords"
+msgstr ""
+
+msgid "TE:Client:sNext"
+msgstr ""
+
+msgid "TE:Client:sPrevious"
+msgstr ""
+
+msgid "TE:Client:sProcessing"
+msgstr ""
+
+msgid "TE:Client:sSearch"
+msgstr ""
+
+msgid "TE:Client:sZeroRecords"
+msgstr ""
+
+msgid "TE:Client:search date"
+msgstr ""
+
+msgid "TE:Client:search document"
+msgstr ""
+
+msgid "TE:Client:search engines"
+msgstr ""
+
+msgid "TE:Client:search filename"
+msgstr ""
+
+msgid "TE:Client:search owner"
+msgstr ""
+
+msgid "TE:Client:search status:"
+msgstr ""
+
+msgid "TE:Client:search task id"
+msgstr ""
+
+msgid "TE:Client:stop task processing and clean working datas"
+msgstr ""
+
+msgid "TE:Status:All"
+msgstr ""
+
+msgid "TE:Status:Begin"
+msgstr ""
+
+msgid "TE:Status:Error"
+msgstr ""
+
+msgid "TE:Status:Interrupted"
+msgstr ""
+
+msgid "TE:Status:Processing"
+msgstr ""
+
+msgid "TE:Status:Recovered"
+msgstr ""
+
+msgid "TE:Status:Success"
+msgstr ""
+
+msgid "TE:Status:Transferring"
+msgstr ""
+
+#, php-format
+msgid "TE:Status:Unknown [%s]"
+msgstr ""
+
+msgid "TE:Status:Waiting"
+msgstr ""
+
 msgid "Transformation Engine callback url"
 msgstr ""
 
@@ -69,10 +226,19 @@ msgstr ""
 msgid "Unexpected handshake message: %s"
 msgstr ""
 
+msgid "abort command execution fails"
+msgstr ""
+
 msgid "empty file"
 msgstr ""
 
 msgid "socket creation error"
+msgstr ""
+
+msgid "task aborting fails"
+msgstr ""
+
+msgid "task successfully aborted"
 msgstr ""
 
 msgid "te:modified"
@@ -163,9 +329,6 @@ msgstr "Selftests"
 msgid "tengine_client:action:tengine_client_tasks"
 msgstr "Tasks and history"
 
-msgid "tengine_client:action:tengine_client_tasks:Error"
-msgstr "Error"
-
 #, php-format
 msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
 msgstr "Unknown op '%s'."
@@ -194,6 +357,9 @@ msgstr ""
 msgid "tengine_client_selftests:server engines tests"
 msgstr ""
 
+msgid "tengine_client_tasks:task logbook"
+msgstr ""
+
 #~ msgid "tengine_client:action:tengine_client_convert:Abort task"
 #~ msgstr "Abort task"
 
@@ -210,6 +376,9 @@ msgstr ""
 #~ msgstr "has been killed"
 
 #~ msgid "tengine_client:action:tengine_client_selftests:Error"
+#~ msgstr "Error"
+
+#~ msgid "tengine_client:action:tengine_client_tasks:Error"
 #~ msgstr "Error"
 
 #~ msgid "tengine_client_params:apply"

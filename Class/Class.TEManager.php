@@ -25,4 +25,24 @@ class Manager {
         } 
         return "";
     }
+    
+    
+    /**
+     * check if TE is accessible
+     * @return string error message, if no error empty string
+     */
+    public static function isAccessible() {
+        $err = self::checkParameters();
+        if ($err != '') {
+            return $err;
+        } else {
+            $te = new \Dcp\TransformationEngine\Client( \ApplicationParameterManager::getScopedParameterValue("TE_HOST"), \ApplicationParameterManager::getScopedParameterValue("TE_PORT") );
+            $err = $te->retrieveServerInfo($info, true);
+            if ($err != '') {
+                return $err;
+            }
+        }
+        return '';
+    }
+
 }

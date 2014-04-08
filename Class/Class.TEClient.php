@@ -25,6 +25,15 @@ class ClientException extends \Exception
 
 class Client
 {
+    
+    const TASK_STATE_BEGINNING = 'B'; // C/S start of transaction
+    const TASK_STATE_TRANSFERRING = 'T'; // Data (file) transfer is in progress
+    const TASK_STATE_ERROR = 'K'; // Job ends with error
+    const TASK_STATE_SUCCESS = 'D'; // Job ends successfully
+    const TASK_STATE_RECOVERED = 'R'; // Data recovered by client
+    const TASK_STATE_PROCESSING = 'P'; // Engine is running
+    const TASK_STATE_WAITING = 'W'; // Job registered, waiting to start engine
+    const TASK_STATE_INTERRUPTED = 'I'; // Job was interrupted
     const error_connect = - 2;
     const error_noengine = - 3;
     const error_sendfile = - 4;
@@ -51,8 +60,8 @@ class Client
      */
     function __construct($host, $port)
     {
-       $this->host = $host;
-       $this->port = $port;
+        $this->host = $host;
+        $this->port = $port;
     }
     /**
      * send a request to do a transformation
