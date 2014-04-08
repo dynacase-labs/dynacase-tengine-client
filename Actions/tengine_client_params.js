@@ -63,7 +63,6 @@ $(document).ready(function () {
             url: '?app=TENGINE_CLIENT&action=TENGINE_CLIENT_INFOS',
             type: "POST",
             success: function(data) {
-		console.log(data);
 		if (data.success) {
 		    $('#TESVersion .val').html(data.info.version).show();
 		    $('#TESVersion').show();
