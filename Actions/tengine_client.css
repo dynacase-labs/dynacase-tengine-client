@@ -6,19 +6,43 @@ body {
 .page { margin : 20px; }
 .error { background-color: #ffeeee; }
 
-.message {
-    color: #757575;
-    text-shadow: 1px 0 0 #fff;
-    background: rgb(243, 243, 243);
-    font-weight: bold;
+.message-box {
+    color: #FFF;
+    background: #545454;
     text-align: center;
-    padding: 20px 0 20px 0;
-    border-bottom: 1px solid #ccc;
+    padding:15px 0 0 0;
+    border-bottom: 1px solid #666;
+    box-shadow: 0 8px 14px rgba(0,0,0,0.65);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
-.message .error { color: #F00; } 
-.message .warning { color: rgb(224, 133, 16); } 
-.message .default { color: #56878B; } 
-
+.message-box .message-content {
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid #666;
+    margin: 0 auto 0 auto;
+    width: 70%;
+    font-size: 120%;
+}
+.message-box .message-content:last-child {
+    border-bottom: 0;
+    margin: 0 auto 15px auto;
+}
+.message-box .level-error   { color: #FF6161; } 
+.message-box .level-warning { color: #FFD680; } 
+.message-box .level-info    { color: #C9C9C9; } 
+.message-box a.close-message-box:hover,
+.message-box a.close-message-box {
+    margin: 0 10px 0 0;
+    display: inline-block;
+    float: right;
+    color: #FFF;
+    font-size: 140%;
+    font-weight: bold;
+    background: inherit;
+    text-decoration: none;
+}
 .clear { clear: both; }
 .panel {
     padding: 20px;

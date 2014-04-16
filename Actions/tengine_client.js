@@ -1,41 +1,53 @@
 var globalMessage = {
-    duration: 1000,
-    timeout: null,
+    fadeInDuration: 5000,
+    fadeOutDuration: 5000,
     hide: function() {
-	console.log('hide',this);
-	if (this.timeout!=null) clearTimeout(this.timeout);
-	$('#global-message').fadeOut({
-	    duration: 300,
+	$('#global-message').fadeOut({ 
+	    duration: this.duration,
 	    complete: function() {
-		$('#global-message').empty();
+		$('#global-message .message-content').remove();
 	    }
 	});
     },
     show: function(msg, level) {
-	this.display(msg, level, false);
-    },
-    display: function(msg, level, autoHide) {
-	var levelCss = 'info';
+	var gm = this;
+	var levelCss = 'level-info';
 	switch(level) {
 	case 'warning' :
 	case 'error' : 
-	    levelCss = level;
+	    levelCss = 'level-'+level;
+	    levelCss = 'level-'+level;
 	    break;
 	};
-	if (this.timeout!=null) clearTimeout(this.timeout);
 	if ($('#global-message')[0] == undefined) {
-	    $('body').prepend($('<div/>', { id:'global-message'}).addClass('message').css('display', 'none'));
+	    $('body')
+		.prepend(
+		    $('<div/>', { id:'global-message'})
+			.addClass('message-box')
+			.css('display', 'none')
+			.on('click', function () {
+			    gm.hide();
+			})
+			.append(
+			    $('<a/>')
+				.html('×')
+				.attr('title','[TEXT:TE:Client:close message box]')
+				.addClass('close-message-box')
+				.on('click', function () {
+				    gm.hide();
+				})
+			)
+		);
 	}
-	var gm = this;
+	
 	$('#global-message')
-	    .append($('<div/>').html(msg).addClass(levelCss))
-	    .fadeIn( {
-		duration: 500,
-    		complete: function() {
-		    console.log('show',gm);
-		    if (autoHide) gm.timeout = setTimeout(globalMessage.hide, gm.duration);
-		}
-    	    });
+	    .append(
+		$('<div/>')
+		    .html(msg)
+		    .addClass('message-content')
+		    .addClass(levelCss)
+	    )
+	    .fadeIn( { duration: 500 });
 	return this;
     }
 };
