@@ -21,6 +21,7 @@ function tengine_client_convert(Action & $action)
         case '':
             $action->parent->AddCssRef("css/dcp/jquery-ui.css");
             $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
+            $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client.js", true);
             $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client_convert.js", true);
             $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client.css");
             $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
@@ -46,7 +47,7 @@ function tengine_client_convert(Action & $action)
             header('Content-Type: application/json');
             echo json_encode($response);
             exit;
-           break;
+            break;
 
         case 'get':
             $response = _get($action, $tid);
@@ -72,19 +73,23 @@ function _uploadErrorConst($errorCode)
 
 function _getEngines(Action & $action)
 {
-    $response = array( "success" => false, "message" => "Unknow error", "info" => null); 
+    $response = array(
+        "success" => false,
+        "message" => "Unknow error",
+        "info" => null
+    );
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
         $response['success'] = false;
         $response['message'] = $err;
     } else {
-        $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+        $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
         $err = $te->retrieveEngines($engines);
         if ($err != '') {
             $response['success'] = false;
             $response['message'] = $err;
         } else {
-
+            
             $enginesList = array();
             foreach ($engines as $engine) {
                 if (!isset($enginesList[$engine['name']])) {
@@ -102,7 +107,11 @@ function _getEngines(Action & $action)
 
 function _convert(Action & $action, $filename, $engineName)
 {
-    $response = array( "success" => true, "message" => "", "info" => null); 
+    $response = array(
+        "success" => true,
+        "message" => "",
+        "info" => null
+    );
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
         $response['success'] = false;
@@ -117,10 +126,7 @@ function _convert(Action & $action, $filename, $engineName)
     }
     if (isset($_FILES['file']['error']) && $_FILES['file']['error'] != UPLOAD_ERR_OK) {
         $response['success'] = false;
-        $response['message'] = 
-            sprintf(
-                _("tengine_client:action:tengine_client_convert:Error in file upload: %s") , 
-                _uploadErrorConst($_FILES['file']['error']));
+        $response['message'] = sprintf(_("tengine_client:action:tengine_client_convert:Error in file upload: %s") , _uploadErrorConst($_FILES['file']['error']));
         return $response;
     }
     if (($tmpfile = tempnam(getTmpDir() , '_convert_')) === false) {
@@ -133,7 +139,7 @@ function _convert(Action & $action, $filename, $engineName)
         $response['message'] = sprintf(_("tengine_client:action:tengine_client_convert:Error moving uploaded file to '%s'.") , getTmpDir());
         return $response;
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $taskInfo = array();
     $err = $te->sendTransformation($engineName, basename($tmpfile) , $tmpfile, '', $taskInfo);
     $response['success'] = ($err != "" ? false : true);
@@ -144,14 +150,18 @@ function _convert(Action & $action, $filename, $engineName)
 
 function _info(Action & $action, $tid)
 {
-    $response = array( "success" => true, "message" => "", "info" => null); 
+    $response = array(
+        "success" => true,
+        "message" => "",
+        "info" => null
+    );
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
         $response['success'] = false;
         $response['message'] = $err;
         return $response;
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $info = array();
     $err = $te->getInfo($tid, $info);
     if ($err != '') {
@@ -165,20 +175,24 @@ function _info(Action & $action, $tid)
 
 function _get(Action & $action, $tid)
 {
-    $response = array( "success" => true, "message" => "", "info" => null); 
+    $response = array(
+        "success" => true,
+        "message" => "",
+        "info" => null
+    );
     require_once ('WHAT/Lib.FileMime.php');
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
         $response['success'] = false;
         $response['message'] = $err;
         return $response;
-    }    
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $info = array();
     $err = $te->getInfo($tid, $info);
     if ($err != '') {
         $response['success'] = false;
-        $response['message'] = sprintf(_("tengine_client:action:tengine_client_convert:Error fetching task info with id '%s': %s"), $tid, $err);
+        $response['message'] = sprintf(_("tengine_client:action:tengine_client_convert:Error fetching task info with id '%s': %s") , $tid, $err);
         return $response;
     }
     if ($info['status'] !== 'D') {

@@ -3,7 +3,7 @@
  * @author Anakeen
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package FDL
- */
+*/
 
 require_once "FDL/editutil.php";
 
@@ -14,6 +14,7 @@ function tengine_client_params(Action & $action)
     editmode($action);
     $action->parent->AddCssRef("css/dcp/jquery-ui.css");
     $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
-    $action->parent->AddJsRef("TENGINE_CLIENT/Layout/tengine_client_params.js");
-    $action->parent->AddCssRef("TENGINE_CLIENT/Layout/tengine_client.css");
+    $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client.js", true);
+    $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client_params.js", true);
+    $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client.css");
 }

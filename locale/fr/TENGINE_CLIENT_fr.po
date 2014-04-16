@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-15 04:51+0200\n"
-"PO-Revision-Date: 2014-04-14 16:05+0100\n"
+"POT-Creation-Date: 2014-04-16 07:10+0200\n"
+"PO-Revision-Date: 2014-04-16 07:14+0100\n"
 "Last-Translator: Anakeen Labs <labs@anakeen.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -128,6 +128,11 @@ msgstr "Nombre de tâches en cours de transfert"
 msgid "TE:Client:Waiting task count"
 msgstr "Nombre de tâches en attente de traitement"
 
+msgid "TE:Client:not fully supported server version, need server version "
+msgstr ""
+"La version de votre serveur ne supporte pas complètement les fonctions de "
+"cette interface. La version nécessaire est la"
+
 msgid "TE:Client:reset filters"
 msgstr "Mise à jour"
 
@@ -181,6 +186,9 @@ msgstr "rechercher par identicateur de tâche"
 
 msgid "TE:Client:stop task processing and clean working datas"
 msgstr "Annule le traitement de la tâche et nettoie les données de travail"
+
+msgid "TE:Client:unsupported server version"
+msgstr "Version serveur non supportée."
 
 msgid "TE:Status:All"
 msgstr "Tous"
@@ -261,7 +269,7 @@ msgid "tengine_client:action:supported mimes"
 msgstr "liste des types mimes supportés par ce moteur"
 
 msgid "tengine_client:action:tengine_client_convert"
-msgstr "Test unitaire"
+msgstr "Transformation d'un fichier"
 
 msgid "tengine_client:action:tengine_client_convert:Convert"
 msgstr "Traitement unitaire de la conversion d'un fichier"
@@ -331,20 +339,20 @@ msgid "tengine_client:action:tengine_client_selftests"
 msgstr "Éxécution des tests serveur"
 
 msgid "tengine_client:action:tengine_client_tasks"
-msgstr "Surveillance serveur"
+msgstr "Surveillance"
 
 #, php-format
 msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
 msgstr "Opération inconnue '%s'."
 
 msgid "tengine_client:description"
-msgstr "Gestion de la connexion au moteur de transformation"
+msgstr "Gestion et surveillance du serveur de transformation"
 
 msgid "tengine_client:see supported mimes"
 msgstr "Types mimes supportés"
 
 msgid "tengine_client:short_name"
-msgstr "Gestion moteur de transformation"
+msgstr "Serveur de transformation"
 
 msgid "tengine_client_selftests:all engines"
 msgstr "sélection de tous les moteurs de transformation"

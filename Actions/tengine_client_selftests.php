@@ -9,8 +9,12 @@ function tengine_client_selftests(Action & $action)
 {
     require_once "FDL/editutil.php";
     
-    $response = array( "success" => false, "message" => "error", "info" => null); 
-
+    $response = array(
+        "success" => false,
+        "message" => "error",
+        "info" => null
+    );
+    
     $usage = new ActionUsage($action);
     $op = $usage->addOptionalParameter('op', 'Operation');
     $selftestid = $usage->addOptionalParameter('selftestid', 'Selectest id to execute');
@@ -23,6 +27,7 @@ function tengine_client_selftests(Action & $action)
             $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client.css");
             $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client_selftests.css", true);
             $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
+            $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client.js", true);
             $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client_selftests.js", true);
             
             $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
@@ -53,14 +58,26 @@ function _getengines(Action & $action)
 {
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
-        $response = array( 'success' => false, 'message' => $err, 'info' => null );
+        $response = array(
+            'success' => false,
+            'message' => $err,
+            'info' => null
+        );
     } else {
-        $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+        $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
         $err = $te->retrieveSelftests($selftests);
         if ($err != '') {
-            $response = array( 'success' => false, 'message' => $err, 'info' => null );
+            $response = array(
+                'success' => false,
+                'message' => $err,
+                'info' => null
+            );
         } else {
-            $response = array( 'success' => true, 'message' => $err, 'info' => $selftests );
+            $response = array(
+                'success' => true,
+                'message' => $err,
+                'info' => $selftests
+            );
         }
     }
     return $response;
@@ -70,14 +87,26 @@ function _selftest(Action & $action, $selftestid)
 {
     $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
-        return $response = array( 'success' => false, 'message' => $err, 'info' => null );
+        return $response = array(
+            'success' => false,
+            'message' => $err,
+            'info' => null
+        );
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $err = $te->executeSelftest($result, $selftestid);
     if ($err != '') {
-        $response = array( 'success' => false, 'message' => $err, 'info' => null );
+        $response = array(
+            'success' => false,
+            'message' => $err,
+            'info' => null
+        );
     } else {
-        $response = array( 'success' => true, 'message' => $err, 'info' => $result );
+        $response = array(
+            'success' => true,
+            'message' => $err,
+            'info' => $result
+        );
     }
     return $response;
 }
@@ -95,7 +124,7 @@ function _tasks(Action & $action, $select)
     if ($err != '') {
         return $err;
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $err = $te->retrieveTasks($tasks, $args['start'], $args['length'], $args['orderby'], $args['sort'], $args['filter']);
     if ($err != '') {
         return $err;
@@ -110,7 +139,7 @@ function _histo(Action & $action, $tid)
     if ($err != '') {
         return $err;
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $err = $te->retrieveTaskHisto($histo, $tid);
     if ($err != '') {
         return $err;
@@ -126,6 +155,6 @@ function _abort(Action & $action, $tid)
     if ($err != '') {
         return $err;
     }
-    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST"), $action->getParam("TE_PORT"));
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     return $te->eraseTransformation($tid);
 }

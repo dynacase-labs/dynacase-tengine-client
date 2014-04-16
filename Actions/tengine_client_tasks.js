@@ -1,23 +1,6 @@
-var generalMessage = {
-    duration: 10000,
-    timeout: null,
-    hide: function() {
-	if (this.timeout!=null) clearTimeout(this.timeout);
-	$('#general-message').empty().css('display', 'none');
-	return this;
-    },
-    display: function(msg) {
-	if (this.timeout!=null) clearTimeout(this.timeout);
-	$('#general-message')
-	    .append($('<div/>').html(msg))
-	    .css('display', 'block');
-	this.timeout = setTimeout(this.hide, this.duration);
-	return this;
-    }
-};
-
-
 $(document).ready(function () {
+
+    var serverApiOk = false;
 
     var countersUpdateInterval = 5000;
     var url = "?app=TENGINE_CLIENT&action=TENGINE_CLIENT_TASKS";
@@ -70,14 +53,14 @@ $(document).ready(function () {
 			    type: "GET",
 			    success: function(data) {
 				if (data.success) {
-				    generalMessage.display('[TEXT:task successfully aborted] ('+aData.tid+')');
+				    globalMessage.show('[TEXT:task successfully aborted] ('+aData.tid+')', 'info');
 				    logbook.fnDraw();
 				} else {
-				    actionError(actions, "[TEXT:task aborting fails]"+'<br/>'+data.message);
+				    globalMessage.show("[TEXT:task aborting fails]"+'<br/>'+data.message, 'warning');
 				}
 			    },
 			    error:  function() {
-				actionError(actions, "[TEXT:abort command execution fails]"+'<br/>'+data.message);
+				globalMessage.show("[TEXT:abort command execution fails]"+'<br/>'+data.message, 'error');
 			    }
 			});
 		    })
@@ -122,104 +105,110 @@ $(document).ready(function () {
  	return sOut;
    }
 
-    var logbook = $('#tasks-dt').dataTable({
-	sDom: '<"top"i<"buttons">p>rt<"bottom"lp><"clear">',
-	oLanguage: {
-            sLengthMenu: "[TEXT:TE:Client:Display _MENU_ tasks per page]",
-            sZeroRecords: "[TEXT:TE:Client:Nothing found - sorry]",
-            sInfo: "[TEXT:TE:Client:Showing _START_ to _END_ of _TOTAL_ records]",
-            sInfoEmpty: "[TEXT:TE:Client:Showing 0 to 0 of 0 records]",
-            sInfoFiltered: "[TEXT:TE:Client:(filtered from _MAX_ total records)]",
-	    sLoadingRecords: "[TEXT:TE:Client:sLoadingRecords]",
-	    sProcessing: "[TEXT:TE:Client:sProcessing]",
-	    sSearch: "[TEXT:TE:Client:sSearch]",
-	    sZeroRecords: "[TEXT:TE:Client:sZeroRecords]",
-	    oPaginate: {
-		sFirst: "[TEXT:TE:Client:sFirst]",
-		sLast: "[TEXT:TE:Client:sLast]",
-		sNext: "[TEXT:TE:Client:sNext]",
-		sPrevious: "[TEXT:TE:Client:sPrevious]"
-	    }
-        },	
-	iDisplayLength: 25,
-	aLengthMenu: [[25, 50, 100], [25, 50, 100]],
-	sPaginationType: "full_numbers",
-	bServerSide: true,
-	bFilter: true,
-	bProcessing: true,
-	sAjaxSource: url+'&op=tasks',
-        fnServerData: function ( sSource, aoData, fnCallback ) {
-            $.ajax( {
-                dataType: 'json',
-                type: "POST",
-                url: sSource,
-                data: aoData,
-                success: function (data, textStatus, jqXHR) {
-                    logbook.fnSettings().oLanguage.sEmptyTable = "[TEXT:tengine_client_selftests:server communication error]" +"<br/>"+data.message;
-                    fnCallback(data, textStatus, jqXHR);
-                }
-            } );
-        },
-        aaSorting: [
-	    [0, 'desc']
-	],
-	aoColumnDefs: [
-	    { 
-		aTargets: [0],
-		mDataProp: "cdate", 
-		sClass: "date" 
-	    },
-	    { 
-		aTargets: [1],
-		mDataProp: "statuslabel",
-		/* sTitle: "[TEXT:TE:Client:Status]",  */
-		fnRender: function(o) {
-		    var rhtml = '<span '
-			+       '   class="state flag flag_'+o.aData.status+'" '
-			+       '   title="'+o.aData.statuslabel+'"' 
-			+       '   >'
-			+       o.aData.statuslabel
-			+       '</span>';
-		    return(rhtml);
+    var loadDatatable = function() {
+
+	return $('#tasks-dt').dataTable({
+	    sDom: '<"top"i<"buttons">p>rt<"bottom"lp><"clear">',
+	    oLanguage: {
+		sLengthMenu: "[TEXT:TE:Client:Display _MENU_ tasks per page]",
+		sZeroRecords: "[TEXT:TE:Client:Nothing found - sorry]",
+		sInfo: "[TEXT:TE:Client:Showing _START_ to _END_ of _TOTAL_ records]",
+		sInfoEmpty: "[TEXT:TE:Client:Showing 0 to 0 of 0 records]",
+		sInfoFiltered: "[TEXT:TE:Client:(filtered from _MAX_ total records)]",
+		sLoadingRecords: "[TEXT:TE:Client:sLoadingRecords]",
+		sProcessing: "[TEXT:TE:Client:sProcessing]",
+		sSearch: "[TEXT:TE:Client:sSearch]",
+		sZeroRecords: "[TEXT:TE:Client:sZeroRecords]",
+		oPaginate: {
+		    sFirst: "[TEXT:TE:Client:sFirst]",
+		    sLast: "[TEXT:TE:Client:sLast]",
+		    sNext: "[TEXT:TE:Client:sNext]",
+		    sPrevious: "[TEXT:TE:Client:sPrevious]"
 		}
-	    },
-	    { 
-		aTargets: [2],
-		mDataProp: "owner",
-		bSortable: false
-	    },
-	    { 
-		aTargets: [4],
-		mDataProp: "doctitle",
-		bSortable: false, 
-		fnRender: function(o) {
-		    if (o.aData.doctitle=='') return '';
-		    var rhtml = '['+o.aData.docid+'] '+o.aData.doctitle;
-		    return(rhtml);
+            },	
+	    iDisplayLength: 25,
+	    aLengthMenu: [[25, 50, 100], [25, 50, 100]],
+	    sPaginationType: "full_numbers",
+	    bServerSide: (function() { return serverApiOk })(), // true
+	    bFilter: true,
+	    bProcessing: true,
+	    sAjaxSource: (function() { return (serverApiOk ? url+'&op=tasks' : null) })(),
+	    aaData: (function() { return (serverApiOk ? null : [ ] ) })(),
+	    bDestroy: (function() { return serverApiOk })(),
+            fnServerData: function ( sSource, aoData, fnCallback ) {
+		$.ajax( {
+                    dataType: 'json',
+                    type: "POST",
+                    url: sSource,
+                    data: aoData,
+                    success: function (data, textStatus, jqXHR) {
+			logbook.fnSettings().oLanguage.sEmptyTable = "[TEXT:tengine_client_selftests:server communication error]" +"<br/>"+data.message;
+			fnCallback(data, textStatus, jqXHR);
+                    }
+		} );
+            },
+            aaSorting: [
+		[0, 'desc']
+	    ],
+	    aoColumnDefs: [
+		{ 
+		    aTargets: [0],
+		    mDataProp: "cdate", 
+		    sClass: "date" 
+		},
+		{ 
+		    aTargets: [1],
+		    mDataProp: "statuslabel",
+		    /* sTitle: "[TEXT:TE:Client:Status]",  */
+		    fnRender: function(o) {
+			var rhtml = '<span '
+			    +       '   class="state flag flag_'+o.aData.status+'" '
+			    +       '   title="'+o.aData.statuslabel+'"' 
+			    +       '   >'
+			    +       o.aData.statuslabel
+			    +       '</span>';
+			return(rhtml);
+		    }
+		},
+		{ 
+		    aTargets: [2],
+		    mDataProp: "owner",
+		    bSortable: false
+		},
+		{ 
+		    aTargets: [4],
+		    mDataProp: "doctitle",
+		    bSortable: false, 
+		    fnRender: function(o) {
+			if (o.aData.doctitle=='') return '';
+			var rhtml = '['+o.aData.docid+'] '+o.aData.doctitle;
+			return(rhtml);
+		    }
+		},
+		{ 
+		    aTargets: [3],
+		    mDataProp: "filename",
+		    bSortable: false
+		},
+		{
+		    aTargets: [5],
+		    mDataProp: "engine"
+		},
+		{ 
+		    aTargets: [6],
+		    mDataProp: "tid",
+		    bUseRendered: false,
+		    fnRender: function(o) {
+			if (o.aData.tid == undefined || o.aData.tid == '') return '';
+			var tids = o.aData.tid.split('.');
+			var rhtml = '<span title="'+o.aData.tid+'">'+tids[0]+'…</span>';
+			return rhtml;
+		    }
 		}
-	    },
-	    { 
-		aTargets: [3],
-		mDataProp: "filename",
-		bSortable: false
-	    },
-	    {
-		aTargets: [5],
-		mDataProp: "engine"
-	    },
-	    { 
-		aTargets: [6],
-		mDataProp: "tid",
-		bUseRendered: false,
-		fnRender: function(o) {
-		    if (o.aData.tid == undefined || o.aData.tid == '') return '';
-		    var tids = o.aData.tid.split('.');
-		    var rhtml = '<span title="'+o.aData.tid+'">'+tids[0]+'…</span>';
-		    return rhtml;
-		}
-	    }
-	]
-    });
+	    ]
+	});
+    };
+    var logbook = loadDatatable();
 
     $('#tasks-dt tbody').on('click', 'td', function () {
 	var nTr = $(this).parents('tr')[0];
@@ -241,11 +230,12 @@ $(document).ready(function () {
 	.append(
 	    $('<a />',{id: 'reset-filters'})
 		.attr('href','#')
-		.attr('class','paginate_button')
+		.attr('class','paginate_button paginate_button_disabled')
 		.attr('title','[TEXT:TE:Client:reset filters and reload tasks]')
 		.html('[TEXT:TE:Client:reset filters]')
 	)
 	.on('click', function() {
+	    if (!serverApiOk) return;
 	    $("thead tr .search_init").each( function() {
 		switch ( $(this)[0].tagName ) {
 		case 'SELECT':
@@ -285,8 +275,10 @@ $(document).ready(function () {
      * Counters management
      *
      */
-    var countersActive = true;
+    var countersActive = serverApiOk;
     var countersTimer = null;
+
+    $('#counters-state').prop('disabled', serverApiOk);
 
     var setCounter = function(counter, val) {
 	if (val == undefined) val = '0';
@@ -350,11 +342,29 @@ $(document).ready(function () {
 	
     };
 
-    runCounterUpdate();
-    
     $('#counters-state').on('change', function() {
 	countersActive = ! $(this).is(':checked');
 	runCounterUpdate();
+    });
+
+
+    serverVersion.check( function( sr ) {
+
+	if (sr.status == 0) {
+	    globalMessage.show("[TEXT:TE:Client:not fully supported server version, need server version ]"+" "+sr.required+".", 'warning');
+	} else if (sr.status == -1) {
+	    globalMessage.show("[TEXT:tengine_client_selftests:server communication error]"+"<br/>"+sr.message+".", 'error');
+	} else {
+	    serverApiOk = true;
+
+	    countersActive = true;
+	    $('#counters-state').prop('disabled', false);
+	    refreshCounters();
+    
+	    $('#reset-filters').removeClass( 'paginate_button_disabled' );
+
+	    logbook = loadDatatable();
+	}
     });
 
 

@@ -1,6 +1,23 @@
 body {
-    padding : 20px;
+    padding: 0;
+    margin: 0;
 }
+
+.page { margin : 20px; }
+.error { background-color: #ffeeee; }
+
+.message {
+    color: #757575;
+    text-shadow: 1px 0 0 #fff;
+    background: rgb(243, 243, 243);
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+.message .error { color: #F00; } 
+.message .warning { color: rgb(224, 133, 16); } 
+.message .default { color: #56878B; } 
 
 .clear { clear: both; }
 .panel {
@@ -65,9 +82,6 @@ body {
 }
 select {
     padding: 0.4em 1em;
-}
-.error {
-    background-color: #ffeeee;
 }
 
 

@@ -23,6 +23,7 @@ function tengine_client_tasks(Action & $action)
             
             $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client.css");
             $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client_tasks.css", true);
+            $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client.js", true);
             $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client_tasks.js", true);
             
             $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));

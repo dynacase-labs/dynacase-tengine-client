@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-15 04:51+0200\n"
+"POT-Creation-Date: 2014-04-16 07:10+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -125,6 +125,9 @@ msgstr ""
 msgid "TE:Client:Waiting task count"
 msgstr ""
 
+msgid "TE:Client:not fully supported server version, need server version "
+msgstr ""
+
 msgid "TE:Client:reset filters"
 msgstr ""
 
@@ -177,6 +180,9 @@ msgid "TE:Client:search task id"
 msgstr ""
 
 msgid "TE:Client:stop task processing and clean working datas"
+msgstr ""
+
+msgid "TE:Client:unsupported server version"
 msgstr ""
 
 msgid "TE:Status:All"

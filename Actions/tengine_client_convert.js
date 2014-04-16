@@ -123,29 +123,42 @@ $(document).ready(function () {
 	event.preventDefault();
     });
 
-    $.ajax({
-	url: url+"&op=engines",
-	type: "GET",
-	success: function(data) {
-	    if (!data.success) {
-		$(".panel.error").html("[TEXT:tengine_client_selftests:server communication error]<br/>"+data.message).css('display', 'block');
-	    } else {
-		engines = data.info;
-		console.log(engines);
-		for (var key in data.info) {
-		    if (data.info.hasOwnProperty(key)) {
-			$("#engine").append("<option value='"+key+"'>"+key+"</option>");
+    $('#thefile').prop('disabled', true);
+    $('#engine').prop('disabled', true);
+    serverVersion.check( function( sr ) {
+	if (sr.status == 0) {
+	    globalMessage.show("[TEXT:TE:Client:not fully supported server version, need server version ]"+" "+sr.required+".", 'warning');
+	} else if (sr.status == -1) {
+	    globalMessage.show("[TEXT:tengine_client_selftests:server communication error]"+"<br/>"+sr.message+".", 'error');
+	} else {
+	    $('#thefile').prop('disabled', false);
+	    $('#engine').prop('disabled', false);
+	    $.ajax({
+		url: url+"&op=engines",
+		type: "GET",
+		success: function(data) {
+		    if (!data.success) {
+			$(".panel.error").html("[TEXT:tengine_client_selftests:server communication error]<br/>"+data.message).css('display', 'block');
+		    } else {
+			engines = data.info;
+			console.log(engines);
+			for (var key in data.info) {
+			    if (data.info.hasOwnProperty(key)) {
+				$("#engine").append("<option value='"+key+"'>"+key+"</option>");
+			    }
+			}
+			$("#engine").css('display', 'inline');
+			$("#showmimeengine").show();
 		    }
+		},
+		error:  function() {
+		    $(".panel.error").html('Oooops, something wrong happens').css('display', 'block');
 		}
-		$("#engine").css('display', 'inline');
-		$("#showmimeengine").show();
-	    }
-	},
-	error:  function() {
-	    $(".panel.error").html('Oooops, something wrong happens').css('display', 'block');
+	    });
+	    
 	}
     });
-    
+
 
 
 });

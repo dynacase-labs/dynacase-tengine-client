@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    serverVersion.check( function( sr ) {
+	if (sr.status == 0) {
+	    globalMessage.show("[TEXT:TE:Client:not fully supported server version, need server version ]"+" "+sr.required+".", 'warning');
+	} else if (sr.status == -1) {
+	    globalMessage.show("[TEXT:tengine_client_selftests:server communication error]"+"<br/>"+sr.message+".", 'error');
+	} else {
+	    $('#testid').prop('disabled', false)
+	}
+    });
+
     var url = $("#sendConversion").attr('action');
 
     var onTESuccess = function(idx) {
