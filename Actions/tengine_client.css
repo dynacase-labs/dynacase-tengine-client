@@ -1,0 +1,202 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.page { margin : 20px; }
+.error { background-color: #ffeeee; }
+
+.message-box {
+    color: #FFF;
+    background: #545454;
+    text-align: center;
+    padding:15px 0 0 0;
+    border-bottom: 1px solid #666;
+    box-shadow: 0 8px 14px rgba(0,0,0,0.65);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+.message-box .message-content {
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid #666;
+    margin: 0 auto 0 auto;
+    width: 70%;
+    font-size: 120%;
+}
+.message-box .message-content:last-child {
+    border-bottom: 0;
+    margin: 0 auto 15px auto;
+}
+.message-box .level-error   { color: #FF6161; } 
+.message-box .level-warning { color: #FFD680; } 
+.message-box .level-info    { color: #C9C9C9; } 
+.message-box a.close-message-box:hover,
+.message-box a.close-message-box {
+    margin: 0 10px 0 0;
+    display: inline-block;
+    float: right;
+    color: #FFF;
+    font-size: 140%;
+    font-weight: bold;
+    background: inherit;
+    text-decoration: none;
+}
+.clear { clear: both; }
+.panel {
+    padding: 20px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.panel.main .input {
+    padding: 5px 0 5px 0;
+}
+.panel.main label {
+    display: block;
+    margin-right: 10px;
+}
+
+#tid, #engine  { 
+    color:#AAA; 
+    border-radius: 3px;
+    border-color: #d0d0d0;
+}
+
+#processinfo {
+    margin-bottom : 10px;
+}
+#uploadResult button {
+    width: 100%;
+}
+.task.info .date { color: #AAA; }
+.task.info .date::before { content : "["; }
+.task.info .date::after { content : "]"; }
+
+.task .status {
+    border-radius: 3px;
+    padding: 3px;
+    margin: 1px;
+    background-color: rgba(0,0,0,0.15);
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+    color: #888;
+}
+.task .status.status_B { background-color: #fff; }
+.task .status.status_T { background-color: rgba(248, 235, 138, 0.35); }
+.task .status.status_W { background-color: rgba(248, 235, 138, 0.35); }
+.task .status.status_P { background-color: rgba(138, 248, 147, 0.35); }
+.task .status.status_D { background-color: rgba(138, 248, 147, 0.97); }
+.task .status.status_K { background-color: rgba(255, 69, 69, 0.64); }
+.task .status.status_I { background-color: rgba(0,0,0,0.20); }
+
+
+.task.info .value {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.task.info .key {
+    font-style: italic;
+    padding-left: 10px;
+}
+.task.info .key::after {
+    content: ":";
+}
+select {
+    padding: 0.4em 1em;
+}
+
+
+/* Param Action */
+.parameter-list {
+    padding: 1em;
+}
+
+.editapplicationparameter {
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    height: 4em;
+}
+
+
+
+.editsubmit > input[type="submit"] {
+    font-weight: bold;
+}
+
+form, .editapplicationparameter > div {
+
+    display: inline;
+}
+div[data-type=label] label {
+    display: inline-block;
+    width: 300px;
+    vertical-align: middle;
+}
+.editapplicationparameter:hover {
+    background-color: #e2e2e2;
+}
+.editapplicationparameter label.modified
+{
+    font-weight: bold;
+}
+
+label.ui-state-active {
+    font-weight: bold;
+}
+input[type="text"].ui-button {
+    background-color: #fdfdfd;
+    cursor:text;
+}
+input[type="text"].ui-state-focus {
+    background: #fdfdfd;
+}
+.editapplicationparameter {
+    height: auto;
+}
+.editapplicationparameter input[type=text] {
+    width: 50%;
+    text-align: left;
+}
+#checkconnection { width: 100%; }
+#connectionstatus { margin: 20px 0 20px 0; }
+#connectionstatus .status { 
+    padding: 3px 10px 3px 10px;
+    text-align: center;
+    background-color: #0F0;
+    color: #FFF;
+    border-radius: 3px;
+    font-weight: bold;
+}
+#connectionstatus .status.ok { 
+    background-color: #0F0;
+}
+#connectionstatus .status.ko { 
+    background-color: #F00;
+}
+#connectionstatus .val {
+    padding-left: 10px;
+}
+#connectionstatus .key {
+    font-style: italic;
+    padding-left: 20px;
+}
+#connectionstatus .key::after {
+    content: ":";
+}
+
+.mimeslist {
+    color: #545454;
+}
+.mimeslist .title {
+    text-decoration: underline;
+}
+.mimeslist .mimes div {
+    font-size: 85%;
+    padding: 0 5px 0 15px;
+}
+#showmimeengine {
+    font-size: 85%;
+}

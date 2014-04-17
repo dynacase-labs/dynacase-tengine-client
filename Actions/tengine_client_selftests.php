@@ -9,65 +9,106 @@ function tengine_client_selftests(Action & $action)
 {
     require_once "FDL/editutil.php";
     
+    $response = array(
+        "success" => false,
+        "message" => "error",
+        "info" => null
+    );
+    
     $usage = new ActionUsage($action);
     $op = $usage->addOptionalParameter('op', 'Operation');
     $selftestid = $usage->addOptionalParameter('selftestid', 'Selectest id to execute');
     $usage->verify(true);
     
     editmode($action);
-    $action->parent->AddCssRef("css/dcp/jquery-ui.css");
-    $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
-    $action->parent->AddJsRef("TENGINE_CLIENT/Layout/tengine_client_selftests.js");
-    
-    $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
-    $action->lay->eSet('ACTIONNAME', strtoupper($action->name));
-    $action->lay->set('SHOW_MAIN', false);
-    $action->lay->set('SHOW_SELFTEST', false);
-    
     switch ($op) {
         case '':
-            $err = _main($action);
+            $action->parent->AddCssRef("css/dcp/jquery-ui.css");
+            $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client.css");
+            $action->parent->AddCssRef("TENGINE_CLIENT:tengine_client_selftests.css", true);
+            $action->parent->AddJsRef("lib/jquery-ui/js/jquery-ui.js");
+            $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client.js", true);
+            $action->parent->AddJsRef("TENGINE_CLIENT:tengine_client_selftests.js", true);
+            
+            $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
+            $action->lay->eSet('ACTIONNAME', strtoupper($action->name));
+            return;
+            break;
+
+        case 'engines':
+            $response = _getengines($action);
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
             break;
 
         case 'selftest':
-            $err = _selftest($action, $selftestid);
+            $response = _selftest($action, $selftestid);
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
             break;
 
         default:
             $err = sprintf(_("tengine_client:action:tengine_client_tasks:Unknown op '%s'.") , $op);
     }
-    
-    $action->lay->set('ERROR', ($err != ''));
-    $action->lay->eSet('ERRMSG', $err);
 }
 
-function _main(Action & $action)
+function _getengines(Action & $action)
 {
-    $te = new \Dcp\TransformationEngine\Client();
-    $err = $te->retrieveServerInfo($serverInfo, true);
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
     if ($err != '') {
-        return $err;
+        $response = array(
+            'success' => false,
+            'message' => $err,
+            'info' => null
+        );
+    } else {
+        $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
+        $err = $te->retrieveSelftests($selftests);
+        if ($err != '') {
+            $response = array(
+                'success' => false,
+                'message' => $err,
+                'info' => null
+            );
+        } else {
+            $response = array(
+                'success' => true,
+                'message' => $err,
+                'info' => $selftests
+            );
+        }
     }
-    $action->lay->eSet('SERVER_INFO', print_r($serverInfo, true));
-    $err = $te->retrieveSelftests($selftests);
-    if ($err != '') {
-        return $err;
-    }
-    $action->lay->eSet('SELFTESTS', print_r($selftests, true));
-    $action->lay->set('SHOW_MAIN', true);
-    return '';
+    return $response;
 }
 
 function _selftest(Action & $action, $selftestid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $response = array(
+            'success' => false,
+            'message' => $err,
+            'info' => null
+        );
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $err = $te->executeSelftest($result, $selftestid);
     if ($err != '') {
-        return $err;
+        $response = array(
+            'success' => false,
+            'message' => $err,
+            'info' => null
+        );
+    } else {
+        $response = array(
+            'success' => true,
+            'message' => $err,
+            'info' => $result
+        );
     }
-    $action->lay->eSet('RESPONSE', print_r($result, true));
-    $action->lay->set('SHOW_SELFTEST', true);
-    return '';
+    return $response;
 }
 
 function _tasks(Action & $action, $select)
@@ -79,7 +120,11 @@ function _tasks(Action & $action, $select)
     catch(Exception $e) {
         return sprintf(_("Malformed JSON argument: %s") , $e->getMessage());
     }
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $err = $te->retrieveTasks($tasks, $args['start'], $args['length'], $args['orderby'], $args['sort'], $args['filter']);
     if ($err != '') {
         return $err;
@@ -90,7 +135,11 @@ function _tasks(Action & $action, $select)
 
 function _histo(Action & $action, $tid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     $err = $te->retrieveTaskHisto($histo, $tid);
     if ($err != '') {
         return $err;
@@ -102,6 +151,10 @@ function _histo(Action & $action, $tid)
 
 function _abort(Action & $action, $tid)
 {
-    $te = new \Dcp\TransformationEngine\Client();
+    $err = \Dcp\TransformationEngine\Manager::checkParameters();
+    if ($err != '') {
+        return $err;
+    }
+    $te = new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     return $te->eraseTransformation($tid);
 }

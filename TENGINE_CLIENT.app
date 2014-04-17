@@ -31,6 +31,12 @@ $action_desc = array(
         "acl" => "TENGINE_CLIENT"
     ) ,
     array(
+        "name" => "TENGINE_CLIENT_INFOS",
+        "short_name" => N_("tengine_client:action:admin_actions_infos:short_name") ,
+        "acl" => "TENGINE_CLIENT",
+        "script" => "tengine_client_infos.php"
+    ) ,
+    array(
         "name" => "TENGINE_CLIENT_PARAMS",
         "acl" => "TENGINE_CLIENT",
         "short_name" => N_("tengine_client:action:tengine_client_params") ,

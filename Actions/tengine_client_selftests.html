@@ -5,48 +5,33 @@
     <title>[TEXT:tengine_client:action:tengine_client_selftests]</title>
 [CSS:REF]
 [JS:REF]
-    <style type="text/css">
-        .panel {
-            padding: 1em;
-        }
-        .error {
-            background-color: #ffeeee;
-        }
-    </style>
     <script language="JavaScript">
     </script>
 </head>
 <body>
-
-[IF ERROR]
-<div class="panel error">
-<p>[TEXT:tengine_client:action:tengine_client_selftests:Error]:</p>
-<p>[ERRMSG]</p>
-</div>
-[ENDIF ERROR]
-
-[IFNOT ERROR]
-
-[IF SHOW_MAIN]
-<div class="panel main">
-<h1>Server info</h1>
-<pre>[SERVER_INFO]</pre>
-<h1>Selftests</h1>
-<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
-    <input type="hidden" name="op" value="selftest"/>
-    <label>Execute selftest by name: <input type="text" name="selftestid" /></label>
-    <input type="submit"/>
-</form>
-<pre>[SELFTESTS]</pre>
-</div>
-[ENDIF SHOW_MAIN]
-
-[IF SHOW_SELFTEST]
-<div class="panel selftest">
-<pre>[RESPONSE]</pre>
-</div>
-[ENDIF SHOW_SELFTEST]
-
-[ENDIF ERROR]
+  <div class="page">
+    <h1>[TEXT:tengine_client_selftests:server engines tests]</h1>
+    <div class="panel main">
+      <div class="panel error" style="display:none"></div>
+      <form style="display:none" id="sendConversion" method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
+	<input type="hidden" name="op" value="selftest"/>
+	<select disabled name="testid" id="testid">
+	  <option style="font-weight:bold" value="">[TEXT:tengine_client_selftests:please select engine to test]</option>
+	  <option  style="font-weight:bold" value="*">[TEXT:tengine_client_selftests:all engines]</option>
+	  [BLOCK SELFTEST]<option value="[id]">[description]</option>
+	  [ENDBLOCK SELFTEST]
+	</select>
+	<button id="sendconversion" type="submit" class=" ui-button ui-corner-all ui-state-default" >[TEXT:tengine_client_selftests:run server selected test]</button>
+      </form>
+    </div>
+    
+    <div id="results">
+    </div>
+    
+    <div class="result in-progress template tmpl_result">
+      <div class="title"></div>
+      <div class="log"></div>
+    </div>
+  </div>
 </body>
 </html>

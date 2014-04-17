@@ -25,6 +25,15 @@ class ClientException extends \Exception
 
 class Client
 {
+    
+    const TASK_STATE_BEGINNING = 'B'; // C/S start of transaction
+    const TASK_STATE_TRANSFERRING = 'T'; // Data (file) transfer is in progress
+    const TASK_STATE_ERROR = 'K'; // Job ends with error
+    const TASK_STATE_SUCCESS = 'D'; // Job ends successfully
+    const TASK_STATE_RECOVERED = 'R'; // Data recovered by client
+    const TASK_STATE_PROCESSING = 'P'; // Engine is running
+    const TASK_STATE_WAITING = 'W'; // Job registered, waiting to start engine
+    const TASK_STATE_INTERRUPTED = 'I'; // Job was interrupted
     const error_connect = - 2;
     const error_noengine = - 3;
     const error_sendfile = - 4;
@@ -49,10 +58,10 @@ class Client
      * @param int $port port number
      *
      */
-    function __construct($host = "localhost", $port = 51968)
+    function __construct($host, $port)
     {
-        if ($host != "") $this->host = $host;
-        if ($port > 0) $this->port = $port;
+        $this->host = $host;
+        $this->port = $port;
     }
     /**
      * send a request to do a transformation
@@ -645,7 +654,7 @@ class Client
      */
     public function retrieveEngines(&$engines)
     {
-        $this->_genericCommandWithJSONResponse("INFO:ENGINES\n", $engines);
+        return $this->_genericCommandWithJSONResponse("INFO:ENGINES\n", $engines);
     }
     /**
      * Retrieve history log for a specific task id

@@ -3,100 +3,164 @@
 <head>
     <meta charset="utf-8">
     <title>[TEXT:tengine_client:action:tengine_client_tasks]</title>
-[CSS:REF]
-[JS:REF]
-    <style type="text/css">
-        select {
-            padding: 0.4em 1em;
-        }
-        .panel {
-            padding: 1em;
-        }
-        .error {
-            background-color: #ffeeee;
-        }
-        textarea {
-            font-family: monospace;
-        }
-    </style>
-    <script language="JavaScript">
-    </script>
+    [CSS:REF]
+    [JS:REF]
 </head>
 <body>
+  <div class="page">
+    <h1>[TEXT:tengine_client_tasks:task logbook]</h1>
+    <div class="tasks">
 
-[IF ERROR]
-<div class="panel error">
-<p>[TEXT:tengine_client:action:tengine_client_tasks:Error]:</p>
-<p>[ERRMSG]</p>
-</div>
-[ENDIF ERROR]
+      <div class="box counters-box">
+	<ul>
+	  <li title="[TEXT:TE:Client:Interrupted task count]">
+	    <div data-counter="interrupted" class="count state state_I">-</div>
+	    <div class="item state_I">I</div>
+	  </li>   
+	  <li title="[TEXT:TE:Client:Error task count]">
+	    <div data-counter="ko" class="count state state_K">-</div>
+	    <div class="item state_K">K</div>
+	  </li>   
+	  <li title="[TEXT:TE:Client:Success task count]">
+	    <div data-counter="done" class="count state state_D">-</div>
+	    <div class="item state_D">D</div>
+	  </li>   
+	  <li title="[TEXT:TE:Client:Processing task count]">
+	    <div data-counter="waiting" class="count state state_P">-</div>
+	    <div class="item state_P">P</div>
+	  </li>   
+	  <li title="[TEXT:TE:Client:Waiting task count]">
+	    <div data-counter="waiting" class="count state state_W">-</div>
+	    <div class="item state_W">W</div>
+	  </li>   
+	  <li title="[TEXT:TE:Client:Transferring task count]">
+	    <div data-counter="transferring" class="count state state_T">-</div>
+	    <div class="item state_T">T</div>
+	  </li>   
+	  <li class="separator"><div>&nbsp;</div></li>
+	  <li title="[TEXT:TE:Client:Client count]">
+	    <div class="sbox">
+	      <div class="stick-line">
+		<div class="content title"> Clients</div>
+	      </div>
+	      <div class="stick-line">
+		<div class="stick-cell cell50">
+		  <div class="content emphas" data-counter="client-cur">-</div>
+		</div>
+		<div class="stick-cell cell50">
+		  <div class="content emphas" data-counter="client-max">-</div>
+		</div>
+	      </div>
+	      <div class="stick-line">
+		<div class="stick-cell cell50">
+		  <div class="content comment">cur.</div>
+		</div>
+		<div class="stick-cell cell50">
+		  <div class="content comment">max.</div>
+		</div>
+	      </div>
+	    </div>
+	  </li>
+	  <li class="separator"><div>&nbsp;</div></li>
+	  <li title="[TEXT:TE:Client:Server system load]">
+	    <div class="sbox">
+	      <div class="stick-line">
+		<div class="content title">[TEXT:TE:Client:Server system load]</div>
+	      </div>
+	      <div class="stick-line">
+		<div class="stick-cell cell33">
+		  <div class="content emphas" data-counter="sys-load-1">-</div>
+		</div>
+		<div class="stick-cell cell33">
+		  <div class="content emphas" data-counter="sys-load-2">-</div>
+		</div>
+		<div class="stick-cell cell33">
+		  <div class="content emphas" data-counter="sys-load-3">-</div>
+		</div>
+	      </div>
+	      <div class="stick-line">
+		<div class="stick-cell cell33">
+		  <div class="content comment">/ 1 min.</div>
+		</div>
+		<div class="stick-cell cell33">
+		  <div class="content comment">/ 5 min.</div>
+		</div>
+		<div class="stick-cell cell33">
+		  <div class="content comment">/ 15 min.</div>
+		</div>
+	      </div>
+	    </div>
+	  </li>
+	</ul>
+	<div class="clear"></div>
+      </div>
 
-[IFNOT ERROR]
+      <table id="tasks-dt" class="logbook">
+	<thead>
+	  <tr>
+	    <th>
+	      <input type="text" name="search_date" 
+		     placeholder="[TEXT:TE:Client:Date]" 
+		     title="[TEXT:TE:Client:search date]" 
+		     class="search_init" />
+	    </th>
+	    <th>
+	      <select title="[TEXT:TE:Client:search status:]" name="search_status" class="search_init">
+		<option value="">[TEXT:TE:Status:All]</option>
+		<option value="B">[TEXT:TE:Status:Begin]</option>
+		<option value="T">[TEXT:TE:Status:Transferring]</option>
+		<option value="P">[TEXT:TE:Status:Processing]</option>
+		<option value="D">[TEXT:TE:Status:Success]</option>
+		<option value="K">[TEXT:TE:Status:Error]</option>
+		<option value="I">[TEXT:TE:Status:Interrupted]</option>
+	      </select>
+	    </th>
+	    <th>
+	      <input type="text" name="search_owner" 
+		     placeholder="[TEXT:TE:Client:Owner]" 
+		     title="[TEXT:TE:Client:search owner]" 
+		     class="search_init" />
+	    </th>
+	    <th>
+	      <input type="text" name="search_document" 
+		     placeholder="[TEXT:TE:Client:Document]" 
+		     title="[TEXT:TE:Client:search document]" 
+		     class="search_init" />
+	    </th>
+	    <th>
+	      <input type="text" name="search_document" 
+		     placeholder="[TEXT:TE:Client:Filename]" 
+		     title="[TEXT:TE:Client:search filename]" 
+		     class="search_init" />
+	    </th>
+ 	    <th>
+	      <input type="text" name="search_engine" 
+		     placeholder="[TEXT:TE:Client:Engine]" 
+		     title="[TEXT:TE:Client:search engines]" 
+		     class="search_init" />
+	    </th>
+	    <th>
+	      <input type="text" name="search_id" 
+		     placeholder="[TEXT:TE:Client:Task Id]" 
+		     title="[TEXT:TE:Client:search task id]" 
+		     class="search_init" />
+	    </th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	  </tr>
+	</tbody>
+	<tfoot>
+	  
+	</tfoot>  
+      </table>
+    </div>
 
-[IF SHOW_MAIN]
-<div class="panel main">
-<div class="select-tasks">
-<h1>Select tasks</h1>
-<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
-    <input type="hidden" name="op" value="tasks"/>
-    <label>JSON encoded select arguments:
-        <textarea name="select" cols="80" rows="24" >
-{
-    "start": 0,
-    "length": 0,
-    "orderby": "cdate",
-    "sort": "desc",
-    "filter": {
-        "comment": ".*"
-    }
-}</textarea>
-    </label>
-    <input type="submit"/>
-</form>
-</div>
-<div class="task-history">
-<h1>View single task history</h1>
-<form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
-    <input type="hidden" name="op" value="histo"/>
-    <label>Task id:
-        <input type="text" name="tid" />
-    </label>
-    <input type="submit"/>
-</form>
-</div>
-<div class="task-abort">
-    <h1>Abort task</h1>
-    <form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]">
-        <input type="hidden" name="op" value="abort"/>
-        <label>Task id:
-            <input type="text" name="tid" />
-        </label>
-        <input type="submit"/>
-    </form>
-</div>
-<div class="task-purge">
-    <h1>Purge tasks</h1>
-    <form method="POST" enctype="multipart/form-data" action="?app=[APPNAME]&amp;action=[ACTIONNAME]" target="_blank">
-        <input type="hidden" name="op" value="purge"/>
-        <label>JSON encoded select arguments:
-            <textarea name="select" cols="80" rows="24" >
-{
-    "maxdays": "",
-    "status": ""
-}</textarea>
-        </label>
-        <input type="submit"/>
-    </form>
-</div>
-</div>
-[ENDIF SHOW_MAIN]
+    <div class="counter-active"><input type="checkbox" id="counters-state" /> [TEXT:TE:Client:Stop counters update]</div>
 
-[IF SHOW_RESPONSE]
-<div class="panel response">
-<pre>[RESPONSE]</pre>
-</div>
-[ENDIF SHOW_RESPONSE]
+  </div>
 
-[ENDIF ERROR]
+
 </body>
 </html>
