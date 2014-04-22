@@ -30,7 +30,7 @@ SELECT
 FROM action
 WHERE
     action.id_application = $appId
-    AND action.name NOT IN ('ADMIN_ACTIONS_LIST','TENGINE_CLIENT_INFOS');
+    AND action.name NOT IN ('ADMIN_ACTIONS_LIST','TENGINE_CLIENT_PARAMS', 'TENGINE_CLIENT_INFOS')
 ;
 SQL;
         

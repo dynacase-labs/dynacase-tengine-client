@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-16 14:15+0200\n"
-"PO-Revision-Date: 2014-04-16 14:15+0100\n"
+"POT-Creation-Date: 2014-07-10 15:24+0200\n"
+"PO-Revision-Date: 2014-04-22 16:06+0100\n"
 "Last-Translator: Anakeen Labs <labs@anakeen.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -42,10 +42,6 @@ msgstr "Erreur de négociation de la connection"
 msgid "Invalid response size '%s'"
 msgstr "Taille de réponse invalide '%s'"
 
-#, php-format
-msgid "Malformed JSON argument: %s"
-msgstr "Argument JSON malformé: %s"
-
 msgctxt "TransformationEngine"
 msgid "Please set all TE parameters"
 msgstr ""
@@ -56,173 +52,23 @@ msgstr ""
 msgid "Returned data is not of array type (%s)"
 msgstr "La donné retournée n'est pas de type array (%s)"
 
-msgid "TE:Client:(filtered from _MAX_ total records)"
-msgstr "(sur un total de _MAX_)"
+msgid "TE:Client:It's provided by Dynacase Tengine Monitor module."
+msgstr "Elle est fournie par le module Dynacase TEngine Monitor."
 
-msgid "TE:Client:Abort"
-msgstr "Annuler la tâche"
+msgid "TE:Client:This function is currently unavailable."
+msgstr "Cette fonction n'est pas disponible."
 
-msgid "TE:Client:Client count"
-msgstr "Nombre de clients"
+msgid "TE:Client:UI:X0000 long name (params)"
+msgstr "Configuration de la connexion au serveur"
 
-msgid "TE:Client:Datas"
-msgstr "Données serveur"
-
-msgid "TE:Client:Date"
-msgstr "Date"
-
-msgid "TE:Client:Display _MENU_ tasks per page"
-msgstr "_MENU_ tâches par page"
-
-msgid "TE:Client:Document"
-msgstr "Document"
-
-msgid "TE:Client:Engine"
-msgstr "Moteur"
-
-msgid "TE:Client:Error task count"
-msgstr "Nomnbre de tâches terminées en erreur"
-
-msgid "TE:Client:Filename"
-msgstr "Fichier"
-
-msgid "TE:Client:Interrupted task count"
-msgstr "Nombre de tâches interrompues"
-
-msgid "TE:Client:Log"
-msgstr "Journal serveur"
-
-msgid "TE:Client:Nothing found - sorry"
-msgstr "Aucune tâche trouvée."
-
-msgid "TE:Client:Owner"
-msgstr "Propriétaire"
-
-msgid "TE:Client:Processing task count"
-msgstr "Nombre de tâche en cours de traitement"
-
-msgid "TE:Client:Server system load"
-msgstr "Charge moyenne système"
-
-msgid "TE:Client:Showing 0 to 0 of 0 records"
-msgstr "Aucune tâche à afficher"
-
-msgid "TE:Client:Showing _START_ to _END_ of _TOTAL_ records"
-msgstr "Tâches _START_ à _END_ sur _TOTAL_"
-
-msgid "TE:Client:Status"
-msgstr "Statut"
-
-msgid "TE:Client:Stop counters update"
-msgstr "Arrêt de la mise à jour des indicateurs"
-
-msgid "TE:Client:Success task count"
-msgstr "Nombre de tâches terminées avec succès"
-
-msgid "TE:Client:Task Id"
-msgstr "Id tâche"
-
-msgid "TE:Client:Transferring task count"
-msgstr "Nombre de tâches en cours de transfert"
-
-msgid "TE:Client:Waiting task count"
-msgstr "Nombre de tâches en attente de traitement"
+msgid "TE:Client:UI:X0000 short name (params)"
+msgstr "Configuration"
 
 msgid "TE:Client:close message box"
 msgstr "Fermer le message"
 
-msgid "TE:Client:not fully supported server version, need server version "
-msgstr ""
-"La version de votre serveur ne supporte pas complètement les fonctions de "
-"cette interface. La version nécessaire est la"
-
-msgid "TE:Client:reset filters"
-msgstr "Mise à jour"
-
-msgid "TE:Client:reset filters and reload tasks"
-msgstr "Vide les recherches et met à jour la liste des tâches"
-
-msgid "TE:Client:sFirst"
-msgstr "Première"
-
-msgid "TE:Client:sLast"
-msgstr "Dernière"
-
-msgid "TE:Client:sLoadingRecords"
-msgstr "Chargement de la liste des tâches"
-
-msgid "TE:Client:sNext"
-msgstr "Suivante"
-
-msgid "TE:Client:sPrevious"
-msgstr "Précédente"
-
-msgid "TE:Client:sProcessing"
-msgstr "En cours de traitement..."
-
-msgid "TE:Client:sSearch"
-msgstr "Rechercher"
-
-msgid "TE:Client:sZeroRecords"
-msgstr "Aucune tâche"
-
-msgid "TE:Client:search date"
-msgstr "rechercher par date"
-
-msgid "TE:Client:search document"
-msgstr "rechercher par document (titre ou ID)"
-
-msgid "TE:Client:search engines"
-msgstr "rechercher par moteur"
-
-msgid "TE:Client:search filename"
-msgstr "rechercher par nom de fichier"
-
-msgid "TE:Client:search owner"
-msgstr "rechercher par propriétaire"
-
-msgid "TE:Client:search status:"
-msgstr "rechercher par status"
-
-msgid "TE:Client:search task id"
-msgstr "rechercher par identicateur de tâche"
-
-msgid "TE:Client:stop task processing and clean working datas"
-msgstr "Annule le traitement de la tâche et nettoie les données de travail"
-
 msgid "TE:Client:unsupported server version"
 msgstr "Version serveur non supportée."
-
-msgid "TE:Status:All"
-msgstr "Tous"
-
-msgid "TE:Status:Begin"
-msgstr "Démarrage"
-
-msgid "TE:Status:Error"
-msgstr "Erreur"
-
-msgid "TE:Status:Interrupted"
-msgstr "Interrompu"
-
-msgid "TE:Status:Processing"
-msgstr "En cours"
-
-msgid "TE:Status:Recovered"
-msgstr "Récupéré"
-
-msgid "TE:Status:Success"
-msgstr "Succès"
-
-msgid "TE:Status:Transferring"
-msgstr "Transfert"
-
-#, php-format
-msgid "TE:Status:Unknown [%s]"
-msgstr "Inconnu (%s)"
-
-msgid "TE:Status:Waiting"
-msgstr "En attente"
 
 msgid "Transformation Engine callback url"
 msgstr "URL pour les callback du serveur de transformation"
@@ -241,20 +87,11 @@ msgstr ""
 msgid "Unexpected handshake message: %s"
 msgstr "Message de négociation de connection inattendu : %s"
 
-msgid "abort command execution fails"
-msgstr "L'exécution de la comment d'arrêt de la tâche a échouée."
-
 msgid "empty file"
 msgstr "fichier vide"
 
 msgid "socket creation error"
 msgstr "Erreur lors de la création d'une socket"
-
-msgid "task aborting fails"
-msgstr "L'arrêt de la tâche est en échec."
-
-msgid "task successfully aborted"
-msgstr "La tâche a été interrompue."
 
 msgid "te:modified"
 msgstr "Modifié"
@@ -262,69 +99,11 @@ msgstr "Modifié"
 msgid "tengine_client:acl:tengine_client"
 msgstr "Transformation Engine administration ACL"
 
+msgid "tengine_client:action:admin_actions_infos:long_name"
+msgstr "Récupération d'informations serveur"
+
 msgid "tengine_client:action:admin_actions_infos:short_name"
-msgstr ""
-
-msgid "tengine_client:action:admin_actions_list:short_name"
-msgstr "ADMIN_ACTIONS_LIST"
-
-msgid "tengine_client:action:supported mimes"
-msgstr "liste des types mimes supportés par ce moteur"
-
-msgid "tengine_client:action:tengine_client_convert"
-msgstr "Transformation d'un fichier"
-
-msgid "tengine_client:action:tengine_client_convert:Convert"
-msgstr "Traitement unitaire de la conversion d'un fichier"
-
-msgid "tengine_client:action:tengine_client_convert:Download result"
-msgstr "Télécharger le résultat"
-
-#, php-format
-msgid ""
-"tengine_client:action:tengine_client_convert:Error creating temporary file."
-msgstr "Erreur de création de fichier temporaire."
-
-#, php-format
-msgid ""
-"tengine_client:action:tengine_client_convert:Error fetching task info with "
-"id '%s': %s"
-msgstr "Erreur de récupération des informations de la tâche '%s' : %s"
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Error in file upload: %s"
-msgstr "Erreur d'envoi du fichier : %s"
-
-#, php-format
-msgid ""
-"tengine_client:action:tengine_client_convert:Error moving uploaded file to "
-"'%s'."
-msgstr "Erreur de déplacement du fichier envoyé dans '%s'."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:File is empty."
-msgstr "Le fichier est vide."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Missing file."
-msgstr "Fichier manquant."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
-msgstr "La tâche '%s' n'est pas terminée."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
-msgstr "Opération inconnue '%s'."
-
-msgid "tengine_client:action:tengine_client_convert:conversion avancement"
-msgstr "Avancement de la conversion"
-
-msgid "tengine_client:action:tengine_client_convert:uploaded file"
-msgstr "Fichier à traiter"
-
-msgid "tengine_client:action:tengine_client_convert:with engine"
-msgstr "Moteur de transformation"
+msgstr "Informations"
 
 msgid "tengine_client:action:tengine_client_param:Check server connexion"
 msgstr "Contrôler la connexion au serveur"
@@ -338,66 +117,279 @@ msgstr "Version du serveur de transformation"
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Configuration"
 
-msgid "tengine_client:action:tengine_client_selftests"
-msgstr "Éxécution des tests serveur"
-
-msgid "tengine_client:action:tengine_client_tasks"
-msgstr "Surveillance"
-
-#, php-format
-msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
-msgstr "Opération inconnue '%s'."
+msgid "tengine_client:action:tengine_client_unavailable_function"
+msgstr "indisponible"
 
 msgid "tengine_client:description"
 msgstr "Gestion et surveillance du serveur de transformation"
 
-msgid "tengine_client:see supported mimes"
-msgstr "Types mimes supportés"
-
 msgid "tengine_client:short_name"
 msgstr "Serveur de transformation"
 
-msgid "tengine_client_selftests:all engines"
-msgstr "sélection de tous les moteurs de transformation"
-
-msgid "tengine_client_selftests:please select engine to test"
-msgstr "merci de sélectionner le moteur à tester"
-
-msgid "tengine_client_selftests:run server selected test"
-msgstr "Lancer le test…"
-
-msgid "tengine_client_selftests:server communication error"
-msgstr "Erreur de communication avec le serveur"
-
-msgid "tengine_client_selftests:server engines tests"
-msgstr "Test des moteurs installés sur le serveur"
-
-msgid "tengine_client_tasks:task logbook"
-msgstr "Surveillance du serveur"
+#~ msgid "Malformed JSON argument: %s"
+#~ msgstr "Argument JSON malformé: %s"
 
 #~ msgid "Malformed JSON response: %s"
 #~ msgstr "Réponse JSON malformée : %s"
 
+#~ msgid "TE:Client:(filtered from _MAX_ total records)"
+#~ msgstr "(sur un total de _MAX_)"
+
+#~ msgid "TE:Client:Abort"
+#~ msgstr "Annuler la tâche"
+
+#~ msgid "TE:Client:Client count"
+#~ msgstr "Nombre de clients"
+
+#~ msgid "TE:Client:Datas"
+#~ msgstr "Données serveur"
+
+#~ msgid "TE:Client:Date"
+#~ msgstr "Date"
+
+#~ msgid "TE:Client:Display _MENU_ tasks per page"
+#~ msgstr "_MENU_ tâches par page"
+
+#~ msgid "TE:Client:Document"
+#~ msgstr "Document"
+
+#~ msgid "TE:Client:Engine"
+#~ msgstr "Moteur"
+
+#~ msgid "TE:Client:Error task count"
+#~ msgstr "Nomnbre de tâches terminées en erreur"
+
+#~ msgid "TE:Client:Filename"
+#~ msgstr "Fichier"
+
+#~ msgid "TE:Client:Interrupted task count"
+#~ msgstr "Nombre de tâches interrompues"
+
+#~ msgid "TE:Client:Log"
+#~ msgstr "Journal serveur"
+
+#~ msgid "TE:Client:Nothing found - sorry"
+#~ msgstr "Aucune tâche trouvée."
+
+#~ msgid "TE:Client:Owner"
+#~ msgstr "Propriétaire"
+
+#~ msgid "TE:Client:Processing task count"
+#~ msgstr "Nombre de tâche en cours de traitement"
+
+#~ msgid "TE:Client:Server system load"
+#~ msgstr "Charge moyenne système"
+
+#~ msgid "TE:Client:Showing 0 to 0 of 0 records"
+#~ msgstr "Aucune tâche à afficher"
+
+#~ msgid "TE:Client:Showing _START_ to _END_ of _TOTAL_ records"
+#~ msgstr "Tâches _START_ à _END_ sur _TOTAL_"
+
+#~ msgid "TE:Client:Status"
+#~ msgstr "Statut"
+
+#~ msgid "TE:Client:Stop counters update"
+#~ msgstr "Arrêt de la mise à jour des indicateurs"
+
+#~ msgid "TE:Client:Success task count"
+#~ msgstr "Nombre de tâches terminées avec succès"
+
+#~ msgid "TE:Client:Task Id"
+#~ msgstr "Id tâche"
+
+#~ msgid "TE:Client:Transferring task count"
+#~ msgstr "Nombre de tâches en cours de transfert"
+
+#~ msgid "TE:Client:Waiting task count"
+#~ msgstr "Nombre de tâches en attente de traitement"
+
+#~ msgid "TE:Client:not fully supported server version, need server version "
+#~ msgstr ""
+#~ "La version de votre serveur ne supporte pas complètement les fonctions de "
+#~ "cette interface. La version nécessaire est la"
+
+#~ msgid "TE:Client:reset filters"
+#~ msgstr "Mise à jour"
+
+#~ msgid "TE:Client:reset filters and reload tasks"
+#~ msgstr "Vide les recherches et met à jour la liste des tâches"
+
+#~ msgid "TE:Client:sFirst"
+#~ msgstr "Première"
+
+#~ msgid "TE:Client:sLast"
+#~ msgstr "Dernière"
+
+#~ msgid "TE:Client:sLoadingRecords"
+#~ msgstr "Chargement de la liste des tâches"
+
+#~ msgid "TE:Client:sNext"
+#~ msgstr "Suivante"
+
+#~ msgid "TE:Client:sPrevious"
+#~ msgstr "Précédente"
+
+#~ msgid "TE:Client:sProcessing"
+#~ msgstr "En cours de traitement..."
+
+#~ msgid "TE:Client:sSearch"
+#~ msgstr "Rechercher"
+
+#~ msgid "TE:Client:sZeroRecords"
+#~ msgstr "Aucune tâche"
+
+#~ msgid "TE:Client:search date"
+#~ msgstr "rechercher par date"
+
+#~ msgid "TE:Client:search document"
+#~ msgstr "rechercher par document (titre ou ID)"
+
+#~ msgid "TE:Client:search engines"
+#~ msgstr "rechercher par moteur"
+
+#~ msgid "TE:Client:search filename"
+#~ msgstr "rechercher par nom de fichier"
+
+#~ msgid "TE:Client:search owner"
+#~ msgstr "rechercher par propriétaire"
+
+#~ msgid "TE:Client:search status:"
+#~ msgstr "rechercher par status"
+
+#~ msgid "TE:Client:search task id"
+#~ msgstr "rechercher par identicateur de tâche"
+
+#~ msgid "TE:Client:stop task processing and clean working datas"
+#~ msgstr "Annule le traitement de la tâche et nettoie les données de travail"
+
+#~ msgid "TE:Status:All"
+#~ msgstr "Tous"
+
+#~ msgid "TE:Status:Begin"
+#~ msgstr "Démarrage"
+
+#~ msgid "TE:Status:Error"
+#~ msgstr "Erreur"
+
+#~ msgid "TE:Status:Interrupted"
+#~ msgstr "Interrompu"
+
+#~ msgid "TE:Status:Processing"
+#~ msgstr "En cours"
+
+#~ msgid "TE:Status:Recovered"
+#~ msgstr "Récupéré"
+
+#~ msgid "TE:Status:Success"
+#~ msgstr "Succès"
+
+#~ msgid "TE:Status:Transferring"
+#~ msgstr "Transfert"
+
+#~ msgid "TE:Status:Unknown [%s]"
+#~ msgstr "Inconnu (%s)"
+
+#~ msgid "TE:Status:Waiting"
+#~ msgstr "En attente"
+
+#~ msgid "abort command execution fails"
+#~ msgstr "L'exécution de la comment d'arrêt de la tâche a échouée."
+
+#~ msgid "task aborting fails"
+#~ msgstr "L'arrêt de la tâche est en échec."
+
+#~ msgid "task successfully aborted"
+#~ msgstr "La tâche a été interrompue."
+
+#~ msgid "tengine_client:action:admin_actions_list:short_name"
+#~ msgstr "ADMIN_ACTIONS_LIST"
+
+#~ msgid "tengine_client:action:supported mimes"
+#~ msgstr "liste des types mimes supportés par ce moteur"
+
+#~ msgid "tengine_client:action:tengine_client_convert"
+#~ msgstr "Transformation d'un fichier"
+
 #~ msgid "tengine_client:action:tengine_client_convert:Abort task"
 #~ msgstr "Annuler la tâche"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Convert"
+#~ msgstr "Traitement unitaire de la conversion d'un fichier"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Download result"
+#~ msgstr "Télécharger le résultat"
 
 #~ msgid "tengine_client:action:tengine_client_convert:Error"
 #~ msgstr "Erreur"
 
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error creating temporary "
+#~ "file."
+#~ msgstr "Erreur de création de fichier temporaire."
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error fetching task info "
+#~ "with id '%s': %s"
+#~ msgstr "Erreur de récupération des informations de la tâche '%s' : %s"
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error in file upload: %s"
+#~ msgstr "Erreur d'envoi du fichier : %s"
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error moving uploaded file "
+#~ "to '%s'."
+#~ msgstr "Erreur de déplacement du fichier envoyé dans '%s'."
+
+#~ msgid "tengine_client:action:tengine_client_convert:File is empty."
+#~ msgstr "Le fichier est vide."
+
+#~ msgid "tengine_client:action:tengine_client_convert:Missing file."
+#~ msgstr "Fichier manquant."
+
 #~ msgid "tengine_client:action:tengine_client_convert:Refresh task"
 #~ msgstr "Actualiser la tâche"
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
+#~ msgstr "La tâche '%s' n'est pas terminée."
 
 #~ msgid "tengine_client:action:tengine_client_convert:Task with id"
 #~ msgstr "Tâche"
 
+#~ msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
+#~ msgstr "Opération inconnue '%s'."
+
+#~ msgid "tengine_client:action:tengine_client_convert:conversion avancement"
+#~ msgstr "Avancement de la conversion"
+
 #~ msgid "tengine_client:action:tengine_client_convert:has been killed"
 #~ msgstr "a été tuée"
+
+#~ msgid "tengine_client:action:tengine_client_convert:uploaded file"
+#~ msgstr "Fichier à traiter"
+
+#~ msgid "tengine_client:action:tengine_client_convert:with engine"
+#~ msgstr "Moteur de transformation"
+
+#~ msgid "tengine_client:action:tengine_client_selftests"
+#~ msgstr "Éxécution des tests serveur"
 
 #~ msgid "tengine_client:action:tengine_client_selftests:Error"
 #~ msgstr "Erreur"
 
+#~ msgid "tengine_client:action:tengine_client_tasks"
+#~ msgstr "Surveillance"
+
 #~ msgid "tengine_client:action:tengine_client_tasks:Error"
 #~ msgstr "Erreur"
+
+#~ msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
+#~ msgstr "Opération inconnue '%s'."
+
+#~ msgid "tengine_client:see supported mimes"
+#~ msgstr "Types mimes supportés"
 
 #~ msgid "tengine_client_params:apply"
 #~ msgstr "Appliquer"
@@ -405,5 +397,23 @@ msgstr "Surveillance du serveur"
 #~ msgid "tengine_client_params:reload"
 #~ msgstr "Recharger"
 
+#~ msgid "tengine_client_selftests:all engines"
+#~ msgstr "sélection de tous les moteurs de transformation"
+
 #~ msgid "tengine_client_selftests:download result file"
 #~ msgstr "télécharger le résultat"
+
+#~ msgid "tengine_client_selftests:please select engine to test"
+#~ msgstr "merci de sélectionner le moteur à tester"
+
+#~ msgid "tengine_client_selftests:run server selected test"
+#~ msgstr "Lancer le test…"
+
+#~ msgid "tengine_client_selftests:server communication error"
+#~ msgstr "Erreur de communication avec le serveur"
+
+#~ msgid "tengine_client_selftests:server engines tests"
+#~ msgstr "Test des moteurs installés sur le serveur"
+
+#~ msgid "tengine_client_tasks:task logbook"
+#~ msgstr "Surveillance du serveur"

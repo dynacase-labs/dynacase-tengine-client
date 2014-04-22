@@ -2,8 +2,14 @@ body {
     padding: 0;
     margin: 0;
 }
-
 .page { margin : 20px; }
+.unavailable {
+    color: #8F8F8F;
+    font-weight: bold;
+    font-size: 120%;
+    margin: 40px auto 0 auto;
+    text-align: center;
+}
 .error { background-color: #ffeeee; }
 
 .message-box {
@@ -59,7 +65,6 @@ body {
 }
 
 #tid, #engine  { 
-    color:#AAA; 
     border-radius: 3px;
     border-color: #d0d0d0;
 }
@@ -180,8 +185,11 @@ input[type="text"].ui-state-focus {
     padding-left: 10px;
 }
 #connectionstatus .key {
+    width: 40%;
+    text-align: right;
     font-style: italic;
-    padding-left: 20px;
+    padding-right: 20px;
+    display: inline-block;
 }
 #connectionstatus .key::after {
     content: ":";

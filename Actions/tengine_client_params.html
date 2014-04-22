@@ -8,6 +8,7 @@
     <style>
     .editapplicationparameter label.modified:after { content:" ([TEXT:te:modified])"; }
     </style>
+    <link href="lib/font-awesome/css/font-awesome.css?version=3.3.0-0.20140624.162858" media="screen" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -29,19 +30,28 @@
     
     <div id="test-zone" class="panel">
       
-      <button id="checkconnection" class="ui-button ui-corner-all ui-state-default" >[TEXT:tengine_client:action:tengine_client_param:Check server connexion]</button>
+      <button id="checkconnection" class="ui-button ui-corner-all ui-state-default" >
+	[TEXT:tengine_client:action:tengine_client_param:Check server connexion]&nbsp;
+	<i style="display:none" class="fa fa-circle-o-notch fa-spin"></i> 
+      </button>
       
       <div id="connectionstatus">
 	<span class="status"></span>
 	<span class="info val" id="errorMessage"></span>
-	<span class="info" id="TESVersion">
-	  <span class="key">[TEXT:tengine_client:action:tengine_client_param:server version]</span>
-	  <span class="val"></span>
-	</span>
-	<span class="info" id="TESMaxClient">
-	  <span class="key">[TEXT:tengine_client:action:tengine_client_param:max client]</span>
-	  <span class="val"></span>
-	</span>
+	<div class="infos" style="display: none">
+	  <div class="info" id="TESVersion">
+	    <span class="key">[TEXT:tengine_client:action:tengine_client_param:server version]</span>
+	    <span class="val"></span>
+	  </div>
+	  <div class="info" id="TESBuild">
+	    <span class="key">[TEXT:tengine_client:action:tengine_client_param:build id]</span>
+	    <span class="val"></span>
+	  </div>
+	  <div class="info" id="TESMaxClient">
+	    <span class="key">[TEXT:tengine_client:action:tengine_client_param:max client]</span>
+	    <span class="val"></span>
+	  </div>
+	</div>
       </div>
       
     </div>

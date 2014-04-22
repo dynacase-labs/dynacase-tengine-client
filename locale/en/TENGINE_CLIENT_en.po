@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-16 14:15+0200\n"
+"POT-Creation-Date: 2014-07-10 15:24+0200\n"
 "PO-Revision-Date: 2014-03-21 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -41,10 +41,6 @@ msgstr ""
 msgid "Invalid response size '%s'"
 msgstr ""
 
-#, php-format
-msgid "Malformed JSON argument: %s"
-msgstr ""
-
 msgctxt "TransformationEngine"
 msgid "Please set all TE parameters"
 msgstr ""
@@ -53,170 +49,22 @@ msgstr ""
 msgid "Returned data is not of array type (%s)"
 msgstr ""
 
-msgid "TE:Client:(filtered from _MAX_ total records)"
+msgid "TE:Client:It's provided by Dynacase Tengine Monitor module."
 msgstr ""
 
-msgid "TE:Client:Abort"
+msgid "TE:Client:This function is currently unavailable."
 msgstr ""
 
-msgid "TE:Client:Client count"
+msgid "TE:Client:UI:X0000 long name (params)"
 msgstr ""
 
-msgid "TE:Client:Datas"
-msgstr ""
-
-msgid "TE:Client:Date"
-msgstr ""
-
-msgid "TE:Client:Display _MENU_ tasks per page"
-msgstr ""
-
-msgid "TE:Client:Document"
-msgstr ""
-
-msgid "TE:Client:Engine"
-msgstr ""
-
-msgid "TE:Client:Error task count"
-msgstr ""
-
-msgid "TE:Client:Filename"
-msgstr ""
-
-msgid "TE:Client:Interrupted task count"
-msgstr ""
-
-msgid "TE:Client:Log"
-msgstr ""
-
-msgid "TE:Client:Nothing found - sorry"
-msgstr ""
-
-msgid "TE:Client:Owner"
-msgstr ""
-
-msgid "TE:Client:Processing task count"
-msgstr ""
-
-msgid "TE:Client:Server system load"
-msgstr ""
-
-msgid "TE:Client:Showing 0 to 0 of 0 records"
-msgstr ""
-
-msgid "TE:Client:Showing _START_ to _END_ of _TOTAL_ records"
-msgstr ""
-
-msgid "TE:Client:Status"
-msgstr ""
-
-msgid "TE:Client:Stop counters update"
-msgstr ""
-
-msgid "TE:Client:Success task count"
-msgstr ""
-
-msgid "TE:Client:Task Id"
-msgstr ""
-
-msgid "TE:Client:Transferring task count"
-msgstr ""
-
-msgid "TE:Client:Waiting task count"
+msgid "TE:Client:UI:X0000 short name (params)"
 msgstr ""
 
 msgid "TE:Client:close message box"
 msgstr ""
 
-msgid "TE:Client:not fully supported server version, need server version "
-msgstr ""
-
-msgid "TE:Client:reset filters"
-msgstr ""
-
-msgid "TE:Client:reset filters and reload tasks"
-msgstr ""
-
-msgid "TE:Client:sFirst"
-msgstr ""
-
-msgid "TE:Client:sLast"
-msgstr ""
-
-msgid "TE:Client:sLoadingRecords"
-msgstr ""
-
-msgid "TE:Client:sNext"
-msgstr ""
-
-msgid "TE:Client:sPrevious"
-msgstr ""
-
-msgid "TE:Client:sProcessing"
-msgstr ""
-
-msgid "TE:Client:sSearch"
-msgstr ""
-
-msgid "TE:Client:sZeroRecords"
-msgstr ""
-
-msgid "TE:Client:search date"
-msgstr ""
-
-msgid "TE:Client:search document"
-msgstr ""
-
-msgid "TE:Client:search engines"
-msgstr ""
-
-msgid "TE:Client:search filename"
-msgstr ""
-
-msgid "TE:Client:search owner"
-msgstr ""
-
-msgid "TE:Client:search status:"
-msgstr ""
-
-msgid "TE:Client:search task id"
-msgstr ""
-
-msgid "TE:Client:stop task processing and clean working datas"
-msgstr ""
-
 msgid "TE:Client:unsupported server version"
-msgstr ""
-
-msgid "TE:Status:All"
-msgstr ""
-
-msgid "TE:Status:Begin"
-msgstr ""
-
-msgid "TE:Status:Error"
-msgstr ""
-
-msgid "TE:Status:Interrupted"
-msgstr ""
-
-msgid "TE:Status:Processing"
-msgstr ""
-
-msgid "TE:Status:Recovered"
-msgstr ""
-
-msgid "TE:Status:Success"
-msgstr ""
-
-msgid "TE:Status:Transferring"
-msgstr ""
-
-#, php-format
-msgid "TE:Status:Unknown [%s]"
-msgstr ""
-
-msgid "TE:Status:Waiting"
 msgstr ""
 
 msgid "Transformation Engine callback url"
@@ -235,19 +83,10 @@ msgstr ""
 msgid "Unexpected handshake message: %s"
 msgstr ""
 
-msgid "abort command execution fails"
-msgstr ""
-
 msgid "empty file"
 msgstr ""
 
 msgid "socket creation error"
-msgstr ""
-
-msgid "task aborting fails"
-msgstr ""
-
-msgid "task successfully aborted"
 msgstr ""
 
 msgid "te:modified"
@@ -256,69 +95,11 @@ msgstr "Modified"
 msgid "tengine_client:acl:tengine_client"
 msgstr "Transformation Engine administration ACL"
 
+msgid "tengine_client:action:admin_actions_infos:long_name"
+msgstr ""
+
 msgid "tengine_client:action:admin_actions_infos:short_name"
 msgstr ""
-
-msgid "tengine_client:action:admin_actions_list:short_name"
-msgstr "ADMIN_ACTIONS_LIST"
-
-msgid "tengine_client:action:supported mimes"
-msgstr ""
-
-msgid "tengine_client:action:tengine_client_convert"
-msgstr "Convert a file"
-
-msgid "tengine_client:action:tengine_client_convert:Convert"
-msgstr "Convert"
-
-msgid "tengine_client:action:tengine_client_convert:Download result"
-msgstr "Download result"
-
-#, php-format
-msgid ""
-"tengine_client:action:tengine_client_convert:Error creating temporary file."
-msgstr "Error creating temporary file."
-
-#, php-format
-msgid ""
-"tengine_client:action:tengine_client_convert:Error fetching task info with "
-"id '%s': %s"
-msgstr "Error fetching task info with id '%s': %s"
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Error in file upload: %s"
-msgstr "Error in file upload: %s"
-
-#, php-format
-msgid ""
-"tengine_client:action:tengine_client_convert:Error moving uploaded file to "
-"'%s'."
-msgstr "Error moving uploaded file to '%s'."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:File is empty."
-msgstr "File is empty."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Missing file."
-msgstr "Missing file."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
-msgstr "Task '%s' is not finished."
-
-#, php-format
-msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
-msgstr "Unknown op '%s'."
-
-msgid "tengine_client:action:tengine_client_convert:conversion avancement"
-msgstr ""
-
-msgid "tengine_client:action:tengine_client_convert:uploaded file"
-msgstr ""
-
-msgid "tengine_client:action:tengine_client_convert:with engine"
-msgstr "with engine"
 
 msgid "tengine_client:action:tengine_client_param:Check server connexion"
 msgstr ""
@@ -332,63 +113,91 @@ msgstr ""
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Parameters"
 
-msgid "tengine_client:action:tengine_client_selftests"
-msgstr "Selftests"
-
-msgid "tengine_client:action:tengine_client_tasks"
-msgstr "Tasks and history"
-
-#, php-format
-msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
-msgstr "Unknown op '%s'."
+msgid "tengine_client:action:tengine_client_unavailable_function"
+msgstr ""
 
 msgid "tengine_client:description"
 msgstr "Manage Transformation Engine Client library"
 
-msgid "tengine_client:see supported mimes"
-msgstr ""
-
 msgid "tengine_client:short_name"
 msgstr "Transformation Engine Client"
 
-msgid "tengine_client_selftests:all engines"
-msgstr ""
+#~ msgid "tengine_client:action:admin_actions_list:short_name"
+#~ msgstr "ADMIN_ACTIONS_LIST"
 
-msgid "tengine_client_selftests:please select engine to test"
-msgstr ""
-
-msgid "tengine_client_selftests:run server selected test"
-msgstr ""
-
-msgid "tengine_client_selftests:server communication error"
-msgstr ""
-
-msgid "tengine_client_selftests:server engines tests"
-msgstr ""
-
-msgid "tengine_client_tasks:task logbook"
-msgstr ""
+#~ msgid "tengine_client:action:tengine_client_convert"
+#~ msgstr "Convert a file"
 
 #~ msgid "tengine_client:action:tengine_client_convert:Abort task"
 #~ msgstr "Abort task"
 
+#~ msgid "tengine_client:action:tengine_client_convert:Convert"
+#~ msgstr "Convert"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Download result"
+#~ msgstr "Download result"
+
 #~ msgid "tengine_client:action:tengine_client_convert:Error"
 #~ msgstr "Error"
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error creating temporary "
+#~ "file."
+#~ msgstr "Error creating temporary file."
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error fetching task info "
+#~ "with id '%s': %s"
+#~ msgstr "Error fetching task info with id '%s': %s"
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error in file upload: %s"
+#~ msgstr "Error in file upload: %s"
+
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Error moving uploaded file "
+#~ "to '%s'."
+#~ msgstr "Error moving uploaded file to '%s'."
+
+#~ msgid "tengine_client:action:tengine_client_convert:File is empty."
+#~ msgstr "File is empty."
+
+#~ msgid "tengine_client:action:tengine_client_convert:Missing file."
+#~ msgstr "Missing file."
 
 #~ msgid "tengine_client:action:tengine_client_convert:Refresh task"
 #~ msgstr "Refresh task"
 
+#~ msgid ""
+#~ "tengine_client:action:tengine_client_convert:Task '%s' is not finished."
+#~ msgstr "Task '%s' is not finished."
+
 #~ msgid "tengine_client:action:tengine_client_convert:Task with id"
 #~ msgstr "Task with id"
+
+#~ msgid "tengine_client:action:tengine_client_convert:Unknown op '%s'."
+#~ msgstr "Unknown op '%s'."
 
 #~ msgid "tengine_client:action:tengine_client_convert:has been killed"
 #~ msgstr "has been killed"
 
+#~ msgid "tengine_client:action:tengine_client_convert:with engine"
+#~ msgstr "with engine"
+
+#~ msgid "tengine_client:action:tengine_client_selftests"
+#~ msgstr "Selftests"
+
 #~ msgid "tengine_client:action:tengine_client_selftests:Error"
 #~ msgstr "Error"
 
+#~ msgid "tengine_client:action:tengine_client_tasks"
+#~ msgstr "Tasks and history"
+
 #~ msgid "tengine_client:action:tengine_client_tasks:Error"
 #~ msgstr "Error"
+
+#~ msgid "tengine_client:action:tengine_client_tasks:Unknown op '%s'."
+#~ msgstr "Unknown op '%s'."
 
 #~ msgid "tengine_client_params:apply"
 #~ msgstr "Apply"

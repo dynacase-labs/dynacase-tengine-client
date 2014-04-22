@@ -31,7 +31,6 @@ $(document).ready(function () {
     
     $("body").on("mouseup", "label.ui-button",function (event) {
         if (! $(this).hasClass('ui-state-active')) {
-            //$(this).trigger("change");
             var originValue=$('#'+$(this).attr('for')).val();
             $(this).parents('form').find('input[data-original=1]').val(originValue);
             sendParameterApplicationData(this);
@@ -49,43 +48,39 @@ $(document).ready(function () {
 
 
     $('#connectionstatus').hide();
-    $('#checkconnection').prop('disabled', true);
 
-    // Check for server version
-    serverVersion.check( function( sr ) {
-	if (sr.status == 0) {
-	    globalMessage.show("[TEXT:TE:Client:not fully supported server version, need server version ]"+" "+sr.required+".", 'warning');
-	} else if (sr.status == -1) {
-	    globalMessage.show("[TEXT:tengine_client_selftests:server communication error]"+"<br/>"+sr.message+".", 'error');
-	} else {
-            $('#checkconnection').prop('disabled', false).on('click', function() {
-		$('#connectionstatus').hide();
-		$('#TESVersion').hide();
-		$('#TESMaxClient').hide();
-		$('#errorMessage').hide(); 
-		$.ajax({
-		    url: '?app=TENGINE_CLIENT&action=TENGINE_CLIENT_INFOS',
-		    type: "POST",
-		    success: function(data) {
-			if (data.success) {
-			    $('#TESVersion .val').html(data.info.version).show();
-			    $('#TESVersion').show();
-			    $('#TESMaxClient .val').html(data.info.max_client);
-			    $('#TESMaxClient').show();
-			    $('#connectionstatus .status').html('OK').removeClass('ko').addClass('ok');
-			} else {
-			    $('#connectionstatus .status').html('ERROR').removeClass('ok').addClass('ko');
-			    $('#errorMessage').html(data.message).show(); 
-			}
-			$('#connectionstatus').show();
-		    },
-		    error: function() { 
-			$('#errorMessage').html('Ooops, something is wrong...').show(); 
-			$('#connectionstatus .status').html('ERROR').removeClass('ok').addClass('ko');
-			$('#connectionstatus').show();
-		    }
-		});
-	    });
-	}
+    $('#checkconnection').on('click', function() {
+	$("#checkconnection").attr("disabled", true).addClass("ui-state-disabled");
+	$('#checkconnection i').show();
+	$('#connectionstatus').hide();
+	$('#connectionstatus .infos').hide();
+	$('#errorMessage').hide(); 
+	$.ajax({
+	    url: '?app=TENGINE_CLIENT&action=TENGINE_CLIENT_INFOS',
+	    type: "POST",
+	    success: function(data) {
+		$("#checkconnection").attr("disabled", false).removeClass("ui-state-disabled");
+		$('#checkconnection i').hide();
+		if (data.success) {
+		    $('#TESVersion .val').html(data.info.version).show();
+		    $('#TESBuild .val').html(data.info.release).show();
+		    $('#TESMaxClient .val').html(data.info.max_client);
+		    $('#connectionstatus .status').html('OK').removeClass('ko').addClass('ok');
+		    $('#connectionstatus .infos').show();
+		} else {
+		    $('#connectionstatus .status').html('ERROR').removeClass('ok').addClass('ko');
+		    $('#errorMessage').html(data.message).show(); 
+		}
+		$('#connectionstatus').show();
+	    },
+	    error: function() { 
+		$("#checkconnection").attr("disabled", false).removeClass("ui-state-disabled");
+		$('#checkconnection i').hide();
+		$('#errorMessage').html('Ooops, something is wrong...').show(); 
+		$('#connectionstatus .status').html('ERROR').removeClass('ok').addClass('ko');
+		$('#connectionstatus').show();
+	    }
+	});
     });
+    
 });
