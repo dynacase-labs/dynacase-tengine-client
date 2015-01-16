@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 15:24+0200\n"
-"PO-Revision-Date: 2014-03-21 15:50+0100\n"
+"POT-Creation-Date: 2015-01-26 14:38+0100\n"
+"PO-Revision-Date: 2015-01-26 14:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -50,22 +50,22 @@ msgid "Returned data is not of array type (%s)"
 msgstr ""
 
 msgid "TE:Client:It's provided by Dynacase Tengine Monitor module."
-msgstr ""
+msgstr "It's provided by Dynacase Tengine Monitor module."
 
 msgid "TE:Client:This function is currently unavailable."
-msgstr ""
+msgstr "This function is currently unavailable."
 
 msgid "TE:Client:UI:X0000 long name (params)"
-msgstr ""
+msgstr "Server connection configuration"
 
 msgid "TE:Client:UI:X0000 short name (params)"
-msgstr ""
+msgstr "Configuration"
 
 msgid "TE:Client:close message box"
-msgstr ""
+msgstr "Close message box"
 
 msgid "TE:Client:unsupported server version"
-msgstr ""
+msgstr "Unsupported server version"
 
 msgid "Transformation Engine callback url"
 msgstr ""
@@ -96,25 +96,28 @@ msgid "tengine_client:acl:tengine_client"
 msgstr "Transformation Engine administration ACL"
 
 msgid "tengine_client:action:admin_actions_infos:long_name"
-msgstr ""
+msgstr "Server informations"
 
 msgid "tengine_client:action:admin_actions_infos:short_name"
-msgstr ""
+msgstr "Informations"
 
 msgid "tengine_client:action:tengine_client_param:Check server connexion"
-msgstr ""
+msgstr "Check connection"
+
+msgid "tengine_client:action:tengine_client_param:build id"
+msgstr "Build-id"
 
 msgid "tengine_client:action:tengine_client_param:max client"
-msgstr ""
+msgstr "Maximum concurrent clients"
 
 msgid "tengine_client:action:tengine_client_param:server version"
-msgstr ""
+msgstr "Server version"
 
 msgid "tengine_client:action:tengine_client_params"
 msgstr "Parameters"
 
 msgid "tengine_client:action:tengine_client_unavailable_function"
-msgstr ""
+msgstr "Unavailable"
 
 msgid "tengine_client:description"
 msgstr "Manage Transformation Engine Client library"
