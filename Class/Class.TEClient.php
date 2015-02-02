@@ -34,6 +34,8 @@ class Client
     const TASK_STATE_PROCESSING = 'P'; // Engine is running
     const TASK_STATE_WAITING = 'W'; // Job registered, waiting to start engine
     const TASK_STATE_INTERRUPTED = 'I'; // Job was interrupted
+    const TASK_STATE_SENT = 'S'; // Resulting file has been retrieved/sent
+
     const error_connect = - 2;
     const error_noengine = - 3;
     const error_sendfile = - 4;

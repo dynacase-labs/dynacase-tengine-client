@@ -11,9 +11,7 @@ $app_desc = array(
     "name" => "TENGINE_CLIENT",
     "short_name" => N_("tengine_client:short_name") ,
     "description" => N_("tengine_client:description") ,
-    "icon" => "tengine_client.png",
-    "displayable" => "Y",
-    "tag" => "ADMIN SYSTEM"
+    "icon" => "tengine_client.png"
 );
 
 $app_acl = array(
@@ -26,47 +24,19 @@ $app_acl = array(
 
 $action_desc = array(
     array(
-        "name" => "ADMIN_ACTIONS_LIST",
-        "short_name" => N_("tengine_client:action:admin_actions_list:short_name") ,
-        "acl" => "TENGINE_CLIENT"
-    ) ,
-    array(
         "name" => "TENGINE_CLIENT_INFOS",
         "short_name" => N_("tengine_client:action:admin_actions_infos:short_name") ,
+        "short_name" => N_("tengine_client:action:admin_actions_infos:long_name") ,
         "acl" => "TENGINE_CLIENT",
         "script" => "tengine_client_infos.php"
-    ) ,
+    ),
     array(
         "name" => "TENGINE_CLIENT_PARAMS",
         "acl" => "TENGINE_CLIENT",
-        "short_name" => N_("tengine_client:action:tengine_client_params") ,
+        "short_name" => N_("TE:Client:UI:X0000 short name (params)") ,
+        "long_name" => N_("TE:Client:UI:X0000 long name (params)") ,
         "script" => "tengine_client_params.php",
         "function" => "tengine_client_params",
-        "layout" => "tengine_client_params.html",
-        "root" => "Y"
-    ) ,
-    array(
-        "name" => "TENGINE_CLIENT_CONVERT_FILE",
-        "acl" => "TENGINE_CLIENT",
-        "short_name" => N_("tengine_client:action:tengine_client_convert") ,
-        "script" => "tengine_client_convert.php",
-        "function" => "tengine_client_convert",
-        "layout" => "tengine_client_convert.html"
-    ) ,
-    array(
-        "name" => "TENGINE_CLIENT_TASKS",
-        "acl" => "TENGINE_CLIENT",
-        "short_name" => N_("tengine_client:action:tengine_client_tasks") ,
-        "script" => "tengine_client_tasks.php",
-        "function" => "tengine_client_tasks",
-        "layout" => "tengine_client_tasks.html"
-    ) ,
-    array(
-        "name" => "TENGINE_CLIENT_SELFTESTS",
-        "acl" => "TENGINE_CLIENT",
-        "short_name" => N_("tengine_client:action:tengine_client_selftests") ,
-        "script" => "tengine_client_selftests.php",
-        "function" => "tengine_client_selftests",
-        "layout" => "tengine_client_selftests.html"
+        "layout" => "tengine_client_params.html"
     )
 );
