@@ -34,8 +34,6 @@ class Client
     const TASK_STATE_PROCESSING = 'P'; // Engine is running
     const TASK_STATE_WAITING = 'W'; // Job registered, waiting to start engine
     const TASK_STATE_INTERRUPTED = 'I'; // Job was interrupted
-    const TASK_STATE_SENT = 'S'; // Resulting file has been retrieved/sent
-
     const error_connect = - 2;
     const error_noengine = - 3;
     const error_sendfile = - 4;
@@ -290,8 +288,7 @@ class Client
      */
     function getTransformation($tid, $filename)
     {
-        $err = $this->getAndLeaveTransformation($tid, $filename);
-        $this->eraseTransformation($tid);
+        return $this->getAndLeaveTransformation($tid, $filename);
     }
     /**
      * send a request for retrieve a transformation
@@ -404,15 +401,14 @@ class Client
         return $err;
     }
     /**
-     * erase transformation
-     * delete associated files in the server engine
+     * Abort a transformation and delete associated files on the server
      * @param string $tid Task identification
      * @param string $filename the path where put the file (must be writeable)
      * @param array &$info transformation task info return "tid"=> ,"status"=> ,"comment=>
      *
      * @return string error message, if no error empty string
      */
-    function eraseTransformation($tid)
+    function abortTransformation($tid)
     {
         $err = "";
         /* Lit l'adresse IP du serveur de destination */
