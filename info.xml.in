@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf8"?>
 <module name="@PACKAGE@" version="@VERSION@" release="@RELEASE@" license="@LICENSE@">
+    <description lang="en">Transformation Engine Client Library</description>
   <requires>
     <module name="dynacase-core" comp="ge" version="3.2.19"/>
     <module name="dynacase-admin" comp="ge" version="1.0.2"/>
