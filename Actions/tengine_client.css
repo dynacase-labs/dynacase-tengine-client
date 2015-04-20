@@ -208,3 +208,21 @@ input[type="text"].ui-state-focus {
 #showmimeengine {
     font-size: 85%;
 }
+
+/**
+ * param-validation
+ */
+#param-validation .pv-msg.pv-ok {
+    color: darkgreen;
+}
+#param-validation .pv-msg.pv-ko {
+    color: darkred;
+}
+#param-validation .throbber {
+    display: none;
+    max-height: 1em;
+    vertical-align: middle
+}
+#param-validation .throbber.running {
+    display: inline;
+}

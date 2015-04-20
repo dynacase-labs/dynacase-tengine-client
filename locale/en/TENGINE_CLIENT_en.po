@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-26 14:38+0100\n"
-"PO-Revision-Date: 2015-01-26 14:49+0100\n"
+"POT-Creation-Date: 2015-04-16 16:43+0200\n"
+"PO-Revision-Date: 2015-04-17 15:43+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -91,6 +91,72 @@ msgstr ""
 
 msgid "te:modified"
 msgstr "Modified"
+
+#, php-format
+msgid "tengine_client:Callback failed with message: %s"
+msgstr "Callback failed with message: %s"
+
+#, php-format
+msgid "tengine_client:Callback success."
+msgstr "Callback success."
+
+msgid "tengine_client:Check connection to server:"
+msgstr "Check connection to server:"
+
+msgid "tengine_client:Clear task:"
+msgstr "Clear task:"
+
+#, php-format
+msgid "tengine_client:Cleared task with tid '%s'."
+msgstr "Cleared task with tid '%s'."
+
+msgid "tengine_client:Could not create temporary file."
+msgstr "Could not create temporary file."
+
+msgid "tengine_client:Create new task:"
+msgstr "Create new task:"
+
+#, php-format
+msgid "tengine_client:Created new task with tid '%s'."
+msgstr "Created new task with tid '%s'."
+
+#, php-format
+msgid "tengine_client:Error writing content to temporary file '%s'"
+msgstr "Error writing content to temporary file '%s'"
+
+#, php-format
+msgid "tengine_client:Missing tid argument."
+msgstr "Missing tid argument."
+
+#, php-format
+msgid "tengine_client:Pending task (status '%s')."
+msgstr "Pending task (status '%s')."
+
+#, php-format
+msgid "tengine_client:Successfully connected to server (version %s release %s)"
+msgstr "Successfully connected to server (version %s release %s)"
+
+#, php-format
+msgid "tengine_client:Task completed (status '%s')."
+msgstr "Task completed (status '%s')."
+
+#, php-format
+msgid "tengine_client:Task failed (status '%s')."
+msgstr "Task failed (status '%s')."
+
+#, php-format
+msgid "tengine_client:Task was interrupted (status '%s')."
+msgstr "Task was interrupted (status '%s')."
+
+#, php-format
+msgid "tengine_client:Task's status is '%s' with comment '%s'."
+msgstr "Task's status is '%s' with comment '%s'."
+
+msgid "tengine_client:Wait for task to be proccessed:"
+msgstr "Wait for task to be processessed:"
+
+msgid "tengine_client:Wait for task's callback:"
+msgstr "Wait for task's callbackc:"
 
 msgid "tengine_client:acl:tengine_client"
 msgstr "Transformation Engine administration ACL"

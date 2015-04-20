@@ -100,7 +100,7 @@ class Client
         //  echo "Essai de connexion à '$address' sur le port '$service_port'...\n";
         //    $result = socket_connect($socket, $address, $service_port);
         $timeout = floatval(getParam("TE_TIMEOUT", 3));
-        $fp = @stream_socket_client("tcp://$address:$service_port", $errno, $errstr, $timeout);
+        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, $timeout);
         
         if (!$fp) {
             $err = _("socket creation error") . " : $errstr ($errno)\n";
@@ -226,7 +226,8 @@ class Client
         /* Cree une socket TCP/IP. */
         //    echo "Essai de connexion à '$address' sur le port '$service_port'...\n";
         //    $result = socket_connect($socket, $address, $service_port);
-        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, 30);
+        $timeout = floatval(getParam("TE_TIMEOUT", 3));
+        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, $timeout);
         
         if (!$fp) {
             $err = _("socket creation error") . " : $errstr ($errno)\n";
@@ -315,7 +316,8 @@ class Client
         /* Cree une socket TCP/IP. */
         //echo "Essai de connexion à '$address' sur le port '$service_port'...\n";
         //    $result = socket_connect($socket, $address, $service_port);
-        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, 30);
+        $timeout = floatval(getParam("TE_TIMEOUT", 3));
+        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, $timeout);
         
         if (!$fp) {
             $err = _("socket creation error") . " : $errstr ($errno)\n";
@@ -417,7 +419,8 @@ class Client
         /* Cree une socket TCP/IP. */
         //    echo "Essai de connexion à '$address' sur le port '$service_port'...\n";
         //    $result = socket_connect($socket, $address, $service_port);
-        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, 30);
+        $timeout = floatval(getParam("TE_TIMEOUT", 3));
+        $fp = stream_socket_client("tcp://$address:$service_port", $errno, $errstr, $timeout);
         
         if (!$fp) {
             $err = _("socket creation error") . " : $errstr ($errno)\n";
@@ -477,7 +480,8 @@ class Client
     {
         $saddr = gethostbyname($this->host);
         $sport = $this->port;
-        $sock = stream_socket_client("tcp://$saddr:$sport", $errno, $errstr, 30);
+        $timeout = floatval(getParam("TE_TIMEOUT", 3));
+        $sock = stream_socket_client("tcp://$saddr:$sport", $errno, $errstr, $timeout);
         if ($sock === false) {
             throw new ClientException(_("socket creation error") . " : $errstr ($errno)\n");
         }
