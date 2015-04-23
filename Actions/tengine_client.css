@@ -212,6 +212,9 @@ input[type="text"].ui-state-focus {
 /**
  * param-validation
  */
+#param-validation tr > td:nth-child(2) {
+    white-space: nowrap;
+}
 #param-validation .pv-msg.pv-ok {
     color: darkgreen;
 }

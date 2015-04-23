@@ -233,14 +233,12 @@ TENGINE_CLIENT.paramValidation = (function () {
         },
 
         'testConnect': function () {
-            this.log("Running testConnect...");
             this.ajax({
                 'validate': 'testConnect'
             });
         },
 
         'newTask': function () {
-            this.log("Running newTask...");
             this.ajax(
                 {
                     'validate': 'newTask'
@@ -253,7 +251,6 @@ TENGINE_CLIENT.paramValidation = (function () {
         },
 
         'waitForTaskDone': function () {
-            this.log("Runnning waitForTaskDone...");
             this.ajax({
                 'validate': 'waitForTaskDone',
                 'tid': this.info.tid
@@ -261,7 +258,6 @@ TENGINE_CLIENT.paramValidation = (function () {
         },
 
         'waitForCallback': function () {
-            this.log("Running waitForCallback...");
             this.ajax({
                 'validate': 'waitForCallback',
                 'tid': this.info.tid
@@ -269,7 +265,6 @@ TENGINE_CLIENT.paramValidation = (function () {
         },
 
         'clearTask': function () {
-            this.log("Running clearTask...");
             this.ajax({
                 'validate': 'clearTask',
                 'tid': this.info.tid
