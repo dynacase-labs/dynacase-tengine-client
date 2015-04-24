@@ -200,6 +200,9 @@ class Client
                 $err = $match[1];
             } else {
                 $err = _("Error sending file");
+                if (preg_match('|<response[^>]*>(.*)</response>|i', $out, $match)) {
+                    $err = $match[1];
+                }
                 $info = array(
                     "status" => self::error_sendfile
                 );
