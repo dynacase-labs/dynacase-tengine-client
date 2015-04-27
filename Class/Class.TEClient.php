@@ -200,6 +200,9 @@ class Client
                 $err = $match[1];
             } else {
                 $err = _("Error sending file");
+                if (preg_match('|<response[^>]*>(.*)</response>|i', $out, $match)) {
+                    $err = $match[1];
+                }
                 $info = array(
                     "status" => self::error_sendfile
                 );
@@ -710,6 +713,16 @@ class Client
     public function purgeTasks($maxdays = 0, $status = '')
     {
         $cmd = sprintf("PURGE\n<tasks maxdays=\"%s\" status=\"%s\" />\n", $maxdays, $status);
+        return $this->_genericCommandWithErrResponse($cmd);
+    }
+    /**
+     * Purge a single task given its identifier.
+     * @param string $tid task's identifier
+     * @return string client error message on failure or empty string on success
+     */
+    public function purgeTransformation($tid)
+    {
+        $cmd = sprintf("PURGE\n<tasks tid=\"%s\" />\n", $tid);
         return $this->_genericCommandWithErrResponse($cmd);
     }
 }

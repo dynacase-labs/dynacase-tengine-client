@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dynacase-tengine-client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-16 16:43+0200\n"
-"PO-Revision-Date: 2015-04-17 15:43+0200\n"
+"PO-Revision-Date: 2015-04-23 15:07+0200\n"
 "Last-Translator: Anakeen Labs <labs@anakeen.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -97,7 +97,7 @@ msgstr "Modifié"
 
 #, php-format
 msgid "tengine_client:Callback failed with message: %s"
-msgstr "Le callback à échoué avec le message : %s"
+msgstr "Le callback a échoué avec le message : %s"
 
 #, php-format
 msgid "tengine_client:Callback success."
@@ -107,21 +107,21 @@ msgid "tengine_client:Check connection to server:"
 msgstr "Vérification connexion au serveur :"
 
 msgid "tengine_client:Clear task:"
-msgstr "Nettoyage de la tâche :"
+msgstr "Suppression de la transformation :"
 
 #, php-format
 msgid "tengine_client:Cleared task with tid '%s'."
-msgstr "Tâche avec tid '%s' nettoyée."
+msgstr "Transformation avec identifiant '%s' supprimée."
 
 msgid "tengine_client:Could not create temporary file."
 msgstr "Échec de création de fichier temporaire."
 
 msgid "tengine_client:Create new task:"
-msgstr "Création d'une nouvelle tâche :"
+msgstr "Création d'une nouvelle transformation :"
 
 #, php-format
 msgid "tengine_client:Created new task with tid '%s'."
-msgstr "Tâche avec tid '%s' créée."
+msgstr "Transformation avec identifiant '%s' créée."
 
 #, php-format
 msgid "tengine_client:Error writing content to temporary file '%s'"
@@ -133,7 +133,7 @@ msgstr "Argument tid manquant."
 
 #, php-format
 msgid "tengine_client:Pending task (status '%s')."
-msgstr "Tâche en cours (status '%s')."
+msgstr "Transformation en cours (status '%s')."
 
 #, php-format
 msgid "tengine_client:Successfully connected to server (version %s release %s)"
@@ -141,25 +141,25 @@ msgstr "Connexion réussie au serveur (version %s release %s)"
 
 #, php-format
 msgid "tengine_client:Task completed (status '%s')."
-msgstr "Tâche terminée (status '%s')."
+msgstr "Transformation terminée (status '%s')."
 
 #, php-format
 msgid "tengine_client:Task failed (status '%s')."
-msgstr "Tâche échouée (status '%s')."
+msgstr "Transformation échouée (status '%s')."
 
 #, php-format
 msgid "tengine_client:Task was interrupted (status '%s')."
-msgstr "Tâche interrompue (status '%s')."
+msgstr "Transformation interrompue (status '%s')."
 
 #, php-format
 msgid "tengine_client:Task's status is '%s' with comment '%s'."
-msgstr "Tâche avec status '%s' et commentaire '%s'."
+msgstr "Transformation avec status '%s' et commentaire '%s'."
 
 msgid "tengine_client:Wait for task to be proccessed:"
-msgstr "Attente du traitement de la tâche :"
+msgstr "Attente du traitement de la transformation :"
 
 msgid "tengine_client:Wait for task's callback:"
-msgstr "Attente du callback de la tâche :"
+msgstr "Attente du callback de la transformation :"
 
 msgid "tengine_client:acl:tengine_client"
 msgstr "Transformation Engine administration ACL"

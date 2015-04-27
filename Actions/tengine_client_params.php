@@ -232,7 +232,7 @@ function clearTask(Action & $action)
         error(sprintf(_("tengine_client:Missing tid argument.")));
     }
     $te = newTeClient($action);
-    $err = $te->abortTransformation($tid);
+    $err = $te->purgeTransformation($tid);
     if ($err != '') {
         error($err);
     }
