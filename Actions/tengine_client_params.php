@@ -31,210 +31,215 @@ function tengine_client_params_ui(Action & $action)
 
 function tengine_client_params_validate(Action & $action)
 {
-    require_once "FDL/editutil.php";
     $validate = getHttpVars('validate', '');
+    
+    ini_set('display_errors', '0');
     
     switch ($validate) {
         case 'testConnect':
-            testConnect($action);
+            TeTesting::testConnect($action);
             break;
 
         case 'newTask':
-            newTask($action);
+            TeTesting::newTask($action);
             break;
 
         case 'waitForTaskDone':
-            waitForTaskDone($action);
+            TeTesting::waitForTaskDone($action);
             break;
 
         case 'taskCallback':
-            taskCallback($action);
+            TeTesting::taskCallback($action);
             break;
 
         case 'waitForCallback':
-            waitForCallback($action);
+            TeTesting::waitForCallback($action);
             break;
 
         case 'clearTask':
-            clearTask($action);
+            TeTesting::clearTask($action);
             break;
     }
-    error(sprintf("Unknown state '%s'.", $validate));
+    TeTesting::error(sprintf("Unknown state '%s'.", $validate));
 }
-/**
- * @param Action $action
- * @return \Dcp\TransformationEngine\Client
- */
-function newTeClient(Action & $action)
+
+class TeTesting
 {
-    return new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
-}
-/**
- * @param $response
- */
-function reply($response)
-{
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit;
-}
-/**
- * @param string $message
- * @param null $info
- * @param null $next
- */
-function success($message = '', $info = null, $next = null)
-{
-    $response = array(
-        'success' => true,
-        'message' => $message,
-        'info' => $info,
-        'next' => $next
-    );
-    reply($response);
-}
-/**
- * @param string $message
- * @param null $info
- * @param null $next
- */
-function error($message = '', $info = null, $next = null)
-{
-    $response = array(
-        'success' => false,
-        'message' => $message,
-        'info' => $info,
-        'next' => $next
-    );
-    reply($response);
-}
-/**
- * @param Action $action
- */
-function testConnect(Action & $action)
-{
-    $info = array();
-    $err = \Dcp\TransformationEngine\Manager::checkParameters();
-    if ($err != '') {
-        error($err);
-    } else {
-        $te = newTeClient($action);
-        $err = $te->retrieveServerInfo($info, true);
+    /**
+     * @param Action $action
+     * @return \Dcp\TransformationEngine\Client
+     */
+    function newTeClient(Action & $action)
+    {
+        return new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
+    }
+    /**
+     * @param $response
+     */
+    public static function reply($response)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+    }
+    /**
+     * @param string $message
+     * @param null $info
+     * @param null $next
+     */
+    public static function success($message = '', $info = null, $next = null)
+    {
+        $response = array(
+            'success' => true,
+            'message' => $message,
+            'info' => $info,
+            'next' => $next
+        );
+        TeTesting::reply($response);
+    }
+    /**
+     * @param string $message
+     * @param null $info
+     * @param null $next
+     */
+    public static function error($message = '', $info = null, $next = null)
+    {
+        $response = array(
+            'success' => false,
+            'message' => $message,
+            'info' => $info,
+            'next' => $next
+        );
+        TeTesting::reply($response);
+    }
+    /**
+     * @param Action $action
+     */
+    public static function testConnect(Action & $action)
+    {
+        $info = array();
+        $err = \Dcp\TransformationEngine\Manager::checkParameters();
         if ($err != '') {
-            error($err);
-        }
-    }
-    success(sprintf(_("tengine_client:Successfully connected to server (version %s release %s)") , $info['version'], $info['release']) , $info, 'newTask');
-}
-/**
- * @param Action $action
- */
-function newTask(Action & $action)
-{
-    include_once 'FDL/Lib.Vault.php';
-    
-    $te = newTeClient($action);
-    $info = array();
-    $te_name = 'utf8';
-    $fkey = '';
-    $tmpFile = tempnam(getTmpDir() , '');
-    if ($tmpFile === false) {
-        error(_("tengine_client:Could not create temporary file."));
-    }
-    if (file_put_contents($tmpFile, 'hello world.') === false) {
-        error(sprintf(_("tengine_client:Error writing content to temporary file '%s'") , $tmpFile));
-    }
-    $appName = $action->parent->name;
-    $actionName = $action->name;
-    $urlindex = getOpenTeUrl(array(
-        'app' => $appName,
-        'action' => $actionName,
-        'validate' => 'taskCallback'
-    ));
-    $callback = sprintf("%s&app=%s&action=%s&validate=taskCallback", $urlindex, $appName, $actionName);
-    
-    $err = $te->sendTransformation($te_name, $fkey, $tmpFile, $callback, $info);
-    if ($err != '') {
-        unlink($tmpFile);
-        error($err);
-    }
-    unlink($tmpFile);
-    success(sprintf(_("tengine_client:Created new task with tid '%s'.") , $info['tid']) , $info, 'waitForTaskDone');
-}
-/**
- * @param Action $action
- */
-function waitForTaskDone(Action & $action)
-{
-    $tid = getHttpVars('tid', '');
-    if ($tid == '') {
-        error(sprintf(_("tengine_client:Missing tid argument.")));
-    }
-    $te = newTeClient($action);
-    $info = array();
-    $err = $te->getInfo($tid, $info);
-    if ($err != '') {
-        error($err);
-    }
-    switch ($info['status']) {
-        case \Dcp\TransformationEngine\Client::TASK_STATE_ERROR:
-            error(sprintf(_("tengine_client:Task failed (status '%s').") , $info['status']) , $info);
-            break;
-
-        case \Dcp\TransformationEngine\Client::TASK_STATE_INTERRUPTED:
-            error(sprintf(_("tengine_client:Task was interrupted (status '%s').") , $info['status']) , $info);
-            break;
-
-        case \Dcp\TransformationEngine\Client::TASK_STATE_SUCCESS:
-            success(sprintf(_("tengine_client:Task completed (status '%s').") , $info['status']) , $info, 'waitForCallback');
-    }
-    success(sprintf(_("tengine_client:Pending task (status '%s').") , $info['status']) , $info, 'waitForTaskDone');
-}
-/**
- * @param Action $action
- */
-function taskCallback(Action & $action)
-{
-    print 'CALLBACK:OK';
-    exit;
-}
-/**
- * @param Action $action
- */
-function waitForCallback(Action & $action)
-{
-    $tid = getHttpVars('tid', '');
-    if ($tid == '') {
-        error(sprintf(_("tengine_client:Missing tid argument.")));
-    }
-    $te = newTeClient($action);
-    $info = array();
-    $err = $te->getInfo($tid, $info);
-    if ($err != '') {
-        error($err);
-    }
-    if (isset($info['callreturn']) && $info['callreturn'] != '') {
-        if ($info['callreturn'] == 'CALLBACK:OK') {
-            success(sprintf(_("tengine_client:Callback success.")) , $info, 'clearTask');
+            TeTesting::error($err);
         } else {
-            error(sprintf(_("tengine_client:Callback failed with message: %s") , $info['callreturn']));
+            $te = TeTesting::newTeClient($action);
+            $err = $te->retrieveServerInfo($info, true);
+            if ($err != '') {
+                TeTesting::error($err);
+            }
         }
+        TeTesting::success(sprintf(_("tengine_client:Successfully connected to server (version %s release %s)") , $info['version'], $info['release']) , $info, 'newTask');
     }
-    success(sprintf(_("tengine_client:Task's status is '%s' with comment '%s'.") , $info['status'], $info['comment']) , $info, 'waitForCallback');
-}
-/**
- * @param Action $action
- */
-function clearTask(Action & $action)
-{
-    $tid = getHttpVars('tid', '');
-    if ($tid == '') {
-        error(sprintf(_("tengine_client:Missing tid argument.")));
+    /**
+     * @param Action $action
+     */
+    public static function newTask(Action & $action)
+    {
+        include_once 'FDL/Lib.Vault.php';
+        
+        $te = TeTesting::newTeClient($action);
+        $info = array();
+        $te_name = 'utf8';
+        $fkey = '';
+        $tmpFile = tempnam(getTmpDir() , '');
+        if ($tmpFile === false) {
+            TeTesting::error(_("tengine_client:Could not create temporary file."));
+        }
+        if (file_put_contents($tmpFile, 'hello world.') === false) {
+            TeTesting::error(sprintf(_("tengine_client:Error writing content to temporary file '%s'") , $tmpFile));
+        }
+        $appName = $action->parent->name;
+        $actionName = $action->name;
+        $urlindex = getOpenTeUrl(array(
+            'app' => $appName,
+            'action' => $actionName,
+            'validate' => 'taskCallback'
+        ));
+        $callback = sprintf("%s&app=%s&action=%s&validate=taskCallback", $urlindex, $appName, $actionName);
+        
+        $err = $te->sendTransformation($te_name, $fkey, $tmpFile, $callback, $info);
+        if ($err != '') {
+            unlink($tmpFile);
+            TeTesting::error($err);
+        }
+        unlink($tmpFile);
+        TeTesting::success(sprintf(_("tengine_client:Created new task with tid '%s'.") , $info['tid']) , $info, 'waitForTaskDone');
     }
-    $te = newTeClient($action);
-    $err = $te->purgeTransformation($tid);
-    if ($err != '') {
-        error($err);
+    /**
+     * @param Action $action
+     */
+    public static function waitForTaskDone(Action & $action)
+    {
+        $tid = getHttpVars('tid', '');
+        if ($tid == '') {
+            TeTesting::error(sprintf(_("tengine_client:Missing tid argument.")));
+        }
+        $te = TeTesting::newTeClient($action);
+        $info = array();
+        $err = $te->getInfo($tid, $info);
+        if ($err != '') {
+            TeTesting::error($err);
+        }
+        switch ($info['status']) {
+            case \Dcp\TransformationEngine\Client::TASK_STATE_ERROR:
+                TeTesting::error(sprintf(_("tengine_client:Task failed (status '%s').") , $info['status']) , $info);
+                break;
+
+            case \Dcp\TransformationEngine\Client::TASK_STATE_INTERRUPTED:
+                TeTesting::error(sprintf(_("tengine_client:Task was interrupted (status '%s').") , $info['status']) , $info);
+                break;
+
+            case \Dcp\TransformationEngine\Client::TASK_STATE_SUCCESS:
+                TeTesting::success(sprintf(_("tengine_client:Task completed (status '%s').") , $info['status']) , $info, 'waitForCallback');
+        }
+        TeTesting::success(sprintf(_("tengine_client:Pending task (status '%s').") , $info['status']) , $info, 'waitForTaskDone');
     }
-    success(sprintf(_("tengine_client:Cleared task with tid '%s'.") , $tid));
+    /**
+     * @param Action $action
+     */
+    public static function taskCallback(Action & $action)
+    {
+        print 'CALLBACK:OK';
+        exit;
+    }
+    /**
+     * @param Action $action
+     */
+    public static function waitForCallback(Action & $action)
+    {
+        $tid = getHttpVars('tid', '');
+        if ($tid == '') {
+            TeTesting::error(sprintf(_("tengine_client:Missing tid argument.")));
+        }
+        $te = TeTesting::newTeClient($action);
+        $info = array();
+        $err = $te->getInfo($tid, $info);
+        if ($err != '') {
+            TeTesting::error($err);
+        }
+        if (isset($info['callreturn']) && $info['callreturn'] != '') {
+            if ($info['callreturn'] == 'CALLBACK:OK') {
+                TeTesting::success(sprintf(_("tengine_client:Callback success.")) , $info, 'clearTask');
+            } else {
+                TeTesting::error(sprintf(_("tengine_client:Callback failed with message: %s") , $info['callreturn']));
+            }
+        }
+        TeTesting::success(sprintf(_("tengine_client:Task's status is '%s' with comment '%s'.") , $info['status'], $info['comment']) , $info, 'waitForCallback');
+    }
+    /**
+     * @param Action $action
+     */
+    public static function clearTask(Action & $action)
+    {
+        $tid = getHttpVars('tid', '');
+        if ($tid == '') {
+            TeTesting::error(sprintf(_("tengine_client:Missing tid argument.")));
+        }
+        $te = TeTesting::newTeClient($action);
+        $err = $te->purgeTransformation($tid);
+        if ($err != '') {
+            TeTesting::error($err);
+        }
+        TeTesting::success(sprintf(_("tengine_client:Cleared task with tid '%s'.") , $tid));
+    }
 }
