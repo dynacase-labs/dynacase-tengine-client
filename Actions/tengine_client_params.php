@@ -69,7 +69,7 @@ class TeTesting
      * @param Action $action
      * @return \Dcp\TransformationEngine\Client
      */
-    function newTeClient(Action & $action)
+    public static function newTeClient(Action & $action)
     {
         return new \Dcp\TransformationEngine\Client($action->getParam("TE_HOST") , $action->getParam("TE_PORT"));
     }

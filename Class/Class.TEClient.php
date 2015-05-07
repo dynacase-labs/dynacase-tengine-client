@@ -23,6 +23,22 @@ class ClientException extends \Exception
 {
 };
 
+class ClientRequestException extends ClientException
+{
+};
+
+class ClientResponseException extends ClientException
+{
+};
+
+class ClientResponseIOException extends ClientResponseException
+{
+};
+
+class ClientResponseFormatException extends ClientResponseException
+{
+};
+
 class Client
 {
     
@@ -494,7 +510,7 @@ class Client
         }
         $msg = trim($msg);
         if ($msg != 'Continue') {
-            throw new ClientException(_("Unexpected handshake message: %s", $msg));
+            throw new ClientException(_("Unexpected handshake message: %s") , $msg);
         }
         return $sock;
     }
@@ -557,78 +573,97 @@ class Client
     }
     private function _genericCommandWithErrResponse($cmd)
     {
-        $err = '';
-        $sock = false;
         try {
-            $sock = $this->connect();
+            try {
+                $sock = $this->connect();
+            }
+            catch(ClientException $e) {
+                throw new ClientException(sprintf(_("Could not connect to TE server: %s") , $e->getMessage()));
+            }
             $ret = $this->fwrite_stream($sock, $cmd);
             if ($ret != strlen($cmd)) {
                 fclose($sock);
-                throw new ClientException(_("Error sending command to TE server"));
+                throw new ClientRequestException(_("Could not send command to TE server."));
             }
             $msg = fgets($sock, 2048);
             if ($msg === false) {
-                return _("Error reading content from server");
+                fclose($sock);
+                throw new ClientResponseIOException(_("Could not read response from TE server."));
             }
             if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
                 if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
-                    throw new ClientException($m['err']);
+                    fclose($sock);
+                    throw new ClientResponseFormatException($m['err']);
                 }
-                throw new ClientException('unknown-error');
-            }
-        }
-        catch(ClientException $e) {
-            $err = $e->getMessage();
-        }
-        if ($sock !== false) {
-            fclose($sock);
-        }
-        return $err;
-    }
-    private function _genericCommandWithJSONResponse($cmd, &$responseData)
-    {
-        try {
-            $sock = $this->connect();
-            $ret = $this->fwrite_stream($sock, $cmd);
-            if ($ret != strlen($cmd)) {
-                throw new ClientException(_("Error sending command to TE server"));
-            }
-            $msg = fgets($sock, 2048);
-            if ($msg === false) {
-                return _("Error reading content from server");
-            }
-            if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
-                if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
-                    throw new ClientException($m['err']);
-                }
-                throw new ClientException('unknown-error');
-            }
-            $size = 0;
-            if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
-                $size = $m['size'];
-            }
-            if ($size <= 0) {
-                return sprintf(_("Invalid response size '%s'") , $size);
-            }
-            $data = $this->read_size($sock, $size);
-            if ($data === false) {
-                return _("Error reading content from server");
+                fclose($sock);
+                throw new ClientResponseFormatException('unknown-error');
             }
             fclose($sock);
-            $json = new \JSONCodec();
-            $responseData = $json->decode($data, true);
-            if (is_scalar($responseData)) {
-                /* Return error message from TE server */
-                throw new ClientException($responseData);
-            }
-            if (!is_array($responseData)) {
-                throw new ClientException(sprintf(_("Returned data is not of array type (%s)") , gettype($responseData)));
-            }
         }
         catch(ClientException $e) {
             return $e->getMessage();
         }
         return '';
+    }
+    private function _genericCommandWithJSONResponse($cmd, &$responseData)
+    {
+        try {
+            $this->_genericCommandWithJSONResponse_ex($cmd, $responseData);
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        return '';
+    }
+    private function _genericCommandWithJSONResponse_ex($cmd, &$responseData)
+    {
+        try {
+            $sock = $this->connect();
+        }
+        catch(ClientException $e) {
+            throw new ClientException(sprintf(_("Could not connect to TE server: %s") , $e->getMessage()));
+        }
+        $ret = $this->fwrite_stream($sock, $cmd);
+        if ($ret != strlen($cmd)) {
+            fclose($sock);
+            throw new ClientRequestException(_("Could not send command to TE server."));
+        }
+        $msg = fgets($sock, 2048);
+        if ($msg === false) {
+            fclose($sock);
+            throw new ClientResponseIOException(_("Could not read response from TE server."));
+        }
+        if (!preg_match('/<response.*\bstatus\s*=\s*"OK"/', $msg)) {
+            if (preg_match('|<response[^>]*>(?P<err>.*)</response>|i', $msg, $m)) {
+                fclose($sock);
+                throw new ClientResponseFormatException($m['err']);
+            }
+            fclose($sock);
+            throw new ClientResponseFormatException('unknown-error');
+        }
+        $size = 0;
+        if (preg_match('/\bsize\s*=\s*"(?P<size>\d+)"/', $msg, $m)) {
+            $size = $m['size'];
+        }
+        if ($size <= 0) {
+            fclose($sock);
+            throw new ClientResponseFormatException(sprintf(_("Invalid response size '%s'") , $size));
+        }
+        $data = $this->read_size($sock, $size);
+        if ($data === false) {
+            fclose($sock);
+            throw new ClientResponseIOException(_("Could not read response from TE server."));
+        }
+        fclose($sock);
+        $json = new \JSONCodec();
+        $responseData = $json->decode($data, true);
+        if (is_scalar($responseData)) {
+            /* Return error message from TE server */
+            throw new ClientResponseFormatException($responseData);
+        }
+        if (!is_array($responseData)) {
+            throw new ClientResponseFormatException(sprintf(_("Returned data is not of array type (%s)") , gettype($responseData)));
+        }
     }
     /**
      * Retrieve tasks
@@ -698,10 +733,21 @@ class Client
      */
     public function retrieveServerInfo(&$serverInfo, $extended = false)
     {
-        if ($extended) {
-            return $this->_genericCommandWithJSONResponse("INFO:SERVER:EXTENDED\n", $serverInfo);
+        try {
+            if ($extended) {
+                $this->_genericCommandWithJSONResponse_ex("INFO:SERVER:EXTENDED\n", $serverInfo);
+            } else {
+                $this->_genericCommandWithJSONResponse_ex("INFO:SERVER\n", $serverInfo);
+            }
         }
-        return $this->_genericCommandWithJSONResponse("INFO:SERVER\n", $serverInfo);
+        catch(ClientResponseIOException $e) {
+            $err = $e->getMessage();
+            return sprintf(_("Server did not sent a valid response: server version might be incompatible.") , $err);
+        }
+        catch(ClientException $e) {
+            return $e->getMessage();
+        }
+        return '';
     }
     /**
      * Purge tasks older than $maxdays days and with the given optional $status
