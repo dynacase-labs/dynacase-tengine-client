@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf8"?>
-<module name="@PACKAGE@" version="@VERSION@" release="@RELEASE@" license="@LICENSE@">
+<module name="@PACKAGE@" version="@VERSION@" release="@RELEASE@" license="http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License v3.0">
     <description lang="en">Transformation Engine Client Library</description>
   <requires>
     <module name="dynacase-core" comp="ge" version="3.2.19"/>
