@@ -16,6 +16,11 @@ function tengine_client_params(Action & $action)
     }
 }
 
+function tengine_client_params_valid(Action & $action)
+{
+    TeTesting::taskCallback($action);
+}
+
 function tengine_client_params_ui(Action & $action)
 {
     $action->lay->eSet('HTML_LANG', str_replace('_', '-', getParam('CORE_LANG', 'fr_FR')));
@@ -148,10 +153,10 @@ class TeTesting
             TeTesting::error(sprintf(_("tengine_client:Error writing content to temporary file '%s'") , $tmpFile));
         }
         $appName = $action->parent->name;
-        $actionName = $action->name;
+        $actionName = "TENGINE_CLIENT_PARAMS_VALID";
         $urlindex = getOpenTeUrl(array(
             'app' => $appName,
-            'action' => $actionName,
+            'action' => $actionName, // Must be open access mode
             'validate' => 'taskCallback'
         ));
         $callback = sprintf("%s&app=%s&action=%s&validate=taskCallback", $urlindex, $appName, $actionName);
