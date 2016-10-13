@@ -37,5 +37,14 @@ $action_desc = array(
         "script" => "tengine_client_params.php",
         "function" => "tengine_client_params",
         "layout" => "tengine_client_params.html"
+    ),
+    array(
+        "name" => "TENGINE_CLIENT_PARAMS_VALID",
+        "acl" => "TENGINE_CLIENT",
+        "openaccess" => "Y",
+        "short_name" => N_("TE:Callback test") ,
+        "long_name" => N_("TE:Callback test") ,
+        "script" => "tengine_client_params.php",
+        "function" => "tengine_client_params_valid"
     )
 );
