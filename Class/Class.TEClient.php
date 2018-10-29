@@ -177,10 +177,14 @@ class Client
                 $out = trim(fgets($fp));
                 if (preg_match('/status=[ ]*"([^"]*)"/i', $out, $match)) {
                     $status = $match[1];
+                } else {
+                    $status = '';
                 }
                 $outmsg = '';
                 if (preg_match('|<response[^>]*>(.*)</response>|i', $out, $match)) {
                     $outmsg = $match[1];
+                } else {
+                    $outmsg = sprintf("Response with status '%s' and no response payload", $status);
                 }
                 //echo "Response [$status]\n";
                 //echo "Message [$outmsg]\n";
